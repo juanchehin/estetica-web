@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { CuentasService } from 'src/app/services/cuentas.service';
-import Swal from 'sweetalert2';
+// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cuentas',
@@ -67,33 +67,33 @@ buscarClientes() {
 
 bajaCliente(IdPersona: string) {
 
-  Swal.fire({
-    title: '¿Desea eliminar el cliente?',
-    text: "Eliminacion de cliente",
-    icon: 'warning',
-    showCancelButton: true,
-    confirmButtonColor: '#3085d6',
-    cancelButtonColor: '#d33',
-    confirmButtonText: 'Si'
-  }).then((result: any) => {
-    if (result.isConfirmed) {
-      this.cuentasService.bajaCuentaCliente( IdPersona )
-      .subscribe({
-        next: (resp: any) => {
+  // Swal.fire({
+  //   title: '¿Desea eliminar el cliente?',
+  //   text: "Eliminacion de cliente",
+  //   icon: 'warning',
+  //   showCancelButton: true,
+  //   confirmButtonColor: '#3085d6',
+  //   cancelButtonColor: '#d33',
+  //   confirmButtonText: 'Si'
+  // }).then((result: any) => {
+  //   if (result.isConfirmed) {
+  //     this.cuentasService.bajaCuentaCliente( IdPersona )
+  //     .subscribe({
+  //       next: (resp: any) => {
   
-          if(resp[0].mensaje == 'Ok') {
-            this.alertService.alertSuccess('top-end','Cuenta dada de baja',false,900);
-            this.buscarClientes();
+  //         if(resp[0].mensaje == 'Ok') {
+  //           this.alertService.alertSuccess('top-end','Cuenta dada de baja',false,900);
+  //           this.buscarClientes();
             
-          } else {
-            this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+  //         } else {
+  //           this.alertService.alertFail(resp[0][0].mensaje,false,1200);
             
-          }
-         },
-        error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
-      });
-    }
-  })
+  //         }
+  //        },
+  //       error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
+  //     });
+  //   }
+  // })
 
   
   }

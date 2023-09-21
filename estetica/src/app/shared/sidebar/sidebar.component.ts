@@ -1,6 +1,6 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
-import { IMenuStructure } from 'src/app/interfaces/menu.model';
+// import { IMenuStructure } from 'src/app/interfaces/menu.model';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -15,7 +15,8 @@ export class SidebarComponent implements OnInit {
   elementosMenuPadre: any[] = [];
   IdPersona: any;
   // menu: any;
-  menu: IMenuStructure[] = [];
+  // menu: IMenuStructure[] = [];
+  menu: any[] = [];
   ocultarSidebar: boolean | undefined;
   expandirProductos = true;
   expandirVentas = true;

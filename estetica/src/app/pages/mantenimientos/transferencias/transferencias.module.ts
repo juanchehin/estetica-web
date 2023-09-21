@@ -5,7 +5,6 @@ import { TransferenciasRoutingModule } from './transferencias-routing.module';
 import { TransferenciaComponent } from './transferencia/transferencia.component';
 import { TransferenciasComponent } from './transferencias/transferencias.component';
 import { FormsModule } from '@angular/forms';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 @NgModule({
@@ -17,7 +16,7 @@ import { AutocompleteLibModule } from 'angular-ng-autocomplete';
     CommonModule,
     TransferenciasRoutingModule,
     FormsModule,
-    AutocompleteLibModule
+    // AutocompleteLibModule
   ]
 })
 export class TransferenciasModule { }

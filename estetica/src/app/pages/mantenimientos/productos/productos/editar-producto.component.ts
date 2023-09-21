@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
-import { UnidadesService } from '../../../../services/unidades.service';
 import { CategoriasService } from '../../../../services/categorias.service';
 import { AlertService } from 'src/app/services/alert.service';
 
@@ -66,9 +64,7 @@ export class EditarProductoComponent implements OnInit {
     private router: Router, 
     public productosService: ProductosService, 
     public activatedRoute: ActivatedRoute,
-    public marcasService: MarcasService,
     public categoriasService: CategoriasService,
-    public unidadesService: UnidadesService,
     public alertService: AlertService
     ) {
   }

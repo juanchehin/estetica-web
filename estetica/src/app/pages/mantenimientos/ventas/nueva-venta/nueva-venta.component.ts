@@ -5,7 +5,6 @@ import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ClientesService } from 'src/app/services/clientes.service';
-import { MarcasService } from 'src/app/services/marcas.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { VentasService } from 'src/app/services/ventas.service';
@@ -75,7 +74,6 @@ export class NuevaVentaComponent implements OnInit {
     public usuariosService: UsuariosService,
     public activatedRoute: ActivatedRoute,
     public clientesService: ClientesService,
-    public marcasService: MarcasService,
     public alertaService: AlertService,
     private utilService: UtilService
     ) {

@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // Modulos
 import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
-import { InversionesModule } from './mantenimientos/inversiones/inversiones.module';
 import { ConfiguracionesModule } from './mantenimientos/configuraciones/configuraciones.module';
 
 @NgModule({
@@ -22,7 +21,6 @@ import { ConfiguracionesModule } from './mantenimientos/configuraciones/configur
     ReactiveFormsModule,
     SharedModule,
     RouterModule,
-    InversionesModule,
     ConfiguracionesModule
   ]
 })

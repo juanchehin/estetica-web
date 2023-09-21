@@ -40,11 +40,11 @@
             <div class="row">
                 <div class="col-sm-6 form-group">
                     <label>Categoria : </label>
-                    <select (change)="onChangeCategorias($event.target.value)" tabindex="6" [(ngModel)]="IdCategoria" name="IdCategoria" class="form-control">
+                    <!-- <select (change)="onChangeCategorias($event.target.value)" tabindex="6" [(ngModel)]="IdCategoria" name="IdCategoria" class="form-control">
                                 <option *ngFor="let categoria of categorias" [value]="categoria.id_categoria">
                                     {{categoria.categoria}}
                                 </option>
-                            </select>
+                            </select> -->
                 </div>
                 <div class="col-sm-6 form-group">
                     <label>SubCategoria : </label>
@@ -81,8 +81,8 @@
             <div class="row">
                 <div class="col-md-3">
                     <div class="ng-autocomplete" tabindex="8">
-                        <ng-autocomplete #saboresReference [data]="sabores" [searchKeyword]="keywordSabor" placeholder="Carga los sabores" (selected)='selectEventSabor($event)' (inputChanged)='onChangeSearch($event)' [itemTemplate]="itemTemplateSabor" [notFoundTemplate]="notFoundTemplateSabor">
-                        </ng-autocomplete>
+                        <!-- <ng-autocomplete #saboresReference [data]="sabores" [searchKeyword]="keywordSabor" placeholder="Carga los sabores" (selected)='selectEventSabor($event)' (inputChanged)='onChangeSearch($event)' [itemTemplate]="itemTemplateSabor" [notFoundTemplate]="notFoundTemplateSabor">
+                        </ng-autocomplete> -->
                     </div>
                     <ng-template #itemTemplateSabor let-item>
                         <a [innerHTML]="item.sabor"></a>
