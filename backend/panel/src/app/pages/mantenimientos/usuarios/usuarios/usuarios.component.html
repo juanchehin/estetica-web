@@ -1,0 +1,78 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Usuario :  </label>
+                        <input (keyup.enter)="buscarUsuario( )" #inputUsuarioBuscado type="text" class="form-control" placeholder="Buscar usuario..." id="buscarUsuario">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarUsuario( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="material-icons">
+                                search
+                                </i>
+                            </button>
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary "><span class="material-icons">
+                            refresh
+                            </span></button>
+                    </div>       
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad usuarios ( <small> {{ totalUsuarios }} </small> )</h3>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['/dashboard/usuarios/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                          <i class="fa fa-plus"></i> 
+                          Nuevo Usuario
+                        </button>
+                    </div>     
+                </div>
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th width="1">
+                                #
+                            </th>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Usuario</th>
+                            <th>Fecha creacion</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let usuario of usuarios">
+                            <td>{{ usuario.id_persona }}</td>
+                            <td>{{ usuario.nombres }}</td>
+                            <td>{{ usuario.apellidos }}</td>
+                            <td>{{ usuario.usuario }}</td>
+                            <td>{{ usuario.created_at | date:"dd/MM/yyyy" }}</td>
+                            <td>
+                                <button [routerLink]="['/dashboard/usuarios/editar',usuario.id_persona]" class="btn btn-inline" type="button">Editar</button>
+                                <button class="btn btn-inline btn-danger" (click)="bajaUsuario(usuario.id_persona)" type="button">Eliminar</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+
+            </div>
+        </section>
+        <div class="btn-group" role="group" aria-label="Basic example" style="text-align: right;">
+            <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline">Anteriores</button>
+            <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline">Siguientes</button>
+        </div>
+        <!--.box-typical-->
+
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->
