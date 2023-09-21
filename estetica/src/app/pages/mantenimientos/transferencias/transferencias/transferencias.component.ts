@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
-import { ProveedoresService } from 'src/app/services/proveedores.service';
 import { UtilService } from 'src/app/services/util.service';
 // import Swal from 'sweetalert2';
 

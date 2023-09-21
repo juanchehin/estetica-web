@@ -38,7 +38,7 @@
                     <tbody>
                         <tr *ngFor="let transferencia of transferencias">
                             <td>{{ transferencia.IdTransferencia }}</td>
-                            <td>{{ transferencia.Fecha | date:"dd/MM/yyyy" }}</td>
+                            <!-- <td>{{ transferencia.Fecha | date:"dd/MM/yyyy" }}</td> -->
                             <td>{{ transferencia.SucOrigen }}</td>
                             <td>{{ transferencia.SucDestino }}</td>
                             <td>$ {{ transferencia.MontoTotal }}</td>

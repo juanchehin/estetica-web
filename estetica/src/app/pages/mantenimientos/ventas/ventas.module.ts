@@ -6,22 +6,18 @@ import { VentasComponent } from './listar-ventas/ventas.component';
 import { MisVentasComponent } from './mis-ventas/mis-ventas.component';
 import { NuevaVentaComponent } from './nueva-venta/nueva-venta.component';
 import { FormsModule } from '@angular/forms';
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
-import { PedidosComponent } from './pedidos/pedidos.component';
 
 
 @NgModule({
   declarations: [
     VentasComponent,
     MisVentasComponent,
-    NuevaVentaComponent,
-    PedidosComponent
+    NuevaVentaComponent
   ],
   imports: [
     CommonModule,
     VentasRoutingModule,
-    FormsModule,
-    AutocompleteLibModule
+    FormsModule
   ]
 })
 export class VentasModule { }
