@@ -129,27 +129,6 @@ cargarConfiguraciones() {
   this.configuracionesService.cargarConfiguraciones(  )
              .subscribe( (resp: any) => {
 
-              this.configuraciones = resp[0][0];
-
-              this.NombreEmpresa = this.configuraciones.nombre;
-              this.CUIT =  this.configuraciones.CUIT;
-              this.Email =  this.configuraciones.email;
-              this.Telefono =  this.configuraciones.telefono;
-              this.Direccion = this.configuraciones.direccion;
-              this.IngBrutos = this.configuraciones.ing_brutos;
-              this.IVA =  this.configuraciones.iva;
-              this.Instagram =  this.configuraciones.instagram;
-              this.Twitter = this.configuraciones.twitter;
-              this.Facebook =  this.configuraciones.facebook;
-              this.Youtube = this.configuraciones.lebronsuplementos;
-              this.Tarjeta1Pago = this.configuraciones.tarjeta1pagos;
-              this.Tarjeta3Pago = this.configuraciones.tarjeta3pagos;
-              this.Tarjeta6Pago = this.configuraciones.tarjeta6pagos;
-              this.CostoEnvio =  this.configuraciones.costo_envio;
-              this.Dolar =  this.configuraciones.dolar;
-              this.retencionMP =  this.configuraciones.retencion_mp;
-              this.tasaInteres =  this.configuraciones.tasa_interes_inversores;
-              this.dias_cc = this.configuraciones.dias_vencimiento_cc;
 
             });
 
