@@ -4,8 +4,7 @@ import { VentasService } from 'src/app/services/ventas.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styles: [
-  ]
+  styleUrls: []
 })
 export class DashboardComponent implements OnInit {
 
