@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 // import Swal from 'sweetalert2';
-
+import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
@@ -8,10 +8,11 @@ export class AlertService {
 
   cargando = false;
   
-  constructor() { }
+  constructor(private toastr: ToastrService) { }
 
   // ==============================
   alertSuccess(pPosition: any,pTitulo: any,pShowConfirmButton: boolean,pTimer: any) {
+    console.log('alertSuccess::: ');
 
       // Swal.fire({
       //   position: pPosition,
@@ -25,6 +26,7 @@ export class AlertService {
 
  // ==============================
  alertFail(pTitulo: any,pShowConfirmButton: boolean,pTimer: any) {
+  console.log('alertFail::: ');
 
   // Swal.fire({
   //   icon: 'error',
@@ -36,7 +38,14 @@ export class AlertService {
 }
 
  // ==============================
- alertFailWithText(pTitulo: any,pText: any,pShowConfirmButton: boolean,pTimer: any) {
+ alertFailWithText(pMensaje: any,pTitulo: any,pTimer: any) {
+
+
+  this.toastr.error(pMensaje, pTitulo, {
+    timeOut: pTimer,
+  });
+
+  // this.toastr.success('Hello world!', 'Toastr fun!');
 
   // Swal.fire({
   //   icon: 'error',

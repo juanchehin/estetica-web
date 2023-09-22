@@ -111,7 +111,7 @@ actualizarConfiguraciones() {
                       this.alertService.alertSuccess('top-end','Configuracion guardada',false,2000);
                       // this.router.navigate(['/dashboard/configuraciones']);
                     } else {
-                      this.alertService.alertFailWithText('Ocurrio un error',resp[0][0].mensaje,false,2000);
+                      // this.alertService.alertFailWithText('Ocurrio un error',resp[0][0].mensaje,false,2000);
                     }
                     return;
                    },

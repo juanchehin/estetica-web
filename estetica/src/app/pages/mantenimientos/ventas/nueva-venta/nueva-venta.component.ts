@@ -231,7 +231,7 @@ agregarLineaVenta() {
 
   if(this.itemPendiente.length <= 0)
   { 
-    this.alertaService.alertFailWithText('Atencion','Debe seleccionar un producto en el buscador',false,2000);
+    this.alertaService.alertFailWithText('Atencion','Debe seleccionar un producto en el buscador',2000);
     return;
   }
 

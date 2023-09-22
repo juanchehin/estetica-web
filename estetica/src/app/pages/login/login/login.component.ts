@@ -34,7 +34,6 @@ export class LoginComponent implements OnInit {
 //  Proceso de LOGUEO
 // ==================================================
 ingresar() {
-  console.log('ingresar::: ');
 
   if ( this.form.invalid ) {
     return;
@@ -45,24 +44,21 @@ ingresar() {
     this.form.value.password
   );
 
-  console.log('ingresar::: 2');
 
   this.authService.login(persona)
       .subscribe((resp: any) => {
-        console.log('resp::: ', resp);
         
         if ( resp == true) {
           this.router.navigate(['/dashboard']);
           return;
         }
 
-        this.alertService.alertFailWithText('Error','Error de credenciales',false,3000)
+        this.alertService.alertFailWithText('Error de credenciales','Atencion',3000)
 
     },
     ( error: any) => {
-      console.log('err::: ');
 
-      this.alertService.alertFailWithText('Atencion','Ocurrio un error, contactese con el adminsitrador',false,3000)
+      this.alertService.alertFailWithText('Ocurrio un error, contactese con el adminsitrador','Atencion',4000);
 
     }
 

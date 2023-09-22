@@ -41,7 +41,7 @@ export class ClienteComponent implements OnInit {
   altaCliente() {
 
       if ( this.forma.invalid ) {
-        this.alertService.alertFail('Formulario invalido, chequee que los campos sean correctos',false,2000);
+        // this.alertService.alertFail('Formulario invalido, chequee que los campos sean correctos',2000);
         return;
       }
 
