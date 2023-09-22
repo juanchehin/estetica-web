@@ -47,7 +47,7 @@ ingresar() {
 
   this.authService.login(persona)
       .subscribe((resp: any) => {
-        
+                
         if ( resp == true) {
           this.router.navigate(['/dashboard']);
           return;

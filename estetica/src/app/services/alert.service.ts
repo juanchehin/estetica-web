@@ -44,17 +44,6 @@ export class AlertService {
   this.toastr.error(pMensaje, pTitulo, {
     timeOut: pTimer,
   });
-
-  // this.toastr.success('Hello world!', 'Toastr fun!');
-
-  // Swal.fire({
-  //   icon: 'error',
-  //   title: pTitulo,
-  //   text: pText,
-  //   showConfirmButton: pShowConfirmButton,
-  //   timer: pTimer
-  // });
-
 }
 
  // ==============================

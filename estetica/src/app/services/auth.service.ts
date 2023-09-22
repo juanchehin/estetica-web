@@ -48,8 +48,8 @@ login( persona: any ): any {
     .pipe(
           map(
             ( resp: any ) => {
-              console.log('resp::: ', resp);
-                if (resp.mensaje == 'Error de credenciales') {
+              
+                if (resp.mensaje === 'Error de credenciales') {
                   return false;
                 }
 
