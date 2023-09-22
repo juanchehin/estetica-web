@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     this.authService.logout();
 
     this.form = new FormGroup({      
-      email: new FormControl(null, Validators.required ),
+      usuario: new FormControl(null, Validators.required ),
       password: new FormControl(null, Validators.required )
     });
   }
@@ -34,20 +34,24 @@ export class LoginComponent implements OnInit {
 //  Proceso de LOGUEO
 // ==================================================
 ingresar() {
+  console.log('ingresar::: ');
 
   if ( this.form.invalid ) {
     return;
   }
 
   const persona = new Array(
-    this.form.value.email,
+    this.form.value.usuario,
     this.form.value.password
   );
 
+  console.log('ingresar::: 2');
+
   this.authService.login(persona)
       .subscribe((resp: any) => {
+        console.log('resp::: ', resp);
         
-        if ( resp === true) {
+        if ( resp == true) {
           this.router.navigate(['/dashboard']);
           return;
         }
@@ -56,6 +60,8 @@ ingresar() {
 
     },
     ( error: any) => {
+      console.log('err::: ');
+
       this.alertService.alertFailWithText('Atencion','Ocurrio un error, contactese con el adminsitrador',false,3000)
 
     }

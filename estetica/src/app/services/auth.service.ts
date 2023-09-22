@@ -42,14 +42,14 @@ setIdPersona(IdPersona: any) {
 // ==================================================
 login( persona: any ): any {
 
-  const url = URL_SERVICIOS + '/login/usuario';
+  const url = URL_SERVICIOS + '/login/acceso';
 
   return this.http.post(url, persona)
     .pipe(
           map(
             ( resp: any ) => {
               console.log('resp::: ', resp);
-                if (resp.mensaje === 'Error de credenciales') {
+                if (resp.mensaje == 'Error de credenciales') {
                   return false;
                 }
 
