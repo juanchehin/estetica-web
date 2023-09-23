@@ -19,7 +19,6 @@ class VentasRoutes {
         this.router.get('/listar/mis-ventas/:pDesde/:pFecha/:pIdPersona',ventasController.listarVentasIdUsuario);
         this.router.get('/listar/tipos-pago',ventasController.listarTiposPago);
         this.router.get('/datos-pdf/:pIdTransaccion',[mdAutenticacion.verificaToken],ventasController.dameDatosPDFVenta);
-        this.router.get('/datos/dashboard/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],ventasController.dameDatosDashboard);
         this.router.post('/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], ventasController.altaVenta);
     }
 

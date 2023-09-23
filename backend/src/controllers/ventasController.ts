@@ -33,7 +33,7 @@ public async listarVentas(req: Request, res: Response): Promise<void> {
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
 
-    pool.query(`call bsp_listar_ventas_paginado_fechas('${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_transacciones_fecha('${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
        if(err){
         res.status(404).json(err);
            return;
@@ -131,7 +131,7 @@ async altaVenta(req: Request, res: Response) {
         res.status(404).json({ "error" : error});
         return;
       }
-      res.json({"mensaje": await confirmarTransaccion(pIdVenta)});
+    //   res.json({"mensaje": await confirmarTransaccion(pIdVenta)});
 }
 
 
@@ -169,9 +169,15 @@ dameDatosPDFVenta(req: Request, res: Response) {
 // ==================================================
 //        
 // ==================================================
-dameDatosDashboard(req: Request, res: Response) {
+listar_transacciones(req: Request, res: Response) {
 
-    pool.query(`call bsp_dame_datos_dashboard()`, function(err: any, result: any){
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
+
+    var FechaInicio = req.params.FechaInicio;
+    var FechaFin = req.params.FechaFin;
+
+    pool.query(`call listar_transacciones_fecha('${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any){
        if(err){
            return;
        }
@@ -184,19 +190,3 @@ dameDatosDashboard(req: Request, res: Response) {
 
 const ventasController = new VentasController;
 export default ventasController;
-
-async function confirmarTransaccion(pIdVenta: any) {
-
-    // ==============================
-    try {
-        let sql4 = `call bsp_confirmar_transaccion('${pIdVenta}')`;
-        const [result4] = await pool.promise().query(sql4)
-        
-        return result4;
-
-    } catch (error) {
-        logger.error("Error funcion confirmarTransaccion - ventasController : " + error);
-        return error;
-      }
-
-}

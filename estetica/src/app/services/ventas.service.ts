@@ -93,9 +93,9 @@ dameDatosPDFVenta( pIdTransaccion: any ){
 // ==================================================
 //
 // ==================================================
-datosDashboard( ){
+listar_transacciones( desde: number , fecha_inicio: string, fecha_fin: string){
 
-  let url = URL_SERVICIOS + '/ventas/datos/dashboard/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/ventas/listar/' + desde + '/' + fecha_inicio + '/' + fecha_fin;
 
   return this.http.get( url ,this.headers);
 }
