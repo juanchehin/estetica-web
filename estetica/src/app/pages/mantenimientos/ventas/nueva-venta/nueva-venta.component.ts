@@ -116,7 +116,7 @@ altaVenta() {
         next: (resp: any) => {
           
           if ( resp.mensaje[0][0].mensaje == 'Ok') {
-            this.alertaService.alertSuccess('top-end','Venta cargada',false,2000);
+            this.alertaService.alertSuccess('top-end','Venta cargada',2000);
 
             this.resetearVariables();
             

@@ -20,6 +20,8 @@ class VentasRoutes {
         this.router.get('/listar/tipos-pago',ventasController.listarTiposPago);
         this.router.get('/datos-pdf/:pIdTransaccion',[mdAutenticacion.verificaToken],ventasController.dameDatosPDFVenta);
         this.router.post('/alta/:IdPersona',[mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], ventasController.altaVenta);
+        this.router.get('/baja/:id_transaccion/:IdPersona',[mdAutenticacion.verificaToken],ventasController.baja_transaccion);
+
     }
 
 }

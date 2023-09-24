@@ -52,7 +52,7 @@ editarCliente() {
                   next: (resp: any) => {
                   
                     if ( (resp != null) && (resp.mensaje == 'Ok') ) {
-                      this.alertService.alertSuccess('top-end','Cliente actualizado',false,2000);
+                      this.alertService.alertSuccess('top-end','Cliente actualizado',2000);
                       this.router.navigate(['/dashboard/clientes']);
                     } else {
                       this.alertService.alertFail('Ocurrio un error. ' + resp,false,2000);

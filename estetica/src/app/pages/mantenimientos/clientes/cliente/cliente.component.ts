@@ -59,7 +59,7 @@ export class ClienteComponent implements OnInit {
                   
                   if ( resp[0][0].mensaje == 'Ok') {
 
-                    this.alertService.alertSuccess('top-end','cliente cargado',false,2000);
+                    this.alertService.alertSuccess('top-end','cliente cargado',2000);
                     
                     this.router.navigate(['/dashboard/clientes']);
                   } else {

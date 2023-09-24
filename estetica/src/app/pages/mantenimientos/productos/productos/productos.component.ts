@@ -150,7 +150,7 @@ publicarProducto(IdProducto: string){
    next: (resp: any) => {
 
      if ( resp[0][0].mensaje == 'Ok') {       
-      this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
+      this.alertaService.alertSuccess('top-end','Operacion exitosa',900);
      } else {
        this.alertaService.alertFail('Ocurrio un error',false,2000);
      }
@@ -171,7 +171,7 @@ ofertarProducto(IdProducto: string){
    next: (resp: any) => {
 
      if ( resp[0][0].mensaje == 'Ok') {       
-      this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
+      this.alertaService.alertSuccess('top-end','Operacion exitosa',900);
      } else {
        this.alertaService.alertFail('Ocurrio un error',false,2000);
      }
@@ -192,7 +192,7 @@ destacarProducto(IdProducto: string){
    next: (resp: any) => {
 
      if ( resp[0][0].mensaje == 'Ok') {       
-      this.alertaService.alertSuccess('top-end','Operacion exitosa',false,900);
+      this.alertaService.alertSuccess('top-end','Operacion exitosa',900);
      } else {
        this.alertaService.alertFail('Ocurrio un error',false,2000);
      }

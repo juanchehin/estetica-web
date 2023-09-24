@@ -99,4 +99,15 @@ listar_transacciones( desde: number , fecha_inicio: string, fecha_fin: string){
 
   return this.http.get( url ,this.headers);
 }
+
+// ==================================================
+//        
+// ==================================================
+baja_transaccion(id_transaccion: any ) {
+
+  let url = URL_SERVICIOS + '/ventas/baja/' + id_transaccion + '/' + this.IdPersona;
+
+  return this.http.get( url, this.headers);
+}
+
 }

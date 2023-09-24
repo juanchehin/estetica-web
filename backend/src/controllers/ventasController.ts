@@ -185,6 +185,25 @@ listar_transacciones(req: Request, res: Response) {
    })
 
 }
+
+// ==================================================
+//  
+// ==================================================
+public async baja_transaccion(req: Request, res: Response): Promise<any> {
+    
+    // const { IdPersona } = req.params;
+    const { id_transaccion } = req.params;
+
+    pool.query(`call bsp_baja_transaccion('${id_transaccion}')`, function(err: any, result: any, fields: any){
+        if(err){
+            res.status(404).json(err);
+            return;
+        }
+        
+        res.status(200).json(result[0]);
+    })
+
+}
 }
 
 

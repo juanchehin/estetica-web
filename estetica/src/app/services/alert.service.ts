@@ -11,16 +11,12 @@ export class AlertService {
   constructor(private toastr: ToastrService) { }
 
   // ==============================
-  alertSuccess(pPosition: any,pTitulo: any,pShowConfirmButton: boolean,pTimer: any) {
-    console.log('alertSuccess::: ');
-
-      // Swal.fire({
-      //   position: pPosition,
-      //   icon: 'success',
-      //   title: pTitulo,
-      //   showConfirmButton: pShowConfirmButton,
-      //   timer: pTimer
-      // });
+  alertSuccess(pTitulo: any,pMensaje: any,pTimer: any) {
+    
+    this.toastr.success(pMensaje,pTitulo , {
+      timeOut: pTimer,
+      positionClass: 'toast-top-right'
+    });
 
   }
 
@@ -40,9 +36,9 @@ export class AlertService {
  // ==============================
  alertFailWithText(pMensaje: any,pTitulo: any,pTimer: any) {
 
-
   this.toastr.error(pMensaje, pTitulo, {
     timeOut: pTimer,
+    positionClass: 'toast-top-right'
   });
 }
 

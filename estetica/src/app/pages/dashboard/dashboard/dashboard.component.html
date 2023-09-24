@@ -13,7 +13,7 @@
                     <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="60">
                 </span>
                 <span class="logo-sm">
-                    <img src="assets/images/logo-sm.png" alt="" height="24">
+                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="24">
                 </span>
             </a>
             <a href="index.html" class="logo logo-light text-center">
@@ -21,7 +21,7 @@
                     <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="60">
                 </span>
                 <span class="logo-sm">
-                    <img src="assets/images/logo-sm.png" alt="" height="24">
+                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="24">
                 </span>
             </a>
         </div>
@@ -169,7 +169,11 @@
                         <button class="btn btn-purple btn-rounded width-md waves-effect waves-light" (click)="cargarDatosDashboard()">
                             <i class="mdi mdi-update"></i>
                         </button>
-                    </div>                       
+                        <button [routerLink]="['/ventas/nueva']" type="button" class="btn btn-primary btn-rounded width-md waves-effect waves-light">
+                            <i class="mdi mdi-plus"></i> 
+                            Nueva Venta
+                        </button>   
+                    </div>
                 </div>
                 <br>
 
@@ -208,7 +212,7 @@
                                                     <td>{{ transaccion.Descripcion }}</td>
                                                     <td>
                                                         <button class="btn btn-inline" type="button">Editar</button>
-                                                        <button class="btn btn-inline btn-danger" type="button" >Eliminar</button>
+                                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_transaccion(transaccion.id_transaccion)" >Eliminar</button>
                                                     </td>
                                                 </tr>
 
@@ -236,5 +240,41 @@
     <!-- End Page content -->
     <!-- ============================================================== -->
 
-
 </div>
+
+<!--  -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" aria-label="Close">Cancelar</button>
+            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" (click)="baja_transaccion()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Atencion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Eliminacion exitosa
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  

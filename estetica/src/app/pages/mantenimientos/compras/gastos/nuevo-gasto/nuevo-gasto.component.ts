@@ -55,7 +55,7 @@ export class NuevoGastoComponent implements OnInit {
                   
                   if ( resp.mensaje === 'Ok') {
 
-                    this.alertService.alertSuccess('top-end','Gasto cargado',false,2000);
+                    this.alertService.alertSuccess('top-end','Gasto cargado',2000);
                     
                     this.router.navigate(['/dashboard/compras/gastos']);
                   } else {

@@ -122,7 +122,7 @@ guardarAcreditacion(){
 
      if(resp.mensaje == 'Ok')
      { 
-      this.alertService.alertSuccess('top-end','Registro guardado',false,2000);
+      this.alertService.alertSuccess('top-end','Registro guardado',2000);
 
       this.router.navigate(['/dashboard/cuentas'])
 
