@@ -16,6 +16,7 @@ const routes: Routes = [
   
   { path: 'clientes', loadChildren: () => import('./pages/mantenimientos/clientes/clientes.module').then(m => m.ClientesModule) },
   { path: 'empleados', loadChildren: () => import('./pages/mantenimientos/empleados/empleados.module').then(m => m.EmpleadosModule) },
+  { path: 'servicios', loadChildren: () => import('./pages/mantenimientos/servicios/servicios.module').then(m => m.ServiciosModule) },
 
   { path: '**', component: NopagefoundComponent },
 ];

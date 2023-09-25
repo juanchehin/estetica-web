@@ -39,6 +39,11 @@ const childRoutes: Routes = [
     loadChildren: () => import('./mantenimientos/empleados/empleados-routing.module').then( m => m.EmpleadosRoutingModule )
   },
   { 
+    path: 'servicios',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    loadChildren: () => import('./mantenimientos/servicios/servicios-routing.module').then( m => m.ServiciosRoutingModule )
+  },
+  { 
     path: 'configuraciones',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     data: { ruta: 'configuraciones'},

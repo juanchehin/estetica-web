@@ -1,0 +1,82 @@
+<div id="wrapper">
+    <div class="content-page">
+<!-- <div class="page-content"> -->
+    <div class="container-fluid">
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Servicio:  </label>
+                        <input (keyup.enter)="buscarServicio( )" #inputServicioBuscado type="text" class="form-control" placeholder="Buscar por codigo o servicio..." id="buscarServicio">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarServicio( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="mdi mdi-search-web"></i> 
+                            </button>
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label>Sucursal : </label>
+                        <select tabindex="4" [(ngModel)]="IdSucursal" name="IdSucursal" class="form-control">
+                                <option *ngFor="let sucursal of sucursales" [value]="sucursal.id_sucursal">
+                                    {{sucursal.sucursal}}
+                                </option>
+                            </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad servicios ( {{totalServicios }} )</h3>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['/dashboard/servicios/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                            <i class="mdi mdi-plus"></i> 
+                            Nuevo Servicio
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div style="overflow:auto;">
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Servicio</th>
+                            <th>Precio</th>
+                            <th>Descripcion</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let servicio of servicios">
+                            <td>{{ servicio.id_servicio }}</td>
+                            <td>{{ servicio.servicio }}</td>
+                            <td>$ {{ servicio.precio }}</td>
+                            <td>{{ servicio.descripcion }}</td>
+                            <td>
+                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/servicio',servicio.id_servicio]">Editar</button>
+                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaServicio(servicio.id_servicio)">Eliminar</button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-15) " type="button" class="btn btn-default-outline">Anteriores</button>
+        <button (click)="cambiarDesde(15) " type="button" class="btn btn-default-outline">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->
+</div>

@@ -12,6 +12,7 @@ import clientesRoutes from './routes/clientesRoutes';
 import cuentasRoutes from './routes/cuentasRoutes';
 import empleadosRoutes from './routes/empleadosRoutes';
 import sucursalRoutes from './routes/sucursalRoutes';
+import serviciosRoutes from './routes/serviciosRoutes';
 
 class Server {
 
@@ -42,7 +43,8 @@ class Server {
         this.app.use('/api/empleados', empleadosRoutes);
         this.app.use('/api/productos', productosRoutes);
         this.app.use('/api/sucursales', sucursalRoutes);
-        
+        this.app.use('/api/servicios', serviciosRoutes);
+
         this.app.use('/api/ventas', ventasRoutes);
         this.app.use('/api/cuentas', cuentasRoutes);
         this.app.use('/api/login', loginRoutes);
