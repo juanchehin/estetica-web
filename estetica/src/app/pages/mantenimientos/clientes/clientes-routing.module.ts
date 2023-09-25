@@ -15,9 +15,10 @@ const routes: Routes = [
   { path: 'cuentas', component: CuentasComponent, data: { titulo: 'Cuentas corrientes' }},
   { path: 'cuentas/nueva', component: CuentaComponent, data: { titulo: 'Nuevo cuenta' }},
   { path: 'cuenta/editar/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Edicion de cuenta corriente' }},
-  { path: 'cuenta/movimientos/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Movimientos de cuenta corriente' }},
+  { path: 'cuenta/movimientos/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Movimientos de cuenta corriente' }}
 
 ];
+
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
