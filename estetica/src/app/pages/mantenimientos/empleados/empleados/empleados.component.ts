@@ -41,7 +41,6 @@ buscarEmpleados() {
     this.empleadosService.buscarEmpleadosPaginado( this.desde,empleadoBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
-                  console.log('resp::: ', resp);
 
                   if(resp[0][0] != undefined && resp[2] && resp[2][0].mensaje == 'Ok')
                   { 

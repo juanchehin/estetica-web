@@ -1,18 +1,23 @@
-<div class="page-content">
+<div id="wrapper">
+    <div class="content-page">
+<!-- <div class="page-content"> -->
     <div class="container-fluid">
         <section class="box-typical">
             <div class="table-responsive">
                 <div class="row">
                     <div class="col-sm-4 form-group">
                         <label>Producto:  </label>
-                        <input (keyup.enter)="buscarProducto( )" #input type="text" class="form-control" placeholder="Buscar por codigo o producto..." id="buscarProducto">
+                        <input (keyup.enter)="buscarProducto( )" #inputProductoBuscado type="text" class="form-control" placeholder="Buscar por codigo o producto..." id="buscarProducto">
                     </div>
                     <div class="col-sm-1 form-group">
                         <button (click)="buscarProducto( )" class="btn btn-primary" style="margin-top: 26px;">
-                            <i class="material-icons">
-                                search
-                                </i>
+                            <i class="mdi mdi-search-web"></i> 
                             </button>
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
                     </div>
                     <div class="col-sm-4 form-group">
                         <label>Sucursal : </label>
@@ -25,13 +30,13 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-4">
-                        <h3 class="card-title">Cantidad productos ( <small> {{totalProductos }} </small> )</h3>
+                        <h3 class="card-title">Cantidad productos ( {{totalProductos }} )</h3>
                     </div>
                     <div class="col-4">
                     </div>
                     <div class="col-sm-4">
                         <button [routerLink]="['/dashboard/productos/nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
-                          <i class="fa fa-plus"></i> 
+                            <i class="mdi mdi-plus"></i> 
                             Nuevo Producto
                         </button>
                     </div>
@@ -43,16 +48,10 @@
                         <tr>
                             <th>Codigo</th>
                             <th>Producto</th>
-                            <th>Sabor</th>
                             <th>Stock</th>
-                            <th>PrecioVenta</th>
-                            <th>PrecioMayorista</th>
-                            <th>Descuento(%)</th>
-                            <th>Publicado</th>
-                            <th>Destacado</th>
-                            <th>Oferta</th>
-                            <th>En promocion</th>
-                            <th></th>
+                            <th>Precio Compra</th>
+                            <th>Precio Venta</th>
+                            <th>Descripcion</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -60,39 +59,11 @@
                         <tr *ngFor="let producto of productos">
                             <td>{{ producto.codigo }}</td>
                             <td>{{ producto.producto }}</td>
-                            <td>{{ producto.sabor }}</td>
                             <td>{{ producto.stock }}</td>
+                            <td>${{ producto.precio_compra }}</td>
                             <td>${{ producto.precio_venta }}</td>
-                            <td>${{ producto.precio_mayorista }}</td>
-                            <td>{{ producto.descuento }}</td>
+                            <td>{{ producto.descripcion }}</td>
                             <td>
-                                <div class="col-sm-3">
-                                    <div class="switch">
-                                        <label>
-                                        <input type="checkbox" [attr.disabled]="(producto.stock <= 0) ? true : null" [checked]="producto.publicado" (click)="publicarProducto(producto.id_producto)"><span class="lever switch-col-light-blue"></span></label>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="col-sm-3">
-                                    <div class="switch">
-                                        <label>
-                                        <input type="checkbox" [checked]="producto.destacado" (click)="destacarProducto(producto.id_producto)"><span class="lever switch-col-cyan"></span></label>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="col-sm-3">
-                                    <div class="switch">
-                                        <label>
-                                        <input type="checkbox" [checked]="producto.oferta" (click)="ofertarProducto(producto.id_producto)"><span class="lever switch-col-cyan"></span></label>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary" type="button">
-                                    <i [routerLink]="['/dashboard/productos/imagenes',producto.id_producto]" class="fa fa-camera" aria-hidden="true"></i>
-                                </button>
                                 <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaProducto(producto.id_producto)">Eliminar</button>
                             </td>
@@ -112,3 +83,4 @@
     <!--.container-fluid-->
 </div>
 <!--.page-content-->
+</div>

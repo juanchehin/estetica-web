@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { SucursalesService } from 'src/app/services/sucursal.service';
@@ -18,6 +18,8 @@ export class ProductosComponent implements OnInit {
   productos!: any;
   sucursales: any;
   totalProductos = 0;
+
+  @ViewChild('inputProductoBuscado') inputProductoBuscado!: ElementRef;
 
   constructor(
     public productosService: ProductosService,
@@ -107,6 +109,21 @@ cambiarDesde( valor: number ) {
 
 
 // ==================================================
+//    Funcion para recargar el listado
+// ==================================================
+
+refrescar() {
+  // Reseteo 'desde' a cero
+  this.inputProductoBuscado.nativeElement.value = '';
+  
+  this.desde = 0;
+  this.IdSucursal = 1;
+  this.buscarProducto();
+
+}
+
+
+// ==================================================
 // 
 // ==================================================
 
@@ -140,69 +157,6 @@ bajaProducto(IdProductoSabor: string) {
   //     });
   //   }
   // })
-}
-
-// =================================================================
-publicarProducto(IdProducto: string){ 
-
-  this.productosService.publicarProducto( IdProducto  )
-  .subscribe( {
-   next: (resp: any) => {
-
-     if ( resp[0][0].mensaje == 'Ok') {       
-      this.alertaService.alertSuccess('top-end','Operacion exitosa',900);
-     } else {
-       this.alertaService.alertFail('Ocurrio un error',false,2000);
-     }
-     return;
-    },
-   error: (err: any) => { 
-    this.alertaService.alertFail('Ocurrio un error',false,2000) 
-  
-  }
- });
-
-}
-// =================================================================
-ofertarProducto(IdProducto: string){ 
-
-  this.productosService.ofertarProducto( IdProducto  )
-  .subscribe( {
-   next: (resp: any) => {
-
-     if ( resp[0][0].mensaje == 'Ok') {       
-      this.alertaService.alertSuccess('top-end','Operacion exitosa',900);
-     } else {
-       this.alertaService.alertFail('Ocurrio un error',false,2000);
-     }
-     return;
-    },
-   error: (err: any) => { 
-    this.alertaService.alertFail('Ocurrio un error',false,2000) 
-  
-  }
- });
-
-}
-
-// =================================================================
-destacarProducto(IdProducto: string){
-  this.productosService.destacarProducto( IdProducto  )
-  .subscribe( {
-   next: (resp: any) => {
-
-     if ( resp[0][0].mensaje == 'Ok') {       
-      this.alertaService.alertSuccess('top-end','Operacion exitosa',900);
-     } else {
-       this.alertaService.alertFail('Ocurrio un error',false,2000);
-     }
-     return;
-    },
-   error: (err: any) => { 
-    this.alertaService.alertFail('Ocurrio un error',false,2000) 
-  
-  }
- });
 }
 
 }
