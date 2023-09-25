@@ -248,7 +248,7 @@ public async buscarClientesPaginado(req: Request, res: Response): Promise<void> 
         clienteBuscado = "todosClientes";
     }
 
-    pool.query(`call bsp_buscar_clientes_paginado('${pIdPersona}','${filtroCliente}','${clienteBuscado}','${desde}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_buscar_clientes_paginado('${clienteBuscado}','${desde}')`, function(err: any, result: any, fields: any){
         if(err){
            res.status(404).json(result);
            return;

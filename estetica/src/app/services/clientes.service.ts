@@ -70,14 +70,14 @@ cargarClientes( parametroBusqueda: string){
 // ==================================================
 //
 // ==================================================
-buscarClientesPaginado(desde: any,filtroCliente: any, pClienteBuscado: any){
+buscarClientesPaginado(desde: any,pClienteBuscado: any){
 
-  if(pClienteBuscado == '' || pClienteBuscado == null || pClienteBuscado == 'null' || !pClienteBuscado || pClienteBuscado.length === 0)
+  if(pClienteBuscado == '' || pClienteBuscado == null || pClienteBuscado == 'null' || !pClienteBuscado || pClienteBuscado.length == 0)
   {
-    pClienteBuscado = '0';
+    pClienteBuscado = 'todosClientes';
   }
 
-  let url = URL_SERVICIOS + '/clientes/listar/paginado/' + this.IdPersona + '/' + desde + '/' + pClienteBuscado + '/' + filtroCliente;
+  let url = URL_SERVICIOS + '/clientes/listar/paginado/' + this.IdPersona + '/' + desde + '/' + pClienteBuscado;
 
   return this.http.get( url, this.headers );
 }

@@ -11,10 +11,8 @@ import { ClientesService } from 'src/app/services/clientes.service';
 export class ClientesComponent implements OnInit {
 
   desde = 0;
-  totalAsistencias = true;
 
   clientes!: any;
-  cantPlanes = 0;
 
   totalClientes = 0;
   cargando = true;
@@ -40,9 +38,10 @@ buscarClientes() {
     const inputElement: HTMLInputElement = document.getElementById('clienteBuscado') as HTMLInputElement;
     const clienteBuscado: any = inputElement.value || null;
 
-    this.clientesService.buscarClientesPaginado( this.desde, 2, clienteBuscado  )
+    this.clientesService.buscarClientesPaginado( this.desde,clienteBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
+                  console.log('resp::: ', resp);
 
                   if(resp[0][0] != undefined && resp[2] && resp[2][0].mensaje == 'Ok')
                   { 
