@@ -107,13 +107,14 @@
                                             </thead>
                                              <tbody>
                                                 <tr *ngFor="let cliente of clientes">
-                                                    <td>{{ cliente.id_transaccion }}</td>
-                                                    <td>{{ cliente.Fecha }}</td>
-                                                    <td>{{ cliente.Empleado }}</td>
-                                                    <td>{{ cliente.Cliente }}</td>
-                                                    <td>{{ cliente.Tipo }}</td>
-                                                    <td>{{ cliente.Monto }}</td>
-                                                    <td>{{ cliente.Descripcion }}</td>
+                                                    <td>{{ cliente.id_persona }}</td>
+                                                    <td>{{ cliente.apellidos }}</td>
+                                                    <td>{{ cliente.nombres }}</td>
+                                                    <td>{{ cliente.dni }}</td>
+                                                    <td>{{ cliente.email }}</td>
+                                                    <td>{{ cliente.telefono }}</td>
+                                                    <td>{{ cliente.direccion }}</td>
+                                                    <td>{{ cliente.fecha_nac }}</td>
                                                     <td>
                                                         <button class="btn btn-inline" type="button">Editar</button>
                                                         <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >Eliminar</button>

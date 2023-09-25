@@ -50,13 +50,13 @@ buscarClientes() {
                     this.clientes = resp[0];
                     return;
                   } else {
-                    this.alertService.alertFail('Ocurrio un error',false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',2000);
                   }
                   return;
                  },
                 error: () => { 
-                  this.alertService.alertFail('Ocurrio un error',false,2000)
-                 }
+                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',2000);
+                }
               });
 
   }
