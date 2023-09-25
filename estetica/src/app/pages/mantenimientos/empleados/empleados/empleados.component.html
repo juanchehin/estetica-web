@@ -1,0 +1,185 @@
+
+<div id="wrapper">
+
+    <!-- Topbar Start -->
+    <div class="navbar-custom">
+        <ul class="list-unstyled topnav-menu float-right mb-0">
+        </ul>
+
+        <!-- LOGO -->
+        <div class="logo-box">
+            <a href="index.html" class="logo logo-dark text-center">
+                <span class="logo-lg">
+                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="60">
+                </span>
+                <span class="logo-sm">
+                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="24">
+                </span>
+            </a>
+            <a href="index.html" class="logo logo-light text-center">
+                <span class="logo-lg">
+                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="60">
+                </span>
+                <span class="logo-sm">
+                    <img src="../../../../assets/images/logo_estetica.jpg" alt="" height="24">
+                </span>
+            </a>
+        </div>
+
+        <ul class="list-unstyled topnav-menu topnav-menu-left mb-0">
+            <li>
+                <button class="button-menu-mobile disable-btn waves-effect">
+                    <i class="fe-menu"></i>
+                </button>
+            </li>
+        </ul>
+
+    </div>
+    <!-- end Topbar -->
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+
+    <div class="content-page">
+        <div class="content">
+ 
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- ==============  =============== -->
+
+                <div class="row">
+                    <div class="col-sm-4 form-group">
+                        <label>Empleado :  </label>
+                        <input (keyup.enter)="buscarEmpleados( )" #inputEmpleadoBuscado type="text" class="form-control" placeholder="Buscar empleado..." id="empleadoBuscado">
+                    </div>
+                    <div class="col-sm-1 form-group">
+                        <button (click)="buscarEmpleados( )" class="btn btn-primary" style="margin-top: 26px;">
+                            <i class="mdi mdi-account-search"></i> 
+                            </button>
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
+                    </div>       
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad empleados ( {{ totalEmpleados }}  )</h3>
+                    </div>
+                    <div class="col-sm-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button [routerLink]="['nuevo']" type="button" class="btn waves-effect waves-light btn-rounded btn-primary">
+                          <i class="mdi mdi-account-multiple-plus"></i> 
+                          Nuevo Empleado
+                        </button>
+                    </div>     
+                </div>
+
+                <!-- ======= Fin Fechas ================= -->
+
+                <!-- ========== Tabla =========== -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+
+                            <div class="responsive-table-plugin">
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table table-striped mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th data-priority="1">Apellidos</th>
+                                                <th data-priority="3">Nombres</th>
+                                                <th data-priority="3">DNI</th>
+                                                <th data-priority="3">Email</th>
+                                                <th data-priority="3">Telefono</th>
+                                                <th data-priority="6">Direccion</th>
+                                                <th data-priority="6">Fecha nacimiento</th>
+                                                <th data-priority="6">Accion</th>
+                                            </tr>
+                                            </thead>
+                                             <tbody>
+                                                <tr *ngFor="let empleado of empleados">
+                                                    <td>{{ empleado.id_persona }}</td>
+                                                    <td>{{ empleado.apellidos }}</td>
+                                                    <td>{{ empleado.nombres }}</td>
+                                                    <td>{{ empleado.dni }}</td>
+                                                    <td>{{ empleado.email }}</td>
+                                                    <td>{{ empleado.telefono }}</td>
+                                                    <td>{{ empleado.direccion }}</td>
+                                                    <td>{{ empleado.fecha_nac }}</td>
+                                                    <td>
+                                                        <button class="btn btn-inline" type="button">Editar</button>
+                                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >Eliminar</button>
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <!-- ========== Fin tabla =========== -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
+
+<!--  -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" aria-label="Close">Cancelar</button>
+            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" >Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Atencion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Empleado dado de baja
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
