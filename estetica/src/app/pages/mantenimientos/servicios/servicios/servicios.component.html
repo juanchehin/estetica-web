@@ -60,7 +60,7 @@
                             <td>$ {{ servicio.precio }}</td>
                             <td>{{ servicio.descripcion }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/servicio',servicio.id_servicio]">Editar</button>
+                                <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/servicio',servicio.id_servicio]">Editar</button>
                                 <button class="btn btn-inline btn-danger" type="button" (click)="bajaServicio(servicio.id_servicio)">Eliminar</button>
                             </td>
                         </tr>

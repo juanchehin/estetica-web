@@ -30,6 +30,8 @@ export class ClienteComponent implements OnInit {
       DNI: new FormControl(null),
       Telefono: new FormControl(null ),
       Email: new FormControl(null, Validators.email ),
+      direccion: new FormControl(null ),
+      fecha_nac: new FormControl(null ),
       Observaciones: new FormControl(null )
     });
   }
@@ -51,6 +53,8 @@ export class ClienteComponent implements OnInit {
         this.forma.value.DNI,
         this.forma.value.Telefono,
         this.forma.value.Email,
+        this.forma.value.direccion,
+        this.forma.value.fecha_nac,
         this.forma.value.Observaciones
       );
 
@@ -59,11 +63,11 @@ export class ClienteComponent implements OnInit {
                   
                   if ( resp[0][0].mensaje == 'Ok') {
 
-                    this.alertService.alertSuccess('top-end','cliente cargado',2000);
+                    this.alertService.alertSuccess('Mensaje','cliente cargado con exito',2000);
                     
                     this.router.navigate(['/dashboard/clientes']);
                   } else {
-                    this.alertService.alertFail('Ocurrio un error : ' + resp[0][0].mensaje,false,2000);
+                    this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',4000);
                   }
                   return;
                 });

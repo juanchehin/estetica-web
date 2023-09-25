@@ -1,10 +1,11 @@
 
 export interface IItemVentaStructure
 {
-    IdItem: number;
-    IdProductoSabor: number;
-    Codigo: string;
-    Producto: string;
-    Cantidad: number;
-    PrecioVenta: number;
+    id_item: number;
+    IdProductoServicio: number;
+    codigo: string;
+    producto_servicio: string;
+    cantidad: number;
+    precio_venta: number;
+    tipo: string;
 }

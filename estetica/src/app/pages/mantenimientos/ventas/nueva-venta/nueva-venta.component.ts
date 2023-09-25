@@ -180,7 +180,8 @@ cargarTiposPago() {
           });
 
 }
-  // ==================================================
+
+// ==================================================
 // Carga los datos de la persona que esta realizando la venta
 //  junto con la sucursal en la cual se desempeña
 // ==================================================
@@ -238,22 +239,23 @@ agregarLineaVenta() {
   this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
-    return linea_venta.IdProductoSabor == this.itemPendiente.IdProductoSabor;
+    return linea_venta.IdProductoServicio == this.itemPendiente.IdProductoServicio;
   });
 
   if(!(checkExistsLineaVenta != undefined))
   {
     this.lineas_venta.push(
       {
-        IdItem: this.IdItem,
-        IdProductoSabor: Number(this.itemPendiente.IdProductoSabor),
-        Codigo: this.itemPendiente.Codigo,
-        Producto: this.itemPendiente.Producto,
-        Cantidad: this.cantidadLineaVenta,
-        PrecioVenta: this.itemPendiente.PrecioVenta,
+        id_item: this.IdItem,
+        IdProductoServicio: Number(this.itemPendiente.IdProductoServicio),
+        codigo: this.itemPendiente.Codigo,
+        producto_servicio: this.itemPendiente.producto_servicio,
+        cantidad: this.cantidadLineaVenta,
+        precio_venta: this.itemPendiente.precio_venta,
+        tipo: this.itemPendiente.Tipo
       }
     );
-  
+
     this.IdItem += 1;
   
     this.cantidadLineaVenta = 1;
@@ -265,15 +267,15 @@ agregarLineaVenta() {
 
     for (let item of this.lineas_venta) {
 
-      if(this.itemPendiente.Stock < (Number(item.Cantidad) + Number(this.cantidadLineaVenta)))
+      if(this.itemPendiente.Stock < (Number(item.cantidad) + Number(this.cantidadLineaVenta)))
       { 
         this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
         return;
       }
 
-      if(item.IdProductoSabor == this.itemCheckExists.IdProductoSabor)
+      if(item.IdProductoServicio == this.itemCheckExists.IdProductoServicio)
       { 
-        item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaVenta);
+        item.cantidad = Number(item.cantidad) + Number(this.cantidadLineaVenta);
 
       }
      }
@@ -507,12 +509,12 @@ agregarLineaTipoPago(): any {
   // ==============================
   // 
   // ================================
-  eliminarItemVenta(IdProductoSabor: any){
+  eliminarItemVenta(pIdProductoServicio: any){
 
     this.lineas_venta.forEach( (item, index) => {
-      if(item.IdProductoSabor === IdProductoSabor) 
+      if(item.IdProductoServicio == pIdProductoServicio) 
       {
-        this.totalVenta -= item.PrecioVenta * item.Cantidad;
+        this.totalVenta -= item.precio_venta * item.cantidad;
         this.lineas_venta.splice(index,1);
       }
         

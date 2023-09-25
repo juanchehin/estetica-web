@@ -64,8 +64,8 @@
                             <td>${{ producto.precio_venta }}</td>
                             <td>{{ producto.descripcion }}</td>
                             <td>
-                                <button class="btn btn-inline" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaProducto(producto.id_producto)">Eliminar</button>
+                                <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">Editar</button>
+                                <button class="btn btn-danger" type="button" (click)="bajaProducto(producto.id_producto)">Eliminar</button>
                             </td>
                         </tr>
 

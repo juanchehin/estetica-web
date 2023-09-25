@@ -28,6 +28,7 @@ public async dameDatosCliente(req: Request, res: Response): Promise<any> {
 //        Inserta un cliente enviando un correo de confirmacion
 // ==================================================
 public async altaCliente(req: Request, res: Response) {
+    console.log('altaCliente::: ');
 
     const { IdPersona } = req.params;
     var Apellidos = req.body[0];
@@ -35,9 +36,13 @@ public async altaCliente(req: Request, res: Response) {
     var DNI = req.body[2];
     var Telefono = req.body[3];
     var Email = req.body[4];
-    var Observaciones = req.body[5];
+    var Direccion = req.body[5];
+    var FechaNac = req.body[6];
+    var Observaciones = req.body[7];
     
-    pool.query(`call bsp_alta_cliente_panel('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_cliente('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Direccion}','${FechaNac}','${Observaciones}')`, function(err: any, result: any, fields: any){
+        console.log('result::: ', result);
+        console.log('err::: ', err);
         if(err){
             res.status(404).json(err);
             return;
