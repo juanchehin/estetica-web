@@ -76,17 +76,20 @@ async altaVenta(req: Request, res: Response) {
     var pIdVenta;
 
     var pIdCliente = req.body[0];
-    var pLineaVenta = req.body[1];
-    var pLineaTipoPago = req.body[2];
+    var pIdEmpleado = req.body[1];
+    var pLineaVenta = req.body[2];  // productos/servicios
     var pMontoTotal = req.body[3];
-    var pFechaVenta = req.body[4];
+    var pIdTipoPago = req.body[4];
+    // var pFechaVenta = req.body[4];
+    // var pLineaTipoPago = req.body[2];
 
     // ==============================
     try {
         // ====================== Alta Venta ===========================================
-        let sql = `call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}','${pFechaVenta}')`;
+        let sql = `call bsp_alta_venta('${pIdTipoPago}','${pIdEmpleado}','${pIdCliente}','${pMontoTotal}')`;
         const [result] = await pool.promise().query(sql)
         
+
         if(result[0][0].Mensaje != 'Ok')
         {
             logger.error("Error bsp_alta_venta - altaVenta - ventasController");
@@ -96,7 +99,7 @@ async altaVenta(req: Request, res: Response) {
 
         pLineaVenta.forEach(async function (value: any) {
 
-            let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoSabor}','${result[0][0].pIdSucursal}','${value.Cantidad}')`;
+            let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoServicio}','${value.precio_venta}','${value.tipo}','${value.cantidad}')`;
             const [result2] = await pool.promise().query(sql2)
 
             if(result2[0][0].Mensaje != 'Ok')
@@ -105,20 +108,6 @@ async altaVenta(req: Request, res: Response) {
             }
         });
 
-
-        // ====================== Tipos de pago ===========================================
-        pLineaTipoPago.forEach(async function (value: any) {
-             
-            let sql3 = `call bsp_alta_tipo_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}','${pIdCliente}')`;
-            const [result3, ] = await pool.promise().query(sql3)
-
-               if(result3[0][0].Mensaje != 'Ok')
-               {
-                    logger.error("Error bsp_alta_tipo_pago - ventasController");
-                   return
-               }              
-
-        });
 
         pIdVenta = result[0][0].IdVenta;
 
@@ -131,6 +120,7 @@ async altaVenta(req: Request, res: Response) {
         res.status(404).json({ "error" : error});
         return;
       }
+      res.json({ Mensaje : 'Ok'});
     //   res.json({"mensaje": await confirmarTransaccion(pIdVenta)});
 }
 

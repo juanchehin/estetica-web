@@ -185,61 +185,15 @@
                         <div class="row">
                             <div class="col-sm-4">
                                 <label>Tipo pago : </label>
-                                <!-- <select tabindex="4" (ngModelChange)='onChangeTipoPago($event)' [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
-                                    <option *ngFor="let tp of tiposPago" [value]="tp.IdTipoPago">
-                                        {{tp.TipoPago}}
+                                <select tabindex="4" (ngModelChange)='onChangeTipoPago($event)' [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
+                                    <option *ngFor="let tp of tiposPago" [value]="tp.id_tipo_pago">
+                                        {{tp.tipo_pago}}
                                     </option>
-                                </select> -->
-                            </div>
-                            <div class="col-sm-4">
-                                <label>Monto : </label>
-                                <!-- <input type="text" [(ngModel)]="monto" name="monto" class="form-control"> -->
-                            </div>
-                            <div class="col-md-4">
-                                <!-- <button (click)="agregarLineaTipoPago()" type="button" class="btn btn-info btn-circle" style="margin-top: 30px;"><i class="fa fa-plus"></i> </button> -->
+                                </select>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Items de pago</h4>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Tipo</th>
-                                                    <th>Subtotal</th>
-                                                    <th class="text-nowrap"></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <!-- <tr *ngFor="let linea_tp of lineas_tipos_pago" [ngClass]="{'table-success': (linea_tp.TipoPago == 'Descuento Efectivo'), 'table-warning' : (linea_tp.TipoPago == 'Recargo Tarjeta') }"> -->
-                                                <!-- "(linea_tp.TipoPago == 'Descuento Efectivo') ? 'table-success' : '',(linea_tp.TipoPago == 'Recargo Tarjeta') ? 'table-warning' : ''"> -->
-                                                    <!-- <td>{{linea_tp.TipoPago }}</td>
-                                                    <td>$ {{linea_tp.SubTotal }}</td> -->
-                                                    <!-- <td class="text-nowrap">
-                                                        <a (click)="eliminarItemTipoPago(linea_tp.IdItem)" data-toggle="tooltip" data-original-title="Close"> <i class="fa fa-close text-danger"></i> </a>
-                                                    </td> -->
-                                                <!-- </tr> -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <h4>Total : $ {{totalTiposPago}}</h4>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-md-8">
-                                            <h6>Restante : $ {{totalTiposPagoRestante}}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <div class="modal-footer">
                     <button #divCerrarModal type="button" class="btn btn-default waves-effect" data-dismiss="modal">Cerrar</button>
