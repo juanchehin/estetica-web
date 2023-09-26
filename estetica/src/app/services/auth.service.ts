@@ -17,7 +17,8 @@ export class AuthService {
   IdPersona!: any;
   IdRol: any;
   token!: any;
-  usuario: any;
+  sucursal: any;
+  id_sucursal: any;
   menuBack: any[] = Array();
 
   private IdPersonaSource = new BehaviorSubject<string>('');
@@ -55,9 +56,8 @@ login( persona: any ): any {
 
       this.setIdPersona(resp.IdPersona);  //
 
-      this.IdRol = resp.IdRol;
-      
-      this.guardarStorage( resp.IdPersona, resp.token, resp.usuario, resp.menu, resp.IdRol);
+      this.guardarStorage( resp.IdPersona, resp.token, resp.sucursal, resp.id_sucursal);
+
       this.cargarStorage();
 
       return true;
@@ -70,20 +70,18 @@ login( persona: any ): any {
 //        Guarda la info en el localstorage
 //  Guarda en las variables del servicio
 // ==================================================
-guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any ) {
+guardarStorage( id: string, token: string, sucursal: any, id_sucursal: any ) {
 
   localStorage.setItem('id', id );
   localStorage.setItem('token', token );
-  localStorage.setItem('menu', JSON.stringify(menu) );
-  localStorage.setItem('usuario', usuario );
+  localStorage.setItem('sucursal', sucursal );
+  localStorage.setItem('id_sucursal', id_sucursal );
 
-  this.IdRol = IdRol;
   this.token = token;
   this.IdPersona = id;
-  this.usuario = usuario;
-  this.menuBack = menu;
+  this.sucursal = sucursal;
+  this.id_sucursal = id_sucursal;
 
-  // this.actualizaEstadoCliente(this.personaId);
 }
 
 // ==================================================
@@ -96,12 +94,12 @@ guardarStorage( id: string, token: string, usuario: any, menu: any[], IdRol: any
       this.token = '';
       this.persona = null;
       this.IdPersona = null;
-      this.menuBack = [];
+      
     } else {
       const var1 = localStorage.getItem('token');
       this.token = var1;
 
-      this.usuario = localStorage.getItem('usuario');
+      this.sucursal = localStorage.getItem('sucursal');
 
       const var3 = localStorage.getItem('id');
       this.IdPersona = var3;
@@ -139,17 +137,12 @@ logout() {
   this.persona = null;
   this.token = '';
   this.IdPersona = null;
-  this.IdRol = null;
-  this.usuario = null;
+  this.sucursal = null;
   this.menuBack = [];
-
 
   localStorage.removeItem('token');
   localStorage.removeItem('id');
-  localStorage.removeItem('usuario');
-  localStorage.removeItem('menu');
-
-
+  localStorage.removeItem('sucursal');
 
   this.router.navigate(['/login']);
 }

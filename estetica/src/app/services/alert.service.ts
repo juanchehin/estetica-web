@@ -21,15 +21,12 @@ export class AlertService {
   }
 
  // ==============================
- alertFail(pTitulo: any,pShowConfirmButton: boolean,pTimer: any) {
-  console.log('alertFail::: ');
+ alertFail(pTitulo: any,pMensaje: any,pTimer: any) {
 
-  // Swal.fire({
-  //   icon: 'error',
-  //   title: pTitulo,
-  //   showConfirmButton: pShowConfirmButton,
-  //   timer: pTimer
-  // });
+  this.toastr.error(pMensaje, pTitulo, {
+    timeOut: pTimer,
+    positionClass: 'toast-top-right'
+  });
 
 }
 

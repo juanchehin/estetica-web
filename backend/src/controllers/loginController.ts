@@ -16,8 +16,8 @@ class LoginController {
 
 public async login(req: Request, res: Response){
 
-    const usuario = req.body[0];
-    const pass = req.body[1];
+const usuario = req.body[0];
+const pass = req.body[1];
 
 pool.query(`call bsp_login('${usuario}')`, function(err: any, resultLogin: string | any[]){
     var menu: any = [];
@@ -61,7 +61,9 @@ pool.query(`call bsp_login('${usuario}')`, function(err: any, resultLogin: strin
                 ok: true,
                 IdPersona: resultLogin[0][0].lIdPersona,
                 token: token,
-                menu: menu
+                sucursal: resultLogin[0][0].lSucursal,
+                id_sucursal: resultLogin[0][0].lIdSucursal
+
             });
         }
     });

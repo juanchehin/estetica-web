@@ -16,7 +16,7 @@ class ServiciosRoutes {
         this.router.get('/servicio/detalle/:pIdServicio/:pIdSabor',serviciosController.dameDatosServicio); 
         this.router.post('/alta/:IdPersona',serviciosController.altaServicio);
         this.router.get('/baja/:IdPersona/:pIdServicio',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],serviciosController.bajaServicio); 
-        this.router.get('/listar/busqueda/autocomplete/transferencia/:pServicioBuscado/:pIdSucursalOrigen',  [mdAutenticacion.verificaToken],serviciosController.buscarServicioAutoCompleteTransferencia); 
+        this.router.get('/listar/busqueda/autocomplete/:pServicioBuscado/:pIdSucursalOrigen/:IdPersona',  [mdAutenticacion.verificaToken],serviciosController.buscarServicioAutoCompleteTransferencia); 
         this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdSucursal/:IdPersona',  [mdAutenticacion.verificaToken],serviciosController.buscarServicioPaginado); 
     
     }

@@ -3,16 +3,46 @@
     <div class="content-page">
         <div class="content">
             
+            
+             <!-- ========== Empleado ============ -->
+             <div class="row">
+                <div class="row">
+                    <div class="col-md-5">
+                        <h5 class="m-t-30">Empleado : </h5>
+                        <div class="ng-autocomplete">
+                            <ng-autocomplete [data]="empleados" [searchKeyword]="keywordEmpleado" placeholder="Selecciona empleado" (selected)='selectEventEmpleado($event)' (inputChanged)='onChangeSearchEmpleado($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateEmpleado" [notFoundTemplate]="notFoundTemplate">
+                            </ng-autocomplete>
+                        </div>
+                        <ng-template #itemTemplateEmpleado let-item>
+                            <a [innerHTML]="item.empleado"></a>
+                        </ng-template>
+                        <ng-template #notFoundTemplate let-notFound>
+                            <div [innerHTML]="notFound"></div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+            <br /><br />
+            <!-- ========== Fin Empleado ============ -->
+
             <!-- ========== cliente ============ -->
             <div class="row">
                 <div class="row">
                     <div class="col-md-5">
                         <h5 class="m-t-30">Cliente : </h5>
                         <div class="ng-autocomplete">
-                            <ng-autocomplete [data]="clientes" [searchKeyword]="keywordCliente" placeholder="Selecciona cliente" (selected)='selectEvent($event)' (inputChanged)='onChangeSearch($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplate" [notFoundTemplate]="notFoundTemplate">
+                            <ng-autocomplete 
+                            [data]="clientes" 
+                            [searchKeyword]="keywordCliente" 
+                            placeholder="Selecciona cliente" 
+                            (selected)='selectEventCliente($event)' 
+                            (inputChanged)='onChangeSearchCliente($event)' 
+                            (inputFocused)='onFocused($event)' 
+                            [itemTemplate]="itemTemplateCliente" 
+                            [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
                         </div>
-                        <ng-template #itemTemplate let-item>
+                        <ng-template #itemTemplateCliente let-item>
                             <a [innerHTML]="item.NombreCompleto"></a>
                         </ng-template>
                         <ng-template #notFoundTemplate let-notFound>
@@ -23,37 +53,68 @@
             </div>
             <br /><br />
             <!-- ========== Fin cliente ============ -->
+
+
             <!-- ========== Articulos ============ -->
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Productos/Servicios</h4>
+                        <h4 class="card-title">Producto :</h4>
                         <!-- ========== Buscador producto ============ -->
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="ng-autocomplete">
-                                    <!-- <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" 
+                                    <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" 
                                     (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' 
                                     (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
                                     [notFoundTemplate]="notFoundTemplateProducto">
-                                    </ng-autocomplete> -->
+                                    </ng-autocomplete>
                                 </div>
                                 <ng-template #itemTemplateProducto let-item>
-                                    <a [innerHTML]="item.codigoProductoSabor"></a>
+                                    <a [innerHTML]="item.producto"></a>
                                 </ng-template>
                                 <ng-template #notFoundTemplateProducto let-notFound>
                                     <div [innerHTML]="notFound"></div>
                                 </ng-template>
                             </div>
                             <div class="col-md-3">
-                                <!-- <input [(ngModel)]="cantidadLineaVenta" (input)="cambiaCantidadVenta($event)" type="text" class="form-control form-control-line" placeholder="Cantidad..." maxlength="3"> -->
+                                <input [(ngModel)]="cantidadLineaVentaProducto" (input)="cambiaCantidadVentaProducto($event)" type="text" class="form-control form-control-line" placeholder="Cantidad..." maxlength="3">
                             </div>
                             <div class="col-md-2" style="left: 150px;">
-                                <!-- <button (click)="agregarLineaVenta()" type="button" class="btn btn-info btn-circle"><i class="fa fa-plus"></i> </button> -->
+                                <button (click)="agregarLineaVentaProducto()" type="button" class="btn btn-info btn-circle"><i class="mdi mdi-plus"></i> </button>
                             </div>
                         </div>
 
                         <!-- ========== Fin Buscador producto ============ -->
+
+                        <h4 class="card-title">Servicios :</h4>
+                        <!-- ========== Buscador servicio ============ -->
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="ng-autocomplete">
+                                    <ng-autocomplete [data]="servicios" [searchKeyword]="keywordServicio" placeholder="Selecciona servicio" 
+                                    (selected)='selectEventServicio($event)' (inputChanged)='onChangeSearchServicio($event)' 
+                                    (inputFocused)='onFocusedServicio($event)' [itemTemplate]="itemTemplateServicio"
+                                    [notFoundTemplate]="notFoundTemplateServicio">
+                                    </ng-autocomplete>
+                                </div>
+                                <ng-template #itemTemplateServicio let-item>
+                                    <a [innerHTML]="item.servicio"></a>
+                                </ng-template>
+                                <ng-template #notFoundTemplateServicio let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-3">
+                                <input [(ngModel)]="cantidadLineaVentaServicio" (input)="cambiaCantidadVentaServicio($event)" type="text" class="form-control form-control-line" placeholder="Cantidad..." maxlength="3">
+                            </div>
+                            <div class="col-md-2" style="left: 150px;">
+                                <button (click)="agregarLineaVentaServicio()" type="button" class="btn btn-info btn-circle"><i class="mdi mdi-plus"></i> </button>
+                            </div>
+                        </div>
+
+                        <!-- ========== Fin Buscador servicio ============ -->
+
                         <br/><br/>
                         <!-- ===== Tabla con listado de productos ===== -->
                         <div class="row">
@@ -65,22 +126,23 @@
                                             <table class="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th>Codigo</th>
-                                                        <th>Producto</th>
+                                                        <th>Producto/Servicio</th>
                                                         <th>Cantidad</th>
                                                         <th>SubTotal</th>
+                                                        <th>Tipo</th>
                                                         <th class="text-nowrap"></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <tr *ngFor="let linea of lineas_venta">
-                                                        <td>{{linea.codigo }}</td>
                                                         <td>{{linea.producto_servicio }}</td>
                                                         <td>{{linea.cantidad }}</td>
-                                                        <td>{{linea.precio_venta }}</td>
-                                                        <td class="text-nowrap">
+                                                        <td>$ {{linea.precio_venta }}</td>
+                                                        <td>{{linea.tipo }}</td>
+                                                        <td style="cursor: pointer;">                                                            
                                                             <a data-toggle="tooltip" (click)="eliminarItemVenta(linea.IdProductoServicio)" data-original-title="Close"> 
-                                                                <i class="fa fa-close text-danger"></i> </a>
+                                                                <i class="mdi mdi-delete"></i>
+                                                            </a>
                                                         </td>
                                                     </tr>
                                                 </tbody>

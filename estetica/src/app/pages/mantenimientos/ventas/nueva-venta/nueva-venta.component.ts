@@ -9,6 +9,8 @@ import { ProductosService } from 'src/app/services/productos.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { VentasService } from 'src/app/services/ventas.service';
 import { UtilService } from '../../../../services/util.service';
+import { ServiciosService } from 'src/app/services/servicios.service';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 
 @Component({
   selector: 'app-nueva-venta',
@@ -20,7 +22,7 @@ export class NuevaVentaComponent implements OnInit {
   currentDate = new Date();
 
   keywordCliente = 'NombreCompleto';
-  keywordProducto = 'codigoProductoSabor';
+  keywordProducto = 'producto';
 
   descuentoEfectivo: any = 0;
   productos: any;
@@ -36,19 +38,32 @@ export class NuevaVentaComponent implements OnInit {
   clientes = [];
   datosVendedor: any;
   totalVenta: number = 0;
-  cantidadLineaVenta = 1;
   IdItem = 0;
   IdItemTipoPago = 0;
   IdTipoPagoSelect = 0;
   monto = 0;
   totalTiposPagoRestante = 0;
-  
+  cantidadLineaVentaProducto = 1;
+
   IdCliente = 0;
   arrayVenta: any = [];
   itemCheckExists: any = 0;
   itemIdProductoSabor: any;
   idSucursalVendedor: any;
   fecha_venta: any;
+
+  // Servicios
+  servicios: any;
+  keywordServicio = 'servicio';
+  servicioBuscado = '';
+  cantidadLineaVentaServicio = 1;
+
+  // Empleados
+  empleados: any;
+  keywordEmpleado = 'empleado';
+  empleadoBuscado = '';
+  IdEmpleado = 0;
+
 
   // Modals
   activarModal = false;
@@ -69,11 +84,13 @@ export class NuevaVentaComponent implements OnInit {
 
   constructor(
     public productosService: ProductosService, 
+    public serviciosService: ServiciosService,
     public ventasService: VentasService, 
     public authService: AuthService, 
     public usuariosService: UsuariosService,
     public activatedRoute: ActivatedRoute,
     public clientesService: ClientesService,
+    public empleadosService: EmpleadosService,
     public alertaService: AlertService,
     private utilService: UtilService
     ) {
@@ -85,7 +102,8 @@ export class NuevaVentaComponent implements OnInit {
     this.fecha_venta = this.utilService.formatDateNow(new Date(Date.now()));
     this.IdPersona = this.authService.IdPersona;
     this.datosVendedor = [];
-    this.cargarDatosVendedor();
+    this.idSucursalVendedor = localStorage.getItem('id_sucursal');
+    // this.cargarDatosVendedor();
   }
   
 // ==================================================
@@ -145,6 +163,20 @@ cargarClientes() {
 
   }
 
+  // ==================================================
+// Carga
+// ==================================================
+
+cargarEmpleados() {
+
+  this.empleadosService.cargarEmpleados( this.empleadoBuscado )
+             .subscribe( (resp: any) => {
+
+              this.empleados = resp;
+
+            });
+
+}
 // ==================================================
 // Autocompletar de productos
 // ==================================================
@@ -155,6 +187,21 @@ cargarProductos() {
              .subscribe( (resp: any) => {
 
               this.productos = resp[0];
+
+            });
+
+}
+
+// ==================================================
+// Autocompletar de servicios
+// ==================================================
+
+cargarServicios() {
+
+  this.serviciosService.cargarServicios( this.servicioBuscado, this.idSucursalVendedor )
+             .subscribe( (resp: any) => {
+
+              this.servicios = resp[0];
 
             });
 
@@ -207,24 +254,32 @@ cargarDatosVendedor() {
 // ==================================================
 // 
 // ==================================================
-  cambiaCantidadVenta(cantidad: any) {
+  cambiaCantidadVentaProducto(cantidad: any) {
     
     // this.cantidadLineaVenta = cantidad.data;
     
   }
   
+  // ==================================================
+// 
+// ==================================================
+cambiaCantidadVentaServicio(cantidad: any) {
+    
+  // this.cantidadLineaVenta = cantidad.data;
+  
+}
 // ==================================================
 // 
 // ==================================================
-agregarLineaVenta() {
+agregarLineaVentaProducto() {
 
-  if(isNaN(Number(this.cantidadLineaVenta)))
+  if(isNaN(Number(this.cantidadLineaVentaProducto)))
   { 
     this.alertaService.alertFail('Error en cantidad',false,2000);
     return;
   }
 
-  if((this.itemPendiente.Stock <= 0) || (this.itemPendiente.Stock < this.cantidadLineaVenta))
+  if((this.itemPendiente.Stock <= 0) || (this.itemPendiente.Stock < this.cantidadLineaVentaProducto))
   { 
     this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
     return;
@@ -236,12 +291,14 @@ agregarLineaVenta() {
     return;
   }
 
-  this.totalVenta += Number(this.itemPendiente.PrecioVenta) * this.cantidadLineaVenta;
+  this.totalVenta += Number(this.itemPendiente.precio_venta) * this.cantidadLineaVentaProducto;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
     return linea_venta.IdProductoServicio == this.itemPendiente.IdProductoServicio;
   });
+  
 
+  console.log('this.cantidadLineaVentaProducto::: ', this.cantidadLineaVentaProducto);
   if(!(checkExistsLineaVenta != undefined))
   {
     this.lineas_venta.push(
@@ -249,16 +306,16 @@ agregarLineaVenta() {
         id_item: this.IdItem,
         IdProductoServicio: Number(this.itemPendiente.IdProductoServicio),
         codigo: this.itemPendiente.Codigo,
-        producto_servicio: this.itemPendiente.producto_servicio,
-        cantidad: this.cantidadLineaVenta,
+        producto_servicio: this.itemPendiente.producto,
+        cantidad: this.cantidadLineaVentaProducto,
         precio_venta: this.itemPendiente.precio_venta,
-        tipo: this.itemPendiente.Tipo
+        tipo: 'producto'
       }
     );
 
     this.IdItem += 1;
   
-    this.cantidadLineaVenta = 1;
+    this.cantidadLineaVentaProducto = 1;
   }
   else{
     this.itemCheckExists = checkExistsLineaVenta;
@@ -267,7 +324,7 @@ agregarLineaVenta() {
 
     for (let item of this.lineas_venta) {
 
-      if(this.itemPendiente.Stock < (Number(item.cantidad) + Number(this.cantidadLineaVenta)))
+      if(this.itemPendiente.Stock < (Number(item.cantidad) + Number(this.cantidadLineaVentaProducto)))
       { 
         this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
         return;
@@ -275,7 +332,67 @@ agregarLineaVenta() {
 
       if(item.IdProductoServicio == this.itemCheckExists.IdProductoServicio)
       { 
-        item.cantidad = Number(item.cantidad) + Number(this.cantidadLineaVenta);
+        item.cantidad = Number(item.cantidad) + Number(this.cantidadLineaVentaProducto);
+
+      }
+     }
+  }
+ 
+
+}
+
+// ==================================================
+// 
+// ==================================================
+agregarLineaVentaServicio() {
+
+  if(isNaN(Number(this.cantidadLineaVentaServicio)))
+  { 
+    this.alertaService.alertFail('Error en cantidad',false,2000);
+    return;
+  }
+
+
+  if(this.itemPendiente.length <= 0)
+  { 
+    this.alertaService.alertFailWithText('Atencion','Debe seleccionar un servicio en el buscador',2000);
+    return;
+  }
+
+  this.totalVenta += Number(this.itemPendiente.precio) * this.cantidadLineaVentaServicio;
+
+  const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
+    return linea_venta.IdProductoServicio == this.itemPendiente.IdProductoServicio;
+  });
+
+  console.log('this.cantidadLineaVentaServicio::: ', this.cantidadLineaVentaServicio);
+  if(!(checkExistsLineaVenta != undefined))
+  {
+    this.lineas_venta.push(
+      {
+        id_item: this.IdItem,
+        IdProductoServicio: Number(this.itemPendiente.IdProductoServicio),
+        codigo: this.itemPendiente.Codigo,
+        producto_servicio: this.itemPendiente.servicio,
+        cantidad: this.cantidadLineaVentaServicio,
+        precio_venta: this.itemPendiente.precio,
+        tipo: 'servicio'
+      }
+    );
+
+    this.IdItem += 1;
+  
+    this.cantidadLineaVentaProducto = 1;
+  }
+  else{
+    this.itemCheckExists = checkExistsLineaVenta;
+    this.itemIdProductoSabor = this.itemCheckExists.IdProductoSabor;
+
+    for (let item of this.lineas_venta) {
+
+      if(item.IdProductoServicio == this.itemCheckExists.id_servicio)
+      { 
+        item.cantidad = Number(item.cantidad) + Number(this.cantidadLineaVentaServicio);
 
       }
      }
@@ -430,16 +547,40 @@ agregarLineaTipoPago(): any {
   this.monto = 0;
 
 }
-  // ==============================
-  // Para clientes
+
+// ==============================
+  // Para empleados
   // ================================
-  selectEvent(item: any) {
-    this.IdCliente = item.IdPersona;
+  selectEventEmpleado(item: any) {
+    this.IdEmpleado = item.id_persona;
     // this.agregarLineaVenta(item);
     // do something with selected item
   }
 
-  onChangeSearch(val: any) {
+  onChangeSearchEmpleado(val: any) {
+
+    if(val == '' || val == null)
+    {
+      return;
+    }
+
+    this.empleadoBuscado = val;
+    this.cargarEmpleados();
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+
+  // ==============================
+  // Para cliente
+  // ================================
+  
+  selectEventCliente(item: any) {
+    this.IdCliente = item.id_persona;
+    // this.agregarLineaVenta(item);
+    // do something with selected item
+  }
+
+  onChangeSearchCliente(val: any) {
 
     if(val == '' || val == null)
     {
@@ -447,6 +588,7 @@ agregarLineaTipoPago(): any {
     }
 
     this.clienteBuscado = val;
+
     this.cargarClientes();
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
@@ -477,6 +619,27 @@ agregarLineaTipoPago(): any {
   onFocusedProducto(e: any){
   }
 
+    // ==============================
+  // Para servicios
+  // ================================
+  selectEventServicio(item: any) {
+    
+    this.itemPendiente = item;
+  }
+
+  onChangeSearchServicio(val: any) {
+    if(val == '' || val == null)
+    {
+      return;
+    }
+    this.servicioBuscado = val;
+    this.cargarServicios();
+  }
+  
+  onFocusedServicio(e: any){
+  }
+
+
   // ==============================
   // 
   // ================================
@@ -485,7 +648,7 @@ agregarLineaTipoPago(): any {
     // chequear que haya productos cargados y el total de venta sea mayor que cero
     if(this.lineas_venta.length <= 0)
     {
-      this.alertaService.alertFail('Debe cargar productos a la venta',false,2000);
+      this.alertaService.alertFail('Debe cargar productos/servicios a la venta',false,2000);
       return;
     }
 
