@@ -10,35 +10,13 @@ class ServiciosController {
 // ==================================================
 public async altaServicio(req: Request, res: Response) {
 
-    var IdCategoria = req.body[0];
-    var IdSubCategoria = req.body[1];
-    var IdMarca = req.body[2];
-    var IdUnidad = req.body[3];    
-    var Servicio = req.body[4];
-    var IdProveedor = req.body[5];
-    var FechaVencimiento = req.body[6];
-    var Descripcion = req.body[7];
-    var StockAlerta = req.body[8];
-    var Medida = req.body[9];
-    var PrecioCompra = req.body[10];
-    var PrecioVenta = req.body[11];
-    var PrecioMayorista = req.body[12];
-    var PrecioMeli = req.body[13];
-    var Descuento = req.body[14];
-    var Moneda = req.body[15].charAt(0);
-    var arraySaboresCodigo = req.body[16];
+    var servicio = req.body[0];
+    var precio = req.body[1];
+    var descripcion = req.body[2];
 
-    if(IdSubCategoria == undefined || IdSubCategoria == 'undefined' || IdSubCategoria == null || IdSubCategoria == 'null')
-    { 
-        IdSubCategoria = 1; // sin subcategoria
-    }
+    var IdSucursal = req.params.IdSucursal;
 
-    if(FechaVencimiento == null || FechaVencimiento == 'null')
-    { 
-        FechaVencimiento = null;
-    }
-
-    pool.query(`call bsp_alta_servicio('${req.params.IdPersona}','${IdCategoria}','${IdSubCategoria}','${IdMarca}','${IdUnidad}','${IdProveedor}','${Servicio}',${FechaVencimiento},'${Descripcion}',${StockAlerta},'${Medida}',${PrecioCompra},'${PrecioVenta}','${PrecioMayorista}','${PrecioMeli}',${Descuento},'${Moneda}')`, async function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_servicio('${servicio}','${precio}','${descripcion}','${IdSucursal}')`, async function(err: any, result: any, fields: any){
         
         if(err || result[0][0].mensaje != 'Ok'){
             logger.error("Error en bsp_alta_servicio - serviciosController " + err);
@@ -46,40 +24,6 @@ public async altaServicio(req: Request, res: Response) {
             res.status(404).json({ text: err });
             return;
         }
-
-        // ==============================
-       if(result[0][0].mensaje == 'Ok')
-       {
-
-            arraySaboresCodigo.forEach(function (value: any) {
-
-                var respuesta = pool.query(`call bsp_alta_sabores_codigo_servicio('${result[1][0].pIdServicio}','${value.id_sabor}','${value.codigo}')`, function(err2: any, result2: any){
-                    
-                    if(err2 || result2[0][0].mensaje != 'Ok'){
-                        logger.error("Error en bsp_alta_sabores_codigo_servicio - serviciosController " + err);
-
-                        return false;
-                    }
-
-                    if(result2[0][0].Level == 'Error'){
-                        logger.error("Error en bsp_alta_sabores_codigo_servicio - serviciosController " + result2[0][0].Level);
-
-                        return false;
-                    }
-                    
-                })
-
-                if(!respuesta){
-                    logger.error("Error en bsp_alta_sabores_codigo_servicio - serviciosController 2 ");
-
-                    return res.json({
-                        ok: false,
-                        mensaje: 'Ocurrio un error'
-                    });
-                }
-            });
-        }
-        // ==============================      
 
         return res.json({ mensaje: 'Ok' });
     })

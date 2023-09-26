@@ -52,9 +52,11 @@ export class ServiciosService {
   // ==================================================
 //        
 // ==================================================
-altaProducto( servicio: any ) {
+altaServicio( servicio: any ) {
 
-  let url = URL_SERVICIOS + '/servicios/alta/' + this.IdPersona;
+  const IdSucursal = localStorage.getItem('id_sucursal')
+
+  let url = URL_SERVICIOS + '/servicios/alta/' + this.IdPersona + '/' + IdSucursal;
 
   return this.http.post( url, servicio, this.headers);
 }

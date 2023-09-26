@@ -13,9 +13,15 @@ export class HeaderComponent {
   public usuario: any;
   banderaOcultarSidebar = false;
 
+  titulo_sucursal = 'Estetica - ';
+
   constructor( private authService: AuthService,
                private router: Router ) {
   }
+
+  ngOnInit() {
+    this.cargar_titulo();
+  };
 
   logout() {
     this.authService.logout();
@@ -28,6 +34,11 @@ export class HeaderComponent {
     }
 
     this.router.navigateByUrl(`/dashboard/buscar/${ termino }`);
+  }
+
+  cargar_titulo(  ) {
+
+    this.titulo_sucursal += localStorage.getItem('sucursal');
   }
 
 
