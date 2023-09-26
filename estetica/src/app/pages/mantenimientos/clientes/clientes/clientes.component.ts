@@ -41,7 +41,6 @@ buscarClientes() {
     this.clientesService.buscarClientesPaginado( this.desde,clienteBuscado  )
                .subscribe( {
                 next: (resp: any) => { 
-                  console.log('resp::: ', resp);
 
                   if(resp[0][0] != undefined && resp[2] && resp[2][0].mensaje == 'Ok')
                   { 

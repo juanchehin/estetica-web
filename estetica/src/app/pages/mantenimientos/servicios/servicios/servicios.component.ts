@@ -18,8 +18,11 @@ export class ServiciosComponent implements OnInit {
   servicios!: any;
   sucursales: any;
   totalServicios = 0;
+  id_servicio_seleccionado: any;
 
   @ViewChild('inputServicioBuscado') inputServicioBuscado!: ElementRef;
+  @ViewChild('divCerrarModalBajaServicio') divCerrarModalBajaServicio!: ElementRef;
+
 
   constructor(
     public serviciosService: ServiciosService,
@@ -127,36 +130,45 @@ refrescar() {
 // 
 // ==================================================
 
-bajaServicio(IdServicioSabor: string) {
+baja_servicio() {
 
-  // Swal.fire({
-  //   title: '¿Desea eliminar el servicio?',
-  //   text: "Eliminacion de proveedor",
-  //   icon: 'warning',
-  //   showCancelButton: true,
-  //   confirmButtonColor: '#3085d6',
-  //   cancelButtonColor: '#d33',
-  //   confirmButtonText: 'Si'
-  // }).then((result: any) => {
-  //   if (result.isConfirmed) {
-  //     this.serviciosService.bajaServicio( IdServicioSabor )
-  //     .subscribe({
-  //       next: (resp: any) => { 
+  this.serviciosService.baja_servicio( this.id_servicio_seleccionado )
+  .subscribe({
+    next: (resp: any) => {
 
-  
-  //         if(resp[0][0].mensaje == 'Ok') {
-  //           this.alertaService.alertSuccess('top-end','Servicio dado de baja',false,900);
-  //           this.buscarServicio();
-            
-  //         } else {
-  //           this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
-            
-  //         }
-  //        },
-  //       error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].mensaje,false,1200); }
-  //     });
-  //   }
-  // })
+      if((resp[0][0].Mensaje == 'Ok')) {
+
+        this.alertaService.alertSuccess('Eliminacion','Servicio dada de baja',3000);
+        
+        let el: HTMLElement = this.divCerrarModalBajaServicio.nativeElement;
+        el.click();
+
+        this.refrescar();
+        
+      } else {
+        
+        this.alertaService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+        
+      }
+     },
+    error: (resp: any) => {  
+
+      this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
+    
+    }
+  });
+
 }
+
+// ==================================================
+// 
+// ==================================================
+
+modal_baja_servicio(id_servicio: string) {
+
+  this.id_servicio_seleccionado = id_servicio;
+
+}
+
 
 }

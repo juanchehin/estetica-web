@@ -16,6 +16,7 @@ export class EditarClienteComponent implements OnInit {
   Telefono: any;
   DNI: any;        
   Email: any;
+  direccion: any;
   Observaciones: any;   
 
   constructor(
@@ -43,6 +44,7 @@ editarCliente() {
         this.Telefono,
         this.DNI,        
         this.Email,
+        this.direccion,
         this.Observaciones,
         this.IdPersona
       );
@@ -55,7 +57,7 @@ editarCliente() {
                       this.alertService.alertSuccess('top-end','Cliente actualizado',2000);
                       this.router.navigate(['/dashboard/clientes']);
                     } else {
-                      // this.alertService.alertFailWithText('Ocurrio un error. ','Contactese con el administrador',false,2000);
+                      this.alertService.alertFailWithText('Ocurrio un error. ','Contactese con el administrador',2000);
                     }
                     return;
                    },
@@ -79,6 +81,7 @@ cargarDatosFormEditarCliente() {
                 this.Telefono = resp[0][0].telefono;
                 this.DNI = resp[0][0].dni;
                 this.Email = resp[0][0].email;
+                this.direccion = resp[0][0].direccion;
                 this.Observaciones = resp[0][0].observaciones;
              
               },

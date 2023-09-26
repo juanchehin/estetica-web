@@ -61,7 +61,7 @@
                             <td>{{ servicio.descripcion }}</td>
                             <td>
                                 <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/servicio',servicio.id_servicio]">Editar</button>
-                                <button class="btn btn-inline btn-danger" type="button" (click)="bajaServicio(servicio.id_servicio)">Eliminar</button>
+                                <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_servicio(servicio.id_servicio)" >Eliminar</button>
                             </td>
                         </tr>
 
@@ -80,3 +80,44 @@
 </div>
 <!--.page-content-->
 </div>
+
+
+<!--  -->
+<!-- <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+            <button class="btn btn-danger" data-bs-toggle="modal" (click)="baja_servicio()">Aceptar</button>
+        </div>
+      </div>
+    </div> -->
+  <!-- </div> -->
+
+  
+<!-- Modal -->
+<div class="modal fade" id="exampleModalToggle" tabindex="-1" aria-labelledby="exampleModalToggleLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Atencion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" #divCerrarModalBajaServicio data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="baja_servicio()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -55,7 +55,7 @@ public async bajaServicio(req: Request, res: Response): Promise<void> {
     var IdPersona = req.params.IdPersona;
     var IdServicio = req.params.pIdServicio;
 
-    pool.query(`call bsp_baja_servicio('${IdPersona}','${IdServicio}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_baja_servicio('${IdServicio}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;

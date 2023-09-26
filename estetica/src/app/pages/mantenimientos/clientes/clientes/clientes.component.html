@@ -80,7 +80,7 @@
                                                     <td>{{ cliente.direccion }}</td>
                                                     <td>{{ cliente.fecha_nac }}</td>
                                                     <td>
-                                                        <button class="btn btn-primary" type="button">Editar</button>
+                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/clientes/editar',cliente.id_persona]">Editar</button>
                                                         <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >Eliminar</button>
                                                     </td>
                                                 </tr>

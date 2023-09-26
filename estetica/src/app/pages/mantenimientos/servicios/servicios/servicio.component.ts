@@ -46,7 +46,6 @@ altaServicio() {
       }
       //** */
       if((this.precio == undefined || this.precio.length <= 0 || this.precio == '' || this.precio <= 0) ){
-        console.log("pasa err");
         this.alertService.alertFailWithText('Debe cargar un precio para el servicio','Atencion',2000);
         return;
       }

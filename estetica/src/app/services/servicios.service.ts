@@ -107,18 +107,11 @@ editarProducto( servicioEditado: any ) {
   // ==================================================
 //        
 // ==================================================
-bajaProducto( IdProductoSabor: any ) {
+baja_servicio( id_servicio: any ) {
 
-  let url = URL_SERVICIOS + '/servicios/baja/' + IdProductoSabor + '/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/servicios/baja/' + id_servicio + '/' + this.IdPersona;
 
-  return this.http.get(
-    url,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
+  return this.http.get(url, this.headers);
 }
 // ==================================================
 //  Carga los servicios en el autocomplete, que coincidan con el parametroBusqueda
