@@ -110,4 +110,14 @@ baja_transaccion(id_transaccion: any ) {
   return this.http.get( url, this.headers);
 }
 
+// ==================================================
+//
+// ==================================================
+alta_egreso( egreso : any){
+
+  let url = URL_SERVICIOS + '/ventas/egreso/alta/' + this.IdPersona;
+
+  return this.http.post( url, egreso,this.headers );
+}
+
 }

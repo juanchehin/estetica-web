@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction, response } from 'express';
 import pool from '../database';
-const bcrypt = require('bcrypt');
 
 const logger = require("../utils/logger").logger;
 

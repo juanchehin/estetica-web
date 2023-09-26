@@ -67,7 +67,7 @@ public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
 }
 
 // ==================================================
-//        Lista 
+//         
 // ==================================================
 async altaVenta(req: Request, res: Response) {
 
@@ -117,6 +117,44 @@ async altaVenta(req: Request, res: Response) {
         // return result
       } catch (error) {
         logger.error("Error funcion altaVenta - ventasController");
+        res.status(404).json({ "error" : error});
+        return;
+      }
+      res.json({ Mensaje : 'Ok'});
+    //   res.json({"mensaje": await confirmarTransaccion(pIdVenta)});
+}
+
+
+// ==================================================
+//         
+// ==================================================
+async alta_egreso(req: Request, res: Response) {
+
+    var pIdVendedor = req.params.IdPersona;
+    var pIdVenta;
+
+    var pIdEmpleado = req.body[0];
+    var pMonto = req.body[1];
+    var pIdTipoPago = req.body[2];
+    var pMetodoPago = req.body[3];
+    var pDescripcion = req.body[4];
+
+    // ==============================
+    try {
+        // ====================== Alta  ===========================================
+        let sql = `call bsp_alta_egreso('${pMonto}','${pIdTipoPago}','${pMetodoPago}','${pIdEmpleado}','${pDescripcion}')`;
+        const [result] = await pool.promise().query(sql)
+        
+
+        if(result[0][0].Mensaje != 'Ok')
+        {
+            logger.error("Error bsp_alta_egreso - altaEgreso - ventasController");
+
+        }
+
+        // return result
+      } catch (error) {
+        logger.error("Error funcion alta egreso - ventasController");
         res.status(404).json({ "error" : error});
         return;
       }

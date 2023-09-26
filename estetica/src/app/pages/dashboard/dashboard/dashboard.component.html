@@ -119,23 +119,27 @@
                 <!-- ============== Fechas =============== -->
 
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <label for="start">Fecha Inicio : &nbsp;</label>
                         <input type="date" required="" [(ngModel)]="fechaInicio" class="ng-pristine ng-valid ng-touched"> &nbsp;&nbsp;&nbsp;&nbsp; 
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-2">
                         <label for="start">Fecha Fin : &nbsp;</label>
                         <input type="date" required="" [(ngModel)]="fechaFin" class="ng-untouched ng-pristine ng-valid"> &nbsp;&nbsp;&nbsp;&nbsp; 
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-8">
                         <button class="btn btn-purple btn-rounded width-md waves-effect waves-light" (click)="cargarDatosDashboard()">
                             <i class="mdi mdi-update"></i>
                         </button>
                         <button [routerLink]="['ventas/nueva']" type="button" class="btn btn-primary btn-rounded width-md waves-effect waves-light">
                             <i class="mdi mdi-plus"></i> 
                             Nueva Venta
+                        </button>   
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#modal-egreso" class="btn btn-info btn-rounded width-md waves-effect waves-light">
+                            <i class="mdi mdi-plus"></i> 
+                            Nuevo egreso
                         </button>   
                     </div>
                 </div>
@@ -175,8 +179,8 @@
                                                     <td>$ {{ transaccion.Monto }}</td>
                                                     <td>{{ transaccion.Descripcion }}</td>
                                                     <td>
-                                                        <button class="btn btn-inline" type="button">Editar</button>
-                                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_transaccion(transaccion.id_transaccion)" >Eliminar</button>
+                                                        <button class="btn btn-primary" type="button">Editar</button>
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_transaccion(transaccion.id_transaccion)" >Eliminar</button>
                                                     </td>
                                                 </tr>
 
@@ -237,6 +241,65 @@
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
           <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- Modal - nuevo egreso -->
+<div class="modal fade" id="modal-egreso" tabindex="-1" aria-labelledby="modal-egreso" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="modal-egreso">Nuevo egreso</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+       
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Monto : </label>
+                        <input [(ngModel)]="monto_egreso" type="text" class="form-control form-control-line" placeholder="Monto...">
+                 </div>
+                <div class="col-sm-4">
+                    <label>Tipo pago : </label>
+                    <select (ngModelChange)='onChangeTipoPago($event)' [(ngModel)]="IdTipoPagoSelect" name="IdTipoPago" class="form-control">
+                        <option *ngFor="let tp of tiposPago" [value]="tp.id_tipo_pago">
+                            {{tp.tipo_pago}}
+                        </option>
+                    </select>
+                </div>               
+                <div class="col-sm-4">
+                    <label>Tipo egreso : </label>
+                    <select (ngModelChange)='onChangeMetodoPago($event)' tabindex="4" [(ngModel)]="tipo_egreso" name="IdTipoPago" class="form-control">
+                            <option value="E">Gastos</option>
+                            <option value="P">Pagos</option>
+                            <option value="A">Adelanto</option>
+                    </select>
+                </div>
+            </div> 
+            <br>
+            <div class="row">
+                <div class="col-sm-4">
+                    <label>Empleado : </label>
+                    <select (ngModelChange)='onChangeEmpleado($event)' [(ngModel)]="IdEmpleado" name="IdEmpleado" class="form-control" [disabled]="!habilitar_empleados">
+                        <option *ngFor="let empleado of empleados" [value]="empleado.id_persona">
+                            {{empleado.apellidos}} {{empleado.nombres}}
+                        </option>
+                    </select>
+                </div>    
+            </div> 
+            <br>
+            <div class="row">
+                <div class="col-sm-12">
+                    <textarea class="form-control" [(ngModel)]="descripcion" name="descripcion" placeholder="Descripcion..."></textarea>
+                </div>
+            </div> 
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" #cerrarModalEgreso class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" (click)="alta_egreso()">Aceptar</button>
         </div>
       </div>
     </div>
