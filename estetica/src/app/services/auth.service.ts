@@ -134,15 +134,15 @@ actualizaEstadoCliente( IdPersona: string ) {
 // ==================================================
 
 logout() {
-  this.persona = null;
+  
   this.token = '';
   this.IdPersona = null;
-  this.sucursal = null;
-  this.menuBack = [];
 
   localStorage.removeItem('token');
   localStorage.removeItem('id');
   localStorage.removeItem('sucursal');
+  localStorage.removeItem('id_sucursal');
+
 
   this.router.navigate(['/login']);
 }

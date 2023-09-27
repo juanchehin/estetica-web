@@ -17,10 +17,10 @@ const childRoutes: Routes = [
     loadChildren: () => import('./mantenimientos/productos/productos-routing.module').then( m => m.ProductosRoutingModule )
   },
   { 
-    path: 'compras',
+    path: 'caja',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
-    data: { ruta: 'compras'},
-    loadChildren: () => import('./mantenimientos/compras/compras-routing.module').then( m => m.ComprasRoutingModule )
+    data: { ruta: 'caja'},
+    loadChildren: () => import('./mantenimientos/caja/caja-routing.module').then( m => m.CajaRoutingModule )
   },
   { 
     path: 'ventas',

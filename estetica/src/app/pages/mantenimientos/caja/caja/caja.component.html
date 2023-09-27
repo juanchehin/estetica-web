@@ -1,0 +1,124 @@
+<div id="wrapper">
+    <div class="content-page">
+<!-- <div class="page-content"> -->
+    <div class="container-fluid">
+
+      <div class="row">
+
+        <div class="col-xl-3 col-md-6">
+            <div class="card-box">
+                <h4 class="header-title mt-0 mb-4">Estado caja</h4>
+                <div class="widget-chart-1">            
+                    <div class="widget-detail-1 text-right">
+                        <h2 class="font-weight-normal pt-2 mb-1"> {{estado_caja}} </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end col -->
+
+    </div>
+    <!--  -->
+        <section class="box-typical">
+            <div class="table-responsive">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad movimientos ( {{totalMovimientos }} )</h3>
+                    </div>
+                    <div class="col-4">
+                    </div>
+                    <div class="col-sm-4">
+                        <button *ngIf="boton_apertura_cierre == 'A'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_apertura">
+                            Apertura/Cierre
+                        </button>
+                        <button *ngIf="boton_apertura_cierre == 'C'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_cierre">
+                          Apertura/Cierre
+                        </button>
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                          <i class="mdi mdi-refresh"></i> 
+                      </button>
+                    </div>
+                </div>
+            </div>
+            <div style="overflow:auto;">
+                <table id="table-edit" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha apertura</th>
+                            <th>Fecha cierre</th>
+                            <th>Monto</th>
+                            <th>Observaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let movimiento of movimientos">
+                            <td>{{ movimiento.id_movimiento }}</td>
+                            <td>{{ movimiento.fecha_apertura }}</td>
+                            <td>{{ movimiento.fecha_cierre }}</td>
+                            <td>${{ movimiento.monto }}</td>
+                            <td>{{ movimiento.observaciones }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <!--.box-typical-->
+
+    </div>
+    <div role="group" aria-label="Basic example" style="text-align: right;">
+        <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline btn-info">Anteriores</button>
+        <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline btn-info">Siguientes</button>
+    </div>
+    <!--.container-fluid-->
+</div>
+<!--.page-content-->
+</div>
+
+<!-- Modal - apertura caja -->
+<div class="modal fade" id="modal_apertura" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Apertura de caja</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-4">
+                <label>Monto : </label>
+                    <input [(ngModel)]="monto_apertura" type="text" class="form-control form-control-line" placeholder="Monto...">
+             </div>
+        </div> 
+        <br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- Modal - cierre caja -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal_cierre" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Cierre de caja</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="col-sm-4">
+            <label>Monto : </label>
+                <input [(ngModel)]="monto_cierre" type="text" class="form-control form-control-line" placeholder="Monto...">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

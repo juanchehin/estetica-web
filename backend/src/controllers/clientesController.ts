@@ -241,8 +241,7 @@ public async activarCliente(req: Request, res: Response) {
 //        Lista Clientes desde cierto valor
 // ==================================================
 public async buscarClientesPaginado(req: Request, res: Response): Promise<void> {
-    console.log("pasa cl pag");
-    
+   
     var desde = req.params.desde || 0;
     desde  = Number(desde);
 
