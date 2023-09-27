@@ -61,14 +61,14 @@
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th data-priority="1">Apellidos</th>
-                                                <th data-priority="3">Nombres</th>
-                                                <th data-priority="3">DNI</th>
-                                                <th data-priority="3">Email</th>
-                                                <th data-priority="3">Telefono</th>
-                                                <th data-priority="6">Direccion</th>
-                                                <th data-priority="6">Fecha nacimiento</th>
-                                                <th data-priority="6">Accion</th>
+                                                <th >Apellidos</th>
+                                                <th >Nombres</th>
+                                                <th >DNI</th>
+                                                <th width="10%">Email</th>
+                                                <th >Telefono</th>
+                                                <th >Direccion</th>
+                                                <th >Fecha nacimiento</th>
+                                                <th >Accion</th>
                                             </tr>
                                             </thead>
                                              <tbody>
@@ -82,8 +82,8 @@
                                                     <td>{{ empleado.direccion }}</td>
                                                     <td>{{ empleado.fecha_nac }}</td>
                                                     <td>
-                                                        <button class="btn btn-inline" type="button">Editar</button>
-                                                        <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >Eliminar</button>
+                                                        <button class="btn btn-primary" type="button">Editar</button>
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_empleado(empleado.id_persona)">Eliminar</button>
                                                     </td>
                                                 </tr>
 
@@ -125,25 +125,8 @@
           ¿Desea confirmar la operacion?
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" aria-label="Close">Cancelar</button>
-            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" >Aceptar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Atencion</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Empleado dado de baja
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
-          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button> -->
+            <button class="btn btn-primary" #divCerrarModalBajaEmpleado aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-danger" (click)="baja_empleado()">Aceptar</button>
         </div>
       </div>
     </div>

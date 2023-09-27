@@ -42,36 +42,54 @@
                     </div>
                 </div>
             </div>
-            <div style="overflow:auto;">
-                <table id="table-edit" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Codigo</th>
-                            <th>Producto</th>
-                            <th>Stock</th>
-                            <th>Precio Compra</th>
-                            <th>Precio Venta</th>
-                            <th>Descripcion</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let producto of productos">
-                            <td>{{ producto.codigo }}</td>
-                            <td>{{ producto.producto }}</td>
-                            <td>{{ producto.stock }}</td>
-                            <td>${{ producto.precio_compra }}</td>
-                            <td>${{ producto.precio_venta }}</td>
-                            <td>{{ producto.descripcion }}</td>
-                            <td>
-                                <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">Editar</button>
-                                <button class="btn btn-danger" type="button" (click)="bajaProducto(producto.id_producto)">Eliminar</button>
-                            </td>
-                        </tr>
 
-                    </tbody>
-                </table>
+            <!-- ========== Tabla =========== -->
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
+
+                        <div class="responsive-table-plugin">
+                            <div class="table-rep-plugin">
+                                <div class="table-responsive" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table table-striped mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Codigo</th>
+                                                <th>Producto</th>
+                                                <th>Stock</th>
+                                                <th>Precio Compra</th>
+                                                <th>Precio Venta</th>
+                                                <th>Descripcion</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let producto of productos">
+                                                <td>{{ producto.codigo }}</td>
+                                                <td>{{ producto.producto }}</td>
+                                                <td>{{ producto.stock }}</td>
+                                                <td>${{ producto.precio_compra }}</td>
+                                                <td>${{ producto.precio_venta }}</td>
+                                                <td>{{ producto.descripcion }}</td>
+                                                <td>
+                                                    <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">Editar</button>
+                                                    <button class="btn btn-danger" type="button" (click)="bajaProducto(producto.id_producto)">Eliminar</button>
+                                                </td>
+                                            </tr>
+                    
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+            <!-- end row -->
+            
         </section>
         <!--.box-typical-->
 

@@ -16,8 +16,10 @@ export class EmpleadosComponent implements OnInit {
 
   totalEmpleados = 0;
   cargando = true;
+  id_empleado_seleccionado: any;
 
   @ViewChild('inputEmpleadoBuscado') inputEmpleadoBuscado!: ElementRef;
+  @ViewChild('divCerrarModalBajaEmpleado') divCerrarModalBajaEmpleado!: ElementRef;
 
   constructor(
     public empleadosService: EmpleadosService,
@@ -60,44 +62,38 @@ buscarEmpleados() {
 
   }
 
-
-
 // ==================================================
 // 
 // ==================================================
 
-bajaEmpleado(IdPersona: string) {
+baja_empleado() {
 
-  // Swal.fire({
-  //   title: '¿Desea eliminar el empleado?',
-  //   text: "Eliminacion de empleado",
-  //   icon: 'warning',
-  //   showCancelButton: true,
-  //   confirmButtonColor: '#3085d6',
-  //   cancelButtonColor: '#d33',
-  //   confirmButtonText: 'Si'
-  // }).then((result: any) => {
-  //   if (result.isConfirmed) {
-  //     this.empleadosService.bajaEmpleado( IdPersona )
-  //     .subscribe({
-  //       next: (resp: any) => {
-  
-  //         if(resp[0][0] != undefined && resp[0].mensaje == 'Ok') {
-  //           this.alertService.alertSuccess('top-end','Empleado dado de baja',false,900);
-  //           this.buscarEmpleados();
-            
-  //         } else {
-  //           this.alertService.alertFail('Ocurrio un error al procesar el pedido',false,1200);
-            
-  //         }
-  //        },
-  //       error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
-  //     });
-  //   }
-  // })
+  this.empleadosService.bajaEmpleado( this.id_empleado_seleccionado )
+  .subscribe({
+    next: (resp: any) => {
+      if((resp[0].Mensaje == 'Ok')) {
 
-  
-  }
+        this.alertService.alertSuccess('Eliminacion','Empleado dado de baja',3000);
+        
+        let el: HTMLElement = this.divCerrarModalBajaEmpleado.nativeElement;
+        el.click();
+
+        this.refrescar();
+        
+      } else {
+        
+        this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+        
+      }
+     },
+    error: (resp: any) => {
+
+      this.alertService.alertFailWithText('Ocurrio un error al procesar el pedido','Error',1200);
+    
+    }
+  });
+
+}
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -129,6 +125,16 @@ refrescar() {
   
   this.desde = 0;
   this.buscarEmpleados();
+
+}
+
+// ==================================================
+// 
+// ==================================================
+
+modal_baja_empleado(id_empleado: string) {
+
+  this.id_empleado_seleccionado = id_empleado;
 
 }
 

@@ -42,32 +42,51 @@
                     </div>
                 </div>
             </div>
-            <div style="overflow:auto;">
-                <table id="table-edit" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Servicio</th>
-                            <th>Precio</th>
-                            <th>Descripcion</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let servicio of servicios">
-                            <td>{{ servicio.id_servicio }}</td>
-                            <td>{{ servicio.servicio }}</td>
-                            <td>$ {{ servicio.precio }}</td>
-                            <td>{{ servicio.descripcion }}</td>
-                            <td>
-                                <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/servicio',servicio.id_servicio]">Editar</button>
-                                <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_servicio(servicio.id_servicio)" >Eliminar</button>
-                            </td>
-                        </tr>
 
-                    </tbody>
-                </table>
+             <!-- ========== Tabla =========== -->
+
+             <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
+
+                        <div class="responsive-table-plugin">
+                            <div class="table-rep-plugin">
+                                <div class="table-responsive" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table table-striped mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Servicio</th>
+                                            <th>Precio</th>
+                                            <th>Descripcion</th>
+                                            <th></th>
+                                        </tr>
+                                        </thead>
+                                         <tbody>
+                                            <tr *ngFor="let servicio of servicios">
+                                                <td>{{ servicio.id_servicio }}</td>
+                                                <td>{{ servicio.servicio }}</td>
+                                                <td>$ {{ servicio.precio }}</td>
+                                                <td>{{ servicio.descripcion }}</td>
+                                                <td>
+                                                    <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/servicio',servicio.id_servicio]">Editar</button>
+                                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_servicio(servicio.id_servicio)" >Eliminar</button>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+            <!-- end row -->
+            
+            <!-- ========== Fin tabla =========== -->
         </section>
         <!--.box-typical-->
 

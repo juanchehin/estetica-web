@@ -40,28 +40,49 @@
                     </div>
                 </div>
             </div>
-            <div style="overflow:auto;">
-                <table id="table-edit" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Fecha apertura</th>
-                            <th>Fecha cierre</th>
-                            <th>Monto</th>
-                            <th>Observaciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let movimiento of movimientos">
-                            <td>{{ movimiento.id_movimiento }}</td>
-                            <td>{{ movimiento.fecha_apertura }}</td>
-                            <td>{{ movimiento.fecha_cierre }}</td>
-                            <td>${{ movimiento.monto }}</td>
-                            <td>{{ movimiento.observaciones }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+           
+            
+               <!-- ========== Tabla =========== -->
+
+               <div class="row">
+                <div class="col-12">
+                    <div class="card-box">
+
+                        <div class="responsive-table-plugin">
+                            <div class="table-rep-plugin">
+                                <div class="table-responsive" data-pattern="priority-columns">
+                                    <table id="tech-companies-1" class="table table-striped mb-0">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Fecha apertura</th>
+                                            <th>Fecha cierre</th>
+                                            <th>Monto</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+                                        </thead>
+                                         <tbody>
+                                            <tr *ngFor="let movimiento of movimientos">
+                                                <td>{{ movimiento.id_movimiento }}</td>
+                                                <td>{{ movimiento.fecha_apertura }}</td>
+                                                <td>{{ movimiento.fecha_cierre }}</td>
+                                                <td>{{ movimiento.monto }}</td>
+                                                <td>{{ movimiento.observaciones }}</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
+            <!-- end row -->
+            
+            <!-- ========== Fin tabla =========== -->
         </section>
         <!--.box-typical-->
 

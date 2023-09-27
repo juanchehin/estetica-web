@@ -181,7 +181,7 @@ public async bajaEmpleado(req: Request, res: Response): Promise<any> {
     const { IdPersona } = req.params;
     const { IdEmpleado } = req.params;
 
-    pool.query(`call bsp_baja_empleado('${IdPersona}','${IdEmpleado}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_baja_empleado('${IdEmpleado}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;
