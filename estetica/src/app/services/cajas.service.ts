@@ -52,25 +52,34 @@ export class CajasService {
 // ==================================================
 //        
 // ==================================================
-apertura( monto: any ) {
+apertura( monto: any, observaciones: any ) {
 
   const IdSucursal = localStorage.getItem('id_sucursal');
 
+  const data = {
+    monto,
+    observaciones
+  }
+
   let url = URL_SERVICIOS + '/caja/apertura/' + IdSucursal;
 
-  return this.http.post( url, monto, this.headers);
+  return this.http.post( url, data, this.headers);
 }
 
 // ==================================================
 //        
 // ==================================================
-cierre( monto: any ) {
+cierre( monto: any, observaciones: any ) {
 
   const IdSucursal = localStorage.getItem('id_sucursal');
 
+  const data = {
+    monto,
+    observaciones
+  }
 
   let url = URL_SERVICIOS + '/caja/cierre/' + IdSucursal;
 
-  return this.http.post( url, monto, this.headers);
+  return this.http.post( url, data, this.headers);
 }
 }

@@ -28,13 +28,13 @@
                     <div class="col-4">
                     </div>
                     <div class="col-sm-4">
-                        <button *ngIf="boton_apertura_cierre == 'A'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_apertura">
+                        <button *ngIf="boton_apertura_cierre != 'A'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_apertura">
                             Apertura/Cierre
                         </button>
-                        <button *ngIf="boton_apertura_cierre == 'C'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_cierre">
+                        <button *ngIf="boton_apertura_cierre != 'C'" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_cierre">
                           Apertura/Cierre
                         </button>
-                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                        <button (click)="refrescar()" class="btn btn-success">
                           <i class="mdi mdi-refresh"></i> 
                       </button>
                     </div>
@@ -83,40 +83,57 @@
           <h1 class="modal-title fs-5" id="exampleModalLabel">Apertura de caja</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <br>
         <div class="modal-body">
           <div class="row">
             <div class="col-sm-4">
                 <label>Monto : </label>
                     <input [(ngModel)]="monto_apertura" type="text" class="form-control form-control-line" placeholder="Monto...">
              </div>
-        </div> 
-        <br>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-sm-12">
+                <textarea class="form-control" [(ngModel)]="observaciones" name="observaciones" placeholder="Descripcion..."></textarea>
+          </div>
         </div>
+        <br>
+        
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Aceptar</button>
+          <button #modalCerrarAperturaCaja type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="apertura()">Aceptar</button>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
+
 <!-- Modal - cierre caja -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modal_cierre" aria-hidden="true">
+<div class="modal fade" id="modal_cierre" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="exampleModalLabel">Cierre de caja</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <br>
         <div class="modal-body">
-          <div class="col-sm-4">
-            <label>Monto : </label>
-                <input [(ngModel)]="monto_cierre" type="text" class="form-control form-control-line" placeholder="Monto...">
+          <div class="row">
+            <div class="col-sm-4">
+              <label>Monto : </label>
+                  <input [(ngModel)]="monto_cierre" type="text" class="form-control form-control-line" placeholder="Monto...">
+            </div>
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-sm-12">
+                  <textarea class="form-control" [(ngModel)]="observaciones" name="observaciones" placeholder="Descripcion..."></textarea>
+              </div>
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-primary">Aceptar</button>
+          <button #modalCerrarCierreCaja type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" (click)="cierre()">Aceptar</button>
         </div>
       </div>
     </div>

@@ -15,8 +15,8 @@ class CajaRoutes {
         // ***  ***
         this.router.get('/listar/:pDesde/:pIdSucursal/:pIdPersona',cajaController.listar_movimientos_caja);
 
-        this.router.post('/apertura/:IdPersona',cajaController.apertura_caja);
-        this.router.post('/cierre/:IdPersona',cajaController.cierre_caja);
+        this.router.post('/apertura/:pIdSucursal',cajaController.apertura_caja);
+        this.router.post('/cierre/:pIdSucursal',cajaController.cierre_caja);
     
    }
 

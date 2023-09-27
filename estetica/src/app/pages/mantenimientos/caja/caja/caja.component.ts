@@ -20,9 +20,12 @@ export class CajaComponent implements OnInit {
   monto_apertura: any;
   monto_cierre: any;
   boton_apertura_cierre = 'A';
-
+  observaciones: any;
 
   @ViewChild('inputCajaBuscado') inputCajaBuscado!: ElementRef;
+  @ViewChild('modalCerrarAperturaCaja') modalCerrarAperturaCaja!: ElementRef;
+  @ViewChild('modalCerrarCierreCaja') modalCerrarCierreCaja!: ElementRef;
+
 
   constructor(
     public cajasService: CajasService,
@@ -47,19 +50,19 @@ listar_movimientos_caja() {
 
     this.cajasService.listarCajasPaginado( this.desde , this.IdSucursal  )
                .subscribe( {
-                next: (resp: any) => { 
+                next: (resp: any) => {
 
                   if(resp[0].length <= 0)
                   { 
                     this.movimientos = [];
-                    this.totalCajas = 0;
+                    this.totalMovimientos = 0;
                     
                     return;
                   }
   
                   if ( resp[3][0].mensaje == 'Ok') {
                     
-                    this.totalCajas = resp[1][0].cantCajasBuscados;
+                    this.totalMovimientos = resp[1][0].total_movimientos;
                     this.movimientos = resp[0];
 
                     if(resp[2][0].estado_caja == 'A')
@@ -131,14 +134,18 @@ apertura() {
     return;
   }
 
-  this.cajasService.apertura( this.monto_apertura )
+  this.cajasService.apertura( this.monto_apertura, this.observaciones )
   .subscribe({
     next: (resp: any) => { 
 
-
-      if(resp[0][0].mensaje == 'Ok') {
-        this.alertService.alertSuccess('top-end','Caja dado de baja',3000);
+      if(resp.mensaje == 'Ok') {
+        this.alertService.alertSuccess('Atencion','Caja aperturada',3000);
         // this.buscarCaja();
+
+        let el: HTMLElement = this.modalCerrarAperturaCaja.nativeElement;
+        el.click();
+
+        this.estado_caja = 'Aperturada';
         
       } else {
         this.alertService.alertFail(resp[0][0].mensaje,false,1200);
@@ -162,13 +169,18 @@ cierre() {
     return;
   }
 
-  this.cajasService.cierre( this.monto_cierre )
+  this.cajasService.cierre( this.monto_cierre, this.observaciones )
   .subscribe({
     next: (resp: any) => { 
+      
 
+      if(resp.mensaje == 'Ok') {
+        this.alertService.alertSuccess('Mensaje','Caja cerrada',3000);
 
-      if(resp[0][0].mensaje == 'Ok') {
-        this.alertService.alertSuccess('top-end','Caja dado de baja',3000);
+        let el: HTMLElement = this.modalCerrarCierreCaja.nativeElement;
+        el.click();
+
+        this.estado_caja = 'Cerrada';
         // this.buscarCaja();
         
       } else {

@@ -14,10 +14,9 @@ public async listar_movimientos_caja(req: Request, res: Response): Promise<void>
     
     var id_sucursal = req.params.pIdSucursal;
 
-
     pool.query(`call bsp_listar_movimientos_caja('${desde}','${id_sucursal}')`, function(err: any, result: any, fields: any){
 
-        if(err){
+        if(result == undefined || err){
             res.status(404).json(err);
             return;
         }
@@ -30,11 +29,13 @@ public async listar_movimientos_caja(req: Request, res: Response): Promise<void>
 // ==================================================
 public async apertura_caja(req: Request, res: Response): Promise<void> {
 
-    var pIdPromocion = req.params.IdPromocion;
+    var id_sucursal = req.params.pIdSucursal;
 
-    pool.query(`call bsp_publicar_promocion('${pIdPromocion}')`, function(err: any, result: any){
+    var monto = req.body.monto;
+    var observaciones = req.body.observaciones;
 
-        if(err || result[0][0].mensaje !== 'Ok'){
+    pool.query(`call bsp_apertura_caja('${monto}','${id_sucursal}','${observaciones}')`, function(err: any, result: any){
+        if(result == undefined || err || result[0].mensaje !== 'Ok'){
             return res.status(200).json({
                 ok: false,
                 mensaje: result[0][0].mensaje
@@ -50,11 +51,14 @@ public async apertura_caja(req: Request, res: Response): Promise<void> {
 // ==================================================
 public async cierre_caja(req: Request, res: Response): Promise<void> {
 
-    var pIdPromocion = req.params.IdPromocion;
+    var id_sucursal = req.params.pIdSucursal;
 
-    pool.query(`call bsp_publicar_promocion('${pIdPromocion}')`, function(err: any, result: any){
+    var monto = req.body.monto;
+    var observaciones = req.body.observaciones;
 
-        if(err || result[0][0].mensaje !== 'Ok'){
+    pool.query(`call bsp_cierre_caja('${monto}','${id_sucursal}','${observaciones}')`, function(err: any, result: any){
+
+        if(err || result[0].mensaje !== 'Ok'){
             return res.status(200).json({
                 ok: false,
                 mensaje: result[0][0].mensaje
