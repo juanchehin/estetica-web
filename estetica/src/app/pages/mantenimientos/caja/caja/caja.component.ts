@@ -146,6 +146,8 @@ apertura() {
         el.click();
 
         this.estado_caja = 'Aperturada';
+
+        this.refrescar();
         
       } else {
         this.alertService.alertFail(resp[0][0].mensaje,false,1200);
@@ -181,7 +183,7 @@ cierre() {
         el.click();
 
         this.estado_caja = 'Cerrada';
-        // this.buscarCaja();
+        this.refrescar();
         
       } else {
         this.alertService.alertFail(resp[0][0].mensaje,false,1200);

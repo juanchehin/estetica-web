@@ -59,11 +59,13 @@ public async editarEmpleado(req: Request, res: Response) {
     var Telefono = req.body[2];
     var DNI = req.body[3];
     var Email = req.body[4];
-    var Observaciones = req.body[5];
+    var fecha_nac = req.body[5];
+    var direccion = req.body[6];
+    var Observaciones = req.body[7];
 
-    var pIdEmpleado = req.body[6];
+    // var pIdEmpleado = req.body[8];
 
-    pool.query(`call bsp_editar_empleado('${IdPersona}','${pIdEmpleado}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${Observaciones}')`,function(err: any, result: any, fields: any){
+    pool.query(`call bsp_editar_empleado('${IdPersona}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${fecha_nac}','${direccion}','${Observaciones}')`,function(err: any, result: any, fields: any){
         
                 if(err){
                     res.status(404).json(err);
@@ -165,7 +167,7 @@ public async cargarDatosFormEditarEmpleado(req: Request, res: Response): Promise
     var pIdEmpleado = req.params.pIdEmpleado;
     var IdPersona = req.params.IdPersona;
 
-    pool.query(`call bsp_dame_datos_empleado('${IdPersona}','${pIdEmpleado}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_dame_datos_empleado('${pIdEmpleado}')`, function(err: any, result: any, fields: any){
        if(err){
            console.log("error", err);
            return;
@@ -199,32 +201,21 @@ public async bajaEmpleado(req: Request, res: Response): Promise<any> {
 
 public async actualizaEmpleado(req: Request, res: Response) {
 
+    console.log('req.body::: ', req.body);
     var IdPersona = req.body.IdPersona;
-    var IdTipoDocumento = req.body.IdTipoDocumento;
     var Apellidos = req.body.Apellidos;
     var Nombres = req.body.Nombres;
     var Documento = req.body.Documento;
-    var Password = req.body.Password;
     var Telefono = req.body.Telefono;
-    var Sexo = req.body.Sexo;
     var Observaciones = req.body.Observaciones;
     var FechaNac = req.body.FechaNac;
     var Correo = req.body.Correo;
-    var Usuario = req.body.Usuario;
-    var Calle = req.body.Calle;
-    var Piso = req.body.Piso;
-    var Departamento = req.body.Departamento;
-    var Ciudad = req.body.Ciudad;
-    var Pais = req.body.Pais;
-    var Numero = req.body.Numero;    // 20
-    var Objetivo = req.body.Objetivo;
-    var Ocupacion = req.body.Ocupacion;
-    var Horario = req.body.Horario;
+    var Direccion = req.body.Direccion;
 
-    pool.query(`call bsp_editar_empleado('${IdPersona}','${IdTipoDocumento}','${Apellidos}','${Nombres}',
-    '${Documento}','${Password}','${Telefono}','${Sexo}','${Observaciones}','${FechaNac}',
-    '${Correo}','${Usuario}','${Calle}',${Piso},'${Departamento}','${Ciudad}','${Pais}',${Numero},
-    '${Objetivo}','${Ocupacion}','${Horario}')`, function(err: any, result: any, fields: any){
+
+    pool.query(`call bsp_editar_empleado('${IdPersona}','${Apellidos}','${Nombres}',
+    '${Documento}','${Telefono}','${Correo}','${FechaNac}',
+    '${Direccion}','${Observaciones}')`, function(err: any, result: any, fields: any){
         if(err){
             console.log("error : ", err);
             res.status(404).json({ text: "Ocurrio un problema" });

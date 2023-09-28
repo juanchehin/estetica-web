@@ -54,7 +54,7 @@ editarCliente() {
                   next: (resp: any) => {
                   
                     if ( (resp != null) && (resp[0][0].mensaje == 'Ok') ) {
-                      this.alertService.alertSuccess('top-end','Cliente actualizado',2000);
+                      this.alertService.alertSuccess('Mensaje','Cliente actualizado',2000);
                       this.router.navigate(['/dashboard/clientes']);
                     } else {
                       this.alertService.alertFailWithText('Ocurrio un error. ','Contactese con el administrador',2000);

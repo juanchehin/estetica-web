@@ -82,7 +82,7 @@
                                                     <td>{{ empleado.direccion }}</td>
                                                     <td>{{ empleado.fecha_nac }}</td>
                                                     <td>
-                                                        <button class="btn btn-primary" type="button">Editar</button>
+                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/empleados/editar',empleado.id_persona]">Editar</button>
                                                         <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_empleado(empleado.id_persona)">Eliminar</button>
                                                     </td>
                                                 </tr>

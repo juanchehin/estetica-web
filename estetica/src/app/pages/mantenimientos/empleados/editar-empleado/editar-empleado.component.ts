@@ -16,7 +16,9 @@ export class EditarEmpleadoComponent implements OnInit {
   Telefono: any;
   DNI: any;        
   Email: any;
-  Observaciones: any;   
+  Observaciones: any;
+  direccion: any;   
+  fecha_nac: any;
 
   constructor(
     private router: Router, 
@@ -43,6 +45,8 @@ editarEmpleado() {
         this.Telefono,
         this.DNI,        
         this.Email,
+        this.fecha_nac, 
+        this.direccion,
         this.Observaciones,
         this.IdPersona
       );
@@ -50,16 +54,17 @@ editarEmpleado() {
       this.empleadosService.editarEmpleado( empleadoEditado )
                 .subscribe( {
                   next: (resp: any) => {
+                    console.log('resp::: ', resp);
                   
                     if ( (resp != null) && (resp[0][0].mensaje == 'Ok') ) {
-                      this.alertService.alertSuccess('top-end','Empleado actualizado',2000);
+                      this.alertService.alertSuccess('Mensaje','Empleado actualizado',2000);
                       this.router.navigate(['/dashboard/empleados']);
                     } else {
-                      // this.alertService.alertFailWithText('Ocurrio un error. ','Contactese con el administrador',false,2000);
+                      this.alertService.alertFail('Ocurrio un error','Contactese con el administrador',2000)
                     }
                     return;
                    },
-                  error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }
+                  error: () => { this.alertService.alertFail('Ocurrio un error','Contactese con el administrador',2000) }
                 });
 
             };
@@ -80,6 +85,7 @@ cargarDatosFormEditarEmpleado() {
                 this.DNI = resp[0][0].dni;
                 this.Email = resp[0][0].email;
                 this.Observaciones = resp[0][0].observaciones;
+                this.direccion = resp[0][0].direccion;
              
               },
               error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }

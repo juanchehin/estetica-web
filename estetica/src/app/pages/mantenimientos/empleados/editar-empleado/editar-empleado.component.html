@@ -1,3 +1,13 @@
+<div id="wrapper">
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+
+    <div class="content-page">
+        <div class="content">
+
 <div class="container">
     <div class="row">
         <div class="col-sm-6 form-group">
@@ -14,7 +24,13 @@
             <label>DNI : </label><input [(ngModel)]="DNI" name="DNI" required type="number" min="1" maxLength="31" step="1" placeholder="DNI" class="form-control">
         </div>
         <div class="col-sm-6 form-group">
+            <label>Fecha nacimiento : </label><input [(ngModel)]="fecha_nac" name="fecha_nac" type="date" class="form-control">
+        </div>
+        <div class="col-sm-6 form-group">
             <label>Email : </label><input [(ngModel)]="Email" name="Email" type="email" min="1" maxLength="31" step="1" placeholder="Email" class="form-control">
+        </div>
+        <div class="col-sm-6 form-group">
+            <label>Direccion : </label><input [(ngModel)]="direccion" name="direccion" type="text" placeholder="direccion" class="form-control">
         </div>
     </div>
     <div class="row">
@@ -26,4 +42,7 @@
     <br>
     <button type="submit" class="btn btn-info btn-lg btn-block text-uppercase" (click)="editarEmpleado()">Cargar Empleado</button>
     <br>
+</div>
+</div>
+</div>
 </div>

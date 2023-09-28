@@ -24,6 +24,22 @@ public async dameDatosCliente(req: Request, res: Response): Promise<any> {
 
 }
 
+ // ==================================================
+//        Lista 
+// ==================================================
+
+public async cargarDatosFormEditarCliente(req: Request, res: Response): Promise<void> {
+    var pIdCliente = req.params.pIdCliente;
+    var IdPersona = req.params.IdPersona;
+
+    pool.query(`call bsp_dame_datos_cliente('${IdPersona}','${pIdCliente}')`, function(err: any, result: any, fields: any){
+       if(err){
+           console.log("error", err);
+           return;
+       }
+       res.json(result);
+   })
+}
 // ==================================================
 //        Inserta un cliente enviando un correo de confirmacion
 // ==================================================
@@ -41,8 +57,7 @@ public async altaCliente(req: Request, res: Response) {
     var Observaciones = req.body[7];
     
     pool.query(`call bsp_alta_cliente('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Direccion}','${FechaNac}','${Observaciones}')`, function(err: any, result: any, fields: any){
-        console.log('result::: ', result);
-        console.log('err::: ', err);
+
         if(err){
             res.status(404).json(err);
             return;
@@ -65,11 +80,13 @@ public async editarCliente(req: Request, res: Response) {
     var Telefono = req.body[2];
     var DNI = req.body[3];
     var Email = req.body[4];
-    var Observaciones = req.body[5];
+    var direccion = req.body[5];
 
-    var pIdCliente = req.body[6];
+    var Observaciones = req.body[6];
 
-    pool.query(`call bsp_editar_cliente('${IdPersona}','${pIdCliente}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${Observaciones}')`,function(err: any, result: any, fields: any){
+    var pIdCliente = req.body[7];
+
+    pool.query(`call bsp_editar_cliente('${pIdCliente}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${direccion}','${Observaciones}')`,function(err: any, result: any, fields: any){
         
                 if(err){
                     res.status(404).json(err);
@@ -85,137 +102,6 @@ public async editarCliente(req: Request, res: Response) {
     
 }
 
-// ==================================================
-//   Edita el cliente desde la cuenta del cliente por el cliente
-// ==================================================
-public async editarClienteFront(req: Request, res: Response) {
-
-    const { IdPersona } = req.params;
-
-    var Apellidos = req.body[0];
-    var Nombres = req.body[1];
-    var Telefono = req.body[2];
-    var DNI = req.body[3];
-    var Email = req.body[4];
-
-    pool.query(`call bsp_editar_cliente_front('${IdPersona}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}')`,function(err: any, result: any){
-        
-                if(err){
-                    logger.error("Error en editarClienteFront - clientesController " + err);
-
-                    res.status(404).json(err);
-                    return;
-                }
-                
-                if(result[0][0].Mensaje !== 'Ok'){
-                    logger.error("Error en editarClienteFront - clientesController " + result );
-
-                    return res.json( result );
-                }
-
-                return res.json({ Mensaje: 'Ok' });
-            })          
-    
-}
-// ==================================================
-//        Inserta una direccion
-// ==================================================
-public async altaDireccionCliente(req: Request, res: Response) {
-
-    var IdCliente = req.params.IdPersona;
-
-    var IdLocalidad = req.body[0];
-    var Calle = req.body[1];
-    var Numero = req.body[2];
-    var Piso = req.body[3];
-    var Departamento = req.body[4];
-    var Referencia = req.body[5];
-    var Telefono = req.body[6];
-    
-    pool.query(`call bsp_alta_direccion_cliente('${IdLocalidad}','${IdCliente}','${Calle}','${Numero}','${Piso}','${Departamento}','${Referencia}','${Telefono}')`, 
-    function(err: any, result: any, fields: any){
-        
-                if(err){
-                    logger.error("Error en altaDireccionCliente - clientesController " + result );
-
-                    res.status(404).json(err);
-                    return;
-                }
-                
-                if(result[0][0].Mensaje !== 'Ok'){
-                    return res.json({
-                        ok: false,
-                        Mensaje: result[0][0].Mensaje
-                    });
-                }
-                                
-                return res.json({ Mensaje: 'Ok' });
-            })          
-    
-}
-
-// ==================================================
-//        Inserta
-// ==================================================
-public async altaProductoCarrito(req: Request, res: Response) {
-
-    var IdProducto = req.body[0];
-    var IdCliente = req.body[1];
-    var Cantidad = req.body[2];
-    var IdSaborSeleccionado = req.body[3]
-    
-    pool.query(`call bsp_alta_producto_carrito('${IdCliente}','${IdProducto}','${IdSaborSeleccionado}','${Cantidad}')`,function(err: any, result: any, fields: any){
-        
-                if(err){
-                    logger.error("Error en altaProductoCarrito - clientesController " + err );
-
-                    res.status(404).json(err);
-                    return;
-                }
-                
-                if(result[0][0].Mensaje !== 'Ok'){
-                    return res.json({
-                        ok: false,
-                        Mensaje: result[0][0].Mensaje
-                    });
-                }
-                                
-                return res.json({ Mensaje: 'Ok' });
-            })          
-    
-}
-
-// ==================================================
-//        Inserta
-// ==================================================
-public async altaPromocionCarrito(req: Request, res: Response) {
-
-    var IdPromocion = req.body[0];
-    var IdCliente = req.body[1];
-    var IdSabor1 = req.body[2];
-    var IdSabor2 = req.body[3];
-    var Cantidad = req.body[4];
-    
-    pool.query(`call bsp_alta_promocion_carrito('${IdCliente}','${IdPromocion}','${IdSabor1}','${IdSabor2}','${Cantidad}')`,function(err: any, result: any, fields: any){
-        
-                if(err){
-                    logger.error("Error en altaPromocionCarrito - clientesController " + err );
-
-                    res.status(404).json(err);
-                    return;
-                }
-                
-                if(result[0][0].Mensaje !== 'Ok'){
-                    return res.json({
-                        ok: false,
-                        Mensaje: result[0][0].Mensaje
-                    });
-                }
-                                
-                return res.json({ Mensaje: 'Ok' });
-            })          
-    
-}
 // ==================================================
 //   Activa un cliente (caso de ya existencia en la BD)
 // ==================================================
@@ -264,112 +150,6 @@ public async buscarClientesPaginado(req: Request, res: Response): Promise<void> 
 
  }
 
- // ==================================================
-//        Lista
-// ==================================================
-
-public async listarCarritoCliente(req: Request, res: Response): Promise<void> {
-    
-    var IdPersona = req.params.IdPersona;
-
-    pool.query(`call bsp_listar_items_carrito_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
-       if(err){
-           res.status(404).json(result);
-           return;
-       }
-       res.status(200).json(result);
-   })
-}
-
- // ==================================================
-//        Lista
-// ==================================================
-
-public async listarComprasCliente(req: Request, res: Response): Promise<void> {
-    
-    var IdPersona = req.params.IdPersona;
-
-    pool.query(`call bsp_listar_compras_online_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
-       if(err){
-           res.status(404).json(result);
-           return;
-       }
-       res.status(200).json(result);
-   })
-}
- // ==================================================
-//        Lista Clientes desde cierto valor
-// ==================================================
-
-public async dameDatosClienteEnvio(req: Request, res: Response): Promise<void> {
-    var IdPersona = req.params.IdPersona;
-
-    pool.query(`call bsp_dame_direccion_cliente_costo('${IdPersona}')`, function(err: any, result: any, fields: any){
-       if(err){
-           console.log("error", err);
-           return;
-       }
-       res.json(result);
-   })
-}
-
-
- // ==================================================
-//        Lista 
-// ==================================================
-
-public async dameDirecionesCliente(req: Request, res: Response): Promise<void> {
-    var IdPersona = req.params.IdPersona;
-
-    pool.query(`call bsp_dame_direcciones_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
-       if(err){
-           console.log("error", err);
-           return;
-       }
-       res.json(result);
-   })
-}
-
- // ==================================================
-//        Lista 
-// ==================================================
-
-public async cargarDatosFormEditarCliente(req: Request, res: Response): Promise<void> {
-    var pIdCliente = req.params.pIdCliente;
-    var IdPersona = req.params.IdPersona;
-
-    pool.query(`call bsp_dame_datos_cliente('${IdPersona}','${pIdCliente}')`, function(err: any, result: any, fields: any){
-       if(err){
-           console.log("error", err);
-           return;
-       }
-       res.json(result);
-   })
-}
-// ==================================================
-//   Elimina un cliente de la BD
-// ==================================================
-
-public async eliminarCliente(req: Request, res: Response) {
-    var IdPersona = req.params.IdPersona;
-
-    pool.query(`call bsp_eliminar_cliente('${IdPersona}')`, function(err: any, result: any, fields: any){
-        if(err){
-            console.log("error", err);
-            return;
-        }
-
-        if(result[0][0].Mensaje !== 'Ok'){
-            return res.json({
-                ok: false,
-                mensaje: result.Mensaje
-            });
-        }
-    
-        return res.json({ mensaje: 'Ok' });
-    })
-
-}
 // ==================================================
 //        Obtiene un cliente de la BD
 // ==================================================
@@ -439,64 +219,6 @@ public async actualizaCliente(req: Request, res: Response) {
 
 }
 
-// ==================================================
-//       
-// ==================================================
-public async bajaProductoCarrito(req: Request, res: Response) {
-
-    var IdProducto = req.params.IdProducto;
-    var IdCliente = req.params.IdPersona;
-
-    pool.query(`call bsp_baja_producto_carrito('${IdCliente}','${IdProducto}')`, function(err: any, result: any){
-
-        if(err){
-            logger.error("Error en bajaProductoCarrito - clientesController " + err );
-
-            res.status(404).json(result);
-            return;
-        }
-    
-        if(result[1][0].Mensaje !== 'Ok'){
-            return res.json({
-                ok: false,
-                Mensaje: result[0][0].Mensaje
-            });
-        }
-
-        res.json(result);
-    })
-
-}
-// ==================================================
-//       
-// ==================================================
-public async bajaPromocionCarrito(req: Request, res: Response) {
-
-    var IdPromocion = req.params.IdPromocion;
-    var IdCliente = req.params.IdPersona;    
-    var IdSabor1 = req.params.IdSabor1;
-    var IdSabor2 = req.params.IdSabor2;
-
-    pool.query(`call bsp_baja_promocion_carrito('${IdCliente}','${IdPromocion}','${IdSabor1}','${IdSabor2}')`, function(err: any, result: any){
-
-        if(err){
-            logger.error("Error en bajaPromocionCarrito - clientesController " + err );
-
-            res.status(404).json(result);
-            return;
-        }
-    
-        if(result[1][0].Mensaje !== 'Ok'){
-            return res.json({
-                ok: false,
-                Mensaje: result[0][0].Mensaje
-            });
-        }
-
-        res.json(result);
-    })
-
-}
 // ==================================================
 //        
 // ==================================================
