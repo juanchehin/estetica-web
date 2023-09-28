@@ -3,8 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { EditarServicioComponent } from './servicios/editar-servicio.component';
 import { ServicioComponent } from './servicios/servicio.component';
-import { LoginGuardGuard } from 'src/app/guards/login-guard.guard';
-import { VerificaTokenGuard } from 'src/app/guards/verifica-token.guard';
 
 const routes: Routes = [
    // Servicios

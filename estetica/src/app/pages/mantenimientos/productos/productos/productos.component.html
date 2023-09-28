@@ -74,7 +74,7 @@
                                                 <td>{{ producto.descripcion }}</td>
                                                 <td>
                                                     <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">Editar</button>
-                                                    <button class="btn btn-danger" type="button" (click)="bajaProducto(producto.id_producto)">Eliminar</button>
+                                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_producto(producto.id_producto)">Eliminar</button>
                                                 </td>
                                             </tr>
                     
@@ -102,3 +102,23 @@
 </div>
 <!--.page-content-->
 </div>
+
+
+<!--  -->
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" #divCerrarModalBajaProducto aria-label="Close" data-bs-dismiss="modal">Cancelar</button>
+            <button class="btn btn-danger" (click)="baja_producto()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>

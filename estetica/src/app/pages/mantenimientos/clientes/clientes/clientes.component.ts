@@ -135,7 +135,6 @@ refrescar() {
 // ==================================================
 
 modal_baja_cliente(id_cliente: string) {
-  console.log('id_cliente::: ', id_cliente);
 
   this.id_cliente_seleccionado = id_cliente;
 

@@ -63,9 +63,9 @@ public async editarEmpleado(req: Request, res: Response) {
     var direccion = req.body[6];
     var Observaciones = req.body[7];
 
-    // var pIdEmpleado = req.body[8];
+    var pIdEmpleado = req.body[8];
 
-    pool.query(`call bsp_editar_empleado('${IdPersona}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${fecha_nac}','${direccion}','${Observaciones}')`,function(err: any, result: any, fields: any){
+    pool.query(`call bsp_editar_empleado('${pIdEmpleado}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${fecha_nac}','${direccion}','${Observaciones}')`,function(err: any, result: any, fields: any){
         
                 if(err){
                     res.status(404).json(err);
@@ -119,7 +119,6 @@ public async editarEmpleadoFront(req: Request, res: Response) {
 //        Lista Empleados desde cierto valor
 // ==================================================
 public async buscarEmpleadosPaginado(req: Request, res: Response): Promise<void> {
-    console.log("pasa emp");
     
     var desde = req.params.desde || 0;
     desde  = Number(desde);

@@ -109,14 +109,8 @@ bajaProducto( IdProductoSabor: any ) {
 
   let url = URL_SERVICIOS + '/productos/baja/' + IdProductoSabor + '/' + this.IdPersona;
 
-  return this.http.get(
-    url,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
+  return this.http.get( url, this.headers ); 
+
 }
 // ==================================================
 //  Carga los productos en el autocomplete, que coincidan con el parametroBusqueda

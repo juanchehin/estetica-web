@@ -35,26 +35,6 @@ class ProductosRoutes {
         this.router.get('/buscar/:pDesde/:pParametroBusqueda/:IdSucursal/:IdPersona',  [mdAutenticacion.verificaToken],productosController.buscarProductoPaginado); 
         this.router.get('/nuevo/datos-formulario',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormNuevoProducto);
         this.router.get('/editar/datos-formulario/:IdProducto/:IdPersona',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormEditarProducto);
-
-        // Unidades
-        this.router.get('/unidades/listar/:desde',productosController.listarUnidadesPaginado);
-        this.router.get('/unidades/listar/',productosController.listarTodasUnidades);
-        this.router.post('/unidades/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.altaUnidad); 
-        this.router.post('/unidades/editar/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.editarUnidad);
-        this.router.get('/unidades/datos-formulario/:IdUnidad/:IdPersona',  [mdAutenticacion.verificaToken], productosController.cargarDatosFormEditarUnidad);
-        this.router.get('/unidades/baja/:IdUnidad/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.bajaUnidad); 
-
-        // Promociones
-        this.router.get('/promocion/detalle/:pIdPromocion/:pIdSabor1/:pIdSabor2',productosController.dameDatosPromocion);
-        this.router.get('/promociones/listar/:pDesde',productosController.listarPromocionesPaginado);
-        this.router.post('/promocion/alta/:IdPersona',  [mdAutenticacion.verificaToken],productosController.altaPromocion);
-        this.router.get('/listar/promociones/:desde/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.listarPromociones);
-        this.router.get('/promocion/publicar/:IdPromocion/:IdPersona',  [mdAutenticacion.verificaToken],productosController.publicarPromocion); 
-        this.router.get('/promocion/baja/:pIdPromocion/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.bajaPromocion); 
-
-        // Transferencias
-        this.router.post('/transferencias/alta/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario],productosController.altaTransferencia); 
-        this.router.get('/transferencias/listar/:pDesde/:pFecha/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], productosController.listarTransferenciasPaginado);
     }
 
 }

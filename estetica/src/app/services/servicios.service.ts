@@ -90,19 +90,12 @@ publicarProducto( IdProducto: any ) {
   // ==================================================
 //        
 // ==================================================
-editarProducto( servicioEditado: any ) {
+editarServicio( servicioEditado: any ) {
 
   let url = URL_SERVICIOS + '/servicios/editar/' + this.IdPersona;
 
-  return this.http.post(
-    url,
-    servicioEditado,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
+  return this.http.post( url, servicioEditado, this.headers);
+
 }
   // ==================================================
 //        
@@ -122,15 +115,7 @@ cargarServicios( parametroBusqueda: string, IdSucursal: any){
     return this.http.get( url, this.headers ); 
     
 }
-// ==================================================
-//
-// ==================================================
-cargarServiciosTranferencia( parametroBusqueda: string, IdSucursalOrigen: any){
 
-  let url = URL_SERVICIOS + '/servicios/listar/busqueda/autocomplete/transferencia/' + parametroBusqueda + '/' + IdSucursalOrigen;
-  return this.http.get( url, this.headers ); 
-  
-}
 // ==================================================
 // Cargo las marcas,categorias,unidades,sucursal principal
 // ==================================================
@@ -143,9 +128,9 @@ cargarDatosFormNuevoProducto( ){
 // ==================================================
 // Cargo las marcas,categorias,unidades,sucursal principal y el servicio
 // ==================================================
-cargarDatosFormEditarProducto(IdProducto: any ){
+cargarDatosFormEditarServicio(id_servicio: any ){
   
-  let url = URL_SERVICIOS + '/servicios/editar/datos-formulario/' + IdProducto + '/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/servicios/editar/datos-formulario/' + id_servicio + '/' + this.IdPersona;
   return this.http.get( url , this.headers );
 
 }
@@ -167,113 +152,4 @@ buscarServicios( servicio: string , pDesde: any ): any {
 
 }
 
-// ==================================================
-//  ******* Promociones *******        
-// ==================================================
-// ==================================================
-//
-// ==================================================
-listarPromocionesPaginado(desde: any){
-
-  let url = URL_SERVICIOS + '/servicios/promociones/listar/' + desde;
-
-  return this.http.get( url );
-}
-
-  // ==================================================
-//        
-// ==================================================
-altaPromocion( promocion: any ) {
-
-  let url = URL_SERVICIOS + '/servicios/promocion/alta/'+ this.IdPersona;
-
-  return this.http.post( url, promocion, this.headers);
-}
-
-
-  // ==================================================
-//        
-// ==================================================
-editarPromocion( promocion: any ) {
-
-  let url = URL_SERVICIOS + '/servicios/promocion/update';
-  // url += '?IdRol=' + this.IdRol;
-
-  return this.http.put(
-    url,
-    promocion
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
-);
-}
-
-  // ==================================================
-//        
-// ==================================================
-publicarPromocion( IdPromocion: any ) {
-
-  let url = URL_SERVICIOS + '/servicios/promocion/publicar/' + IdPromocion + '/' + this.IdPersona;
-
-  return this.http.get(url,this.headers);
-}
-
-  // ==================================================
-//        
-// ==================================================
-bajaPromocion( IdPromocion: any ) {
-
-  let url = URL_SERVICIOS + '/servicios/promocion/baja/' + IdPromocion + '/' + this.IdPersona;
-
-  return this.http.get(url,this.headers);
-
-}
-// ==================================================
-//  ******* Transferencias *******        
-// ==================================================
-
-// ==================================================
-//
-// ==================================================
-listarTransferenciasPaginado(desde: any,fecha: any){
-
-  let url = URL_SERVICIOS + '/servicios/transferencias/listar/' + desde + '/' + fecha + '/' + this.IdPersona;
-
-  return this.http.get( url, this.headers );
-}  
-  // ==================================================
-//        
-// ==================================================
-altaTransferencia( transferencia: any ) {
-
-  let url = URL_SERVICIOS + '/servicios/transferencias/alta/' + this.IdPersona;
-
-  return this.http.post(
-    url,
-    transferencia,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
-}
-  // ==================================================
-//        
-// ==================================================
-bajaTransferencia( IdTransferencia: any ) {
-
-  let url = URL_SERVICIOS + '/servicios/transferencias/baja/' + IdTransferencia + '/' + this.IdPersona;
-
-  return this.http.get(
-    url,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
-}
 }

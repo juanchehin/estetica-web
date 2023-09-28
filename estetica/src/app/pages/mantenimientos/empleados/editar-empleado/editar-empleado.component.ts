@@ -54,7 +54,6 @@ editarEmpleado() {
       this.empleadosService.editarEmpleado( empleadoEditado )
                 .subscribe( {
                   next: (resp: any) => {
-                    console.log('resp::: ', resp);
                   
                     if ( (resp != null) && (resp[0][0].mensaje == 'Ok') ) {
                       this.alertService.alertSuccess('Mensaje','Empleado actualizado',2000);

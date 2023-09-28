@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { ServicioComponent } from './servicios/servicio.component';
 import { ServiciosComponent } from './servicios/servicios.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditarServicioComponent } from './servicios/editar-servicio.component';
 // import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     ServicioComponent,
-    ServiciosComponent
+    ServiciosComponent,
+    EditarServicioComponent
   ]
 })
 export class ServiciosModule { }

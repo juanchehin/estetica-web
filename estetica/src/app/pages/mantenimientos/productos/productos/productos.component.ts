@@ -18,6 +18,7 @@ export class ProductosComponent implements OnInit {
   productos!: any;
   sucursales: any;
   totalProductos = 0;
+  id_producto_seleccionado: any;
 
   @ViewChild('inputProductoBuscado') inputProductoBuscado!: ElementRef;
 
@@ -127,36 +128,43 @@ refrescar() {
 // 
 // ==================================================
 
-bajaProducto(IdProductoSabor: string) {
+baja_producto() {
 
-  // Swal.fire({
-  //   title: '¿Desea eliminar el producto?',
-  //   text: "Eliminacion de proveedor",
-  //   icon: 'warning',
-  //   showCancelButton: true,
-  //   confirmButtonColor: '#3085d6',
-  //   cancelButtonColor: '#d33',
-  //   confirmButtonText: 'Si'
-  // }).then((result: any) => {
-  //   if (result.isConfirmed) {
-  //     this.productosService.bajaProducto( IdProductoSabor )
-  //     .subscribe({
-  //       next: (resp: any) => { 
+  this.productosService.bajaProducto( this.id_producto_seleccionado )
+  .subscribe({
+    next: (resp: any) => {
 
+      if((resp[0].Mensaje == 'Ok')) {
+
+        this.alertaService.alertSuccess('Eliminacion','Producto dada de baja',3000);
+        
+        // let el: HTMLElement = this.divCerrarModalBajaTransaccion.nativeElement;
+        // el.click();
+
+        this.refrescar();
+        
+      } else {
+        
+        this.alertaService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+        
+      }
+     },
+    error: (resp: any) => {  
+
+      this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
+    
+    }
+  });
   
-  //         if(resp[0][0].mensaje == 'Ok') {
-  //           this.alertaService.alertSuccess('top-end','Producto dado de baja',false,900);
-  //           this.buscarProducto();
-            
-  //         } else {
-  //           this.alertaService.alertFail(resp[0][0].mensaje,false,1200);
-            
-  //         }
-  //        },
-  //       error: (resp: any) => {  this.alertaService.alertFail(resp[0][0].mensaje,false,1200); }
-  //     });
-  //   }
-  // })
-}
+  }
 
+// ==================================================
+// 
+// ==================================================
+
+modal_baja_producto(id_producto: string) {
+
+  this.id_producto_seleccionado = id_producto;
+
+}
 }
