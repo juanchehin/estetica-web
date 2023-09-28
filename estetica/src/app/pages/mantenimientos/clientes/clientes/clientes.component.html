@@ -81,7 +81,7 @@
                                                     <td>{{ cliente.fecha_nac }}</td>
                                                     <td>
                                                         <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/clientes/editar',cliente.id_persona]">Editar</button>
-                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" >Eliminar</button>
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_cliente(cliente.id_persona)">Eliminar</button>
                                                     </td>
                                                 </tr>
 
@@ -124,7 +124,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" aria-label="Close">Cancelar</button>
-            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" >Aceptar</button>
+            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" (click)="baja_cliente()">Aceptar</button>
         </div>
       </div>
     </div>
@@ -140,7 +140,7 @@
           Cliente dado de baja
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close" >Aceptar</button>
           <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button> -->
         </div>
       </div>

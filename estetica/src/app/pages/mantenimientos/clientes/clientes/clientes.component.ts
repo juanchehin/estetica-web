@@ -16,6 +16,7 @@ export class ClientesComponent implements OnInit {
 
   totalClientes = 0;
   cargando = true;
+  id_cliente_seleccionado: any;
 
   @ViewChild('inputClienteBuscado') inputClienteBuscado!: ElementRef;
 
@@ -61,43 +62,40 @@ buscarClientes() {
   }
 
 
-
 // ==================================================
 // 
 // ==================================================
 
-bajaCliente(IdPersona: string) {
+baja_cliente() {
 
-  // Swal.fire({
-  //   title: '¿Desea eliminar el cliente?',
-  //   text: "Eliminacion de cliente",
-  //   icon: 'warning',
-  //   showCancelButton: true,
-  //   confirmButtonColor: '#3085d6',
-  //   cancelButtonColor: '#d33',
-  //   confirmButtonText: 'Si'
-  // }).then((result: any) => {
-  //   if (result.isConfirmed) {
-  //     this.clientesService.bajaCliente( IdPersona )
-  //     .subscribe({
-  //       next: (resp: any) => {
-  
-  //         if(resp[0][0] != undefined && resp[0].mensaje == 'Ok') {
-  //           this.alertService.alertSuccess('top-end','Cliente dado de baja',false,900);
-  //           this.buscarClientes();
-            
-  //         } else {
-  //           this.alertService.alertFail('Ocurrio un error al procesar el pedido',false,1200);
-            
-  //         }
-  //        },
-  //       error: (resp: any) => {  this.alertService.alertFail(resp[0][0].mensaje,false,1200); }
-  //     });
-  //   }
-  // })
+  this.clientesService.bajaCliente( this.id_cliente_seleccionado )
+  .subscribe({
+    next: (resp: any) => {
 
+      if((resp[0].Mensaje == 'Ok')) {
+
+        this.alertService.alertSuccess('Eliminacion','Cliente dada de baja',3000);
+        
+        // let el: HTMLElement = this.divCerrarModalBajaTransaccion.nativeElement;
+        // el.click();
+
+        this.refrescar();
+        
+      } else {
+        
+        this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+        
+      }
+     },
+    error: (resp: any) => {  
+
+      this.alertService.alertFail(resp[0][0].mensaje,false,1200);
+    
+    }
+  });
   
   }
+
 // ==================================================
 //        Cambio de valor
 // ==================================================
@@ -132,4 +130,14 @@ refrescar() {
 
 }
 
+// ==================================================
+// 
+// ==================================================
+
+modal_baja_cliente(id_cliente: string) {
+  console.log('id_cliente::: ', id_cliente);
+
+  this.id_cliente_seleccionado = id_cliente;
+
+}
 }
