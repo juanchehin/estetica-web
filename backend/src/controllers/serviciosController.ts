@@ -97,8 +97,8 @@ public async buscarServicioPaginado(req: Request, res: Response): Promise<void> 
 // ==================================================
 public async buscarServicioAutoComplete(req: Request, res: Response): Promise<void> {
 
-    var pParametroBusqueda = req.params.pParametroBusqueda || '';
-    var pIdSucursal = req.params.IdSucursal;
+    var pParametroBusqueda = req.params.pServicioBuscado || '';
+    var pIdSucursal = req.params.pIdSucursal;
     var pIdUsuario = req.params.IdPersona;
 
     if(pParametroBusqueda == null || pParametroBusqueda == 'null')
