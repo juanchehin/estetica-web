@@ -17,7 +17,7 @@ class EmpleadosRoutes {
         this.router.post('/alta/:IdPersona', empleadosController.altaEmpleado);
         this.router.get('/baja/:IdEmpleado/:IdPersona', empleadosController.bajaEmpleado);
         this.router.get('/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], empleadosController.dameDatosEmpleado);
-        this.router.get('/listar/busqueda/:empleadoBuscado', empleadosController.buscarEmpleado);
+        this.router.get('/listar/busqueda/:empleadoBuscado/:pIdSucursal', empleadosController.buscarEmpleado);
 
         this.router.get('/listar/paginado/:IdPersona/:desde/:empleadoBuscado',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], empleadosController.buscarEmpleadosPaginado);
 

@@ -71,9 +71,11 @@ public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
 // ==================================================
 async altaVenta(req: Request, res: Response) {
 
-
     var pIdVendedor = req.params.IdPersona;
     var pIdVenta;
+
+
+    console.log('req.body::: 2', req.body);
 
     var pIdCliente = req.body[0];
     var pIdEmpleado = req.body[1];
@@ -88,6 +90,7 @@ async altaVenta(req: Request, res: Response) {
         // ====================== Alta Venta ===========================================
         let sql = `call bsp_alta_venta('${pIdTipoPago}','${pIdEmpleado}','${pIdCliente}','${pMontoTotal}')`;
         const [result] = await pool.promise().query(sql)
+        console.log('result::: ', result);
         
 
         if(result[0][0].Mensaje != 'Ok')
@@ -101,6 +104,7 @@ async altaVenta(req: Request, res: Response) {
 
             let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoServicio}','${value.precio_venta}','${value.tipo}','${value.cantidad}')`;
             const [result2] = await pool.promise().query(sql2)
+            console.log('result2::: ', result2);
 
             if(result2[0][0].Mensaje != 'Ok')
             {
@@ -169,22 +173,6 @@ async alta_egreso(req: Request, res: Response) {
 listarTiposPago(req: Request, res: Response) {
 
     pool.query(`call bsp_listar_tipos_pago()`, function(err: any, result: any){
-       if(err){
-           return;
-       }
-       res.json(result);
-   })
-
-}
-
-// ==================================================
-//        
-// ==================================================
-dameDatosPDFVenta(req: Request, res: Response) {
-
-    var IdTransaccion = req.params.pIdTransaccion;
-
-    pool.query(`call bsp_dame_datos_pdf_venta('${IdTransaccion}')`, function(err: any, result: any){
        if(err){
            return;
        }

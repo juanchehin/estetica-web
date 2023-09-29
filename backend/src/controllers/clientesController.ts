@@ -55,8 +55,10 @@ public async altaCliente(req: Request, res: Response) {
     var Direccion = req.body[5];
     var FechaNac = req.body[6];
     var Observaciones = req.body[7];
+    var id_sucursal = req.body[8];
+
     
-    pool.query(`call bsp_alta_cliente('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Direccion}','${FechaNac}','${Observaciones}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_cliente('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Direccion}','${FechaNac}','${Observaciones}','${id_sucursal}')`, function(err: any, result: any, fields: any){
 
         if(err){
             res.status(404).json(err);
@@ -133,14 +135,14 @@ public async buscarClientesPaginado(req: Request, res: Response): Promise<void> 
 
     var pIdPersona = req.params.IdPersona;
     var clienteBuscado: any = req.params.clienteBuscado;
-    var filtroCliente: any = req.params.filtroCliente;
+    var pIdSucursal: any = req.params.pIdSucursal;
     
     if(clienteBuscado == '0' || clienteBuscado == 0)
     {
         clienteBuscado = "todosClientes";
     }
 
-    pool.query(`call bsp_buscar_clientes_paginado('${clienteBuscado}','${desde}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_buscar_clientes_paginado('${clienteBuscado}','${desde}','${pIdSucursal}')`, function(err: any, result: any, fields: any){
         if(err){
            res.status(404).json(result);
            return;
@@ -220,12 +222,13 @@ public async actualizaCliente(req: Request, res: Response) {
 }
 
 // ==================================================
-//        
+//        Autocomplete
 // ==================================================
 public async buscarCliente(req: Request, res: Response): Promise<any> {
     var clienteBuscado = req.params.clienteBuscado;
+    var pIdSucursal = req.params.pIdSucursal;
 
-    pool.query(`call bsp_buscar_cliente('${clienteBuscado}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_buscar_cliente('${clienteBuscado}','${pIdSucursal}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json({ text: "La personas no existe" });
             return;

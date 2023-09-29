@@ -147,8 +147,10 @@ public async buscarEmpleadosPaginado(req: Request, res: Response): Promise<void>
 // ==================================================
 public async buscarEmpleado(req: Request, res: Response): Promise<any> {
     var empleadoBuscado = req.params.empleadoBuscado;
+    var pIdSucursal = req.params.pIdSucursal;
 
-    pool.query(`call bsp_buscar_empleado_autocomplete('${empleadoBuscado}')`, function(err: any, result: any, fields: any){
+
+    pool.query(`call bsp_buscar_empleado_autocomplete('${empleadoBuscado}','${pIdSucursal}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json({ text: "El empleado no existe" });
             return;

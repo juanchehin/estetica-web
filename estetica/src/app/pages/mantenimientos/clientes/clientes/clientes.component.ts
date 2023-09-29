@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ClientesService } from 'src/app/services/clientes.service';
+import { SucursalesService } from 'src/app/services/sucursal.service';
 // import Swal from 'sweetalert2';
 
 @Component({
@@ -13,6 +14,8 @@ export class ClientesComponent implements OnInit {
   desde = 0;
 
   clientes!: any;
+  sucursales: any;
+  IdSucursal: any;
 
   totalClientes = 0;
   cargando = true;
@@ -22,12 +25,15 @@ export class ClientesComponent implements OnInit {
 
   constructor(
     public clientesService: ClientesService,
-    private alertService: AlertService
+    private alertService: AlertService,
+    private sucursalesService: SucursalesService
   ) {
    }
 
   ngOnInit() {
     this.buscarClientes();
+    this.cargarSucursales();
+
   }
 
 // ==================================================
@@ -43,19 +49,19 @@ buscarClientes() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  if(resp[0][0] != undefined && resp[2] && resp[2][0].mensaje == 'Ok')
+                  if(resp[2] && resp[2][0].mensaje == 'Ok')
                   { 
                     this.totalClientes = resp[1][0].cantClientes;
     
                     this.clientes = resp[0];
                     return;
                   } else {
-                    this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',2000);
+                    this.alertService.alertFailWithText('Contactese con el administrador','Ocurrio un error',2000);
                   }
                   return;
                  },
                 error: () => { 
-                  this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',2000);
+                  this.alertService.alertFailWithText('Contactese con el administrador','Ocurrio un error',2000);
                 }
               });
 
@@ -139,4 +145,21 @@ modal_baja_cliente(id_cliente: string) {
   this.id_cliente_seleccionado = id_cliente;
 
 }
+
+// ==================================================
+// Carga
+// ==================================================
+
+cargarSucursales() {
+
+
+  this.sucursalesService.listarTodasSucursales(   )
+             .subscribe( (resp: any) => {
+
+              this.sucursales  = resp[0];
+
+            });
+
+}
+
 }

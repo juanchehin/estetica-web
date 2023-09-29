@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IItemVentaStructure } from 'src/app/interfaces/item-venta.interface';
 import { IItemTipoPagoStructure } from 'src/app/interfaces/item_tp.interface';
 import { AlertService } from 'src/app/services/alert.service';
@@ -33,7 +33,9 @@ export class NuevaVentaComponent implements OnInit {
   lineas_venta: IItemVentaStructure[] = [];
   checkExists: IItemVentaStructure[] = [];
   lineas_tipos_pago: IItemTipoPagoStructure[] = [];  
-  itemPendiente: any = [];
+  itemPendienteServicio: any = [];
+  itemPendienteProducto: any = [];
+
   tiposPago: any;
   clientes = [];
   datosVendedor: any;
@@ -71,14 +73,9 @@ export class NuevaVentaComponent implements OnInit {
   @ViewChild('divCerrarModal') divCerrarModal!: ElementRef<HTMLElement>;
   @ViewChild('divCerrarModalDescuentoEfectivo') divCerrarModalDescuentoEfectivo!: ElementRef<HTMLElement>;
   @ViewChild('buttonAbrirModalDescuentoEfectivo') buttonAbrirModalDescuentoEfectivo!: ElementRef<HTMLElement>;
+  @ViewChild('divCerrarModalFormaPago') divCerrarModalFormaPago!: ElementRef<HTMLElement>;
 
   // =====
-  porcentaje_un_pago: any;
-  porcentaje_tres_pago: any;
-  porcentaje_seis_pago: any;
-  total_venta_inicial: any;
-  porcentajeDescuentoEfectivo: any = 0;
-  montoEfectivo = 0;
   totalTiposPago = 0;
 
 
@@ -92,7 +89,8 @@ export class NuevaVentaComponent implements OnInit {
     public clientesService: ClientesService,
     public empleadosService: EmpleadosService,
     public alertaService: AlertService,
-    private utilService: UtilService
+    private utilService: UtilService,
+    private router: Router
     ) {
     
   }
@@ -114,6 +112,11 @@ altaVenta() {
   
   this.IdPersona = this.authService.IdPersona;
 
+  if((this.IdTipoPagoSelect == undefined) ||(this.IdTipoPagoSelect <= 0))
+  { 
+    this.alertaService.alertFail('Mensaje','Tipo de pago invalido',2000);
+    return;
+  }
 
       this.arrayVenta.push(        
         this.IdCliente,
@@ -131,7 +134,12 @@ altaVenta() {
           if ( resp.Mensaje == 'Ok') {
             this.alertaService.alertSuccess('Mensaje','Venta cargada',2000);
 
-            this.resetearVariables();
+            let el: HTMLElement = this.divCerrarModalFormaPago.nativeElement;
+            el.click();
+
+            // this.resetearVariables();
+            this.router.navigate(['/dashboard']);
+
             
           } else {
             this.alertaService.alertFail('Ocurrio un error',false,2000);
@@ -270,22 +278,27 @@ agregarLineaVentaProducto() {
     return;
   }
 
-  if((this.itemPendiente.Stock <= 0) || (this.itemPendiente.Stock < this.cantidadLineaVentaProducto))
+  if((this.itemPendienteProducto.Stock <= 0) || (this.itemPendienteProducto.Stock < this.cantidadLineaVentaProducto))
   { 
-    this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
+    this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendienteProducto.Producto,false,2000);
     return;
   }
 
-  if(this.itemPendiente.length <= 0)
+  if(this.itemPendienteProducto.length <= 0)
   { 
     this.alertaService.alertFailWithText('Atencion','Debe seleccionar un producto en el buscador',2000);
     return;
   }
 
-  this.totalVenta += Number(this.itemPendiente.precio_venta) * this.cantidadLineaVentaProducto;
+  this.totalVenta += Number(this.itemPendienteProducto.precio_venta) * this.cantidadLineaVentaProducto;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
-    return linea_venta.IdProductoServicio == this.itemPendiente.IdProductoServicio;
+    if((linea_venta.IdProductoServicio == this.itemPendienteProducto.id_producto) && (linea_venta.tipo == 'producto'))
+    {
+      return true;
+    }else{
+      return false;
+    }
   });
   
 
@@ -294,11 +307,11 @@ agregarLineaVentaProducto() {
     this.lineas_venta.push(
       {
         id_item: this.IdItem,
-        IdProductoServicio: Number(this.itemPendiente.id_producto),
-        codigo: this.itemPendiente.Codigo,
-        producto_servicio: this.itemPendiente.producto,
+        IdProductoServicio: Number(this.itemPendienteProducto.id_producto),
+        codigo: this.itemPendienteProducto.Codigo,
+        producto_servicio: this.itemPendienteProducto.producto,
         cantidad: this.cantidadLineaVentaProducto,
-        precio_venta: this.itemPendiente.precio_venta,
+        precio_venta: this.itemPendienteProducto.precio_venta,
         tipo: 'producto'
       }
     );
@@ -309,18 +322,16 @@ agregarLineaVentaProducto() {
   }
   else{
     this.itemCheckExists = checkExistsLineaVenta;
-    this.itemIdProductoSabor = this.itemCheckExists.IdProductoSabor;
-
 
     for (let item of this.lineas_venta) {
 
-      if(this.itemPendiente.Stock < (Number(item.cantidad) + Number(this.cantidadLineaVentaProducto)))
+      if(this.itemPendienteProducto.Stock < (Number(item.cantidad) + Number(this.cantidadLineaVentaProducto)))
       { 
-        this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendiente.Producto,false,2000);
+        this.alertaService.alertFail('Mensaje','Stock insuficiente para ' + this.itemPendienteProducto.Producto,3000);
         return;
       }
 
-      if(item.IdProductoServicio == this.itemCheckExists.IdProductoServicio)
+      if((item.IdProductoServicio == this.itemCheckExists.IdProductoServicio)  && (item.tipo == 'producto'))
       { 
         item.cantidad = Number(item.cantidad) + Number(this.cantidadLineaVentaProducto);
 
@@ -343,16 +354,21 @@ agregarLineaVentaServicio() {
   }
 
 
-  if(this.itemPendiente.length <= 0)
+  if(this.itemPendienteServicio.length <= 0)
   { 
     this.alertaService.alertFailWithText('Atencion','Debe seleccionar un servicio en el buscador',2000);
     return;
   }
 
-  this.totalVenta += Number(this.itemPendiente.precio) * this.cantidadLineaVentaServicio;
+  this.totalVenta += Number(this.itemPendienteServicio.precio) * this.cantidadLineaVentaServicio;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
-    return linea_venta.IdProductoServicio == this.itemPendiente.IdProductoServicio;
+    if((linea_venta.IdProductoServicio == this.itemPendienteServicio.id_servicio) && (linea_venta.tipo == 'servicio'))
+    {
+      return true;
+    }else{
+      return false;
+    }
   });
 
   if(!(checkExistsLineaVenta != undefined))
@@ -360,11 +376,11 @@ agregarLineaVentaServicio() {
     this.lineas_venta.push(
       {
         id_item: this.IdItem,
-        IdProductoServicio: Number(this.itemPendiente.id_servicio),
-        codigo: this.itemPendiente.Codigo,
-        producto_servicio: this.itemPendiente.servicio,
+        IdProductoServicio: Number(this.itemPendienteServicio.id_servicio),
+        codigo: this.itemPendienteServicio.Codigo,
+        producto_servicio: this.itemPendienteServicio.servicio,
         cantidad: this.cantidadLineaVentaServicio,
-        precio_venta: this.itemPendiente.precio,
+        precio_venta: this.itemPendienteServicio.precio,
         tipo: 'servicio'
       }
     );
@@ -375,14 +391,12 @@ agregarLineaVentaServicio() {
   }
   else{
     this.itemCheckExists = checkExistsLineaVenta;
-    this.itemIdProductoSabor = this.itemCheckExists.IdProductoSabor;
 
     for (let item of this.lineas_venta) {
 
-      if(item.IdProductoServicio == this.itemCheckExists.id_servicio)
+      if((item.IdProductoServicio == this.itemCheckExists.IdProductoServicio) && (item.tipo == 'servicio'))
       { 
         item.cantidad = Number(item.cantidad) + Number(this.cantidadLineaVentaServicio);
-
       }
      }
   }
@@ -470,7 +484,7 @@ agregarLineaTipoPago(): any {
   // ================================
   selectEventProducto(item: any) {
     
-    this.itemPendiente = item;
+    this.itemPendienteProducto = item;
   }
 
   onChangeSearchProducto(val: any) {
@@ -490,7 +504,7 @@ agregarLineaTipoPago(): any {
   // ================================
   selectEventServicio(item: any) {
     
-    this.itemPendiente = item;
+    this.itemPendienteServicio = item;
   }
 
   onChangeSearchServicio(val: any) {
@@ -524,7 +538,7 @@ agregarLineaTipoPago(): any {
       return;
     }
 
-    this.total_venta_inicial = this.totalVenta;
+    // this.total_venta_inicial = this.totalVenta;
     this.activarModal = true;
 
     this.cargarTiposPago();
@@ -548,32 +562,6 @@ agregarLineaTipoPago(): any {
   // ==============================
   // 
   // ================================
-  eliminarItemTipoPago(IdItem: any){
-
-    this.lineas_tipos_pago.forEach( (item, index) => {
-      if(item.IdItem === IdItem) 
-      {
-        this.lineas_tipos_pago.splice(index,1);
-
-        if(item.IdTipoPago != 11)
-        {
-          this.totalTiposPago -= +item.SubTotal;
-        }else{
-          this.totalTiposPago += +item.SubTotal;
-        }
-        
-        this.totalVenta = this.total_venta_inicial;
-        this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
-
-      }
-
-    });
-
-  }
-
-  // ==============================
-  // 
-  // ================================
   cerrarModalDescuentoEfectivo(){
     let el: HTMLElement = this.divCerrarModalDescuentoEfectivo.nativeElement;
     el.click();
@@ -581,30 +569,6 @@ agregarLineaTipoPago(): any {
 
   onChangeTipoPago(val: any){
     this.IdTipoPagoSelect = val;
-  }
-
-  // ==============================
-  // 
-  // ================================
-  aplicarDescuentoEfectivo()
-  {
-    this.cerrarModalDescuentoEfectivo();
-    
-    if(this.porcentajeDescuentoEfectivo > 0)
-    {
-      let monto_descuento = (this.porcentajeDescuentoEfectivo * this.montoEfectivo / 100);
-      this.totalVenta -= monto_descuento;
-      this.totalTiposPago = this.totalTiposPago - monto_descuento;
-
-      this.lineas_tipos_pago.push(
-      {
-            IdItem: this.IdItemTipoPago,
-            IdTipoPago: 11,
-            TipoPago: 'Descuento Efectivo',
-            SubTotal: monto_descuento
-      });
-
-    }
   }
 
   
@@ -616,30 +580,6 @@ agregarLineaTipoPago(): any {
     el.click();
   }
 
-  // ==============================
-  // 
-  // ================================
-  abrirModalDescuentoEfectivo(){
-    let el: HTMLElement = this.buttonAbrirModalDescuentoEfectivo.nativeElement;
-    el.click();
-  }
-
-  // ==============================
-  // 
-  // ================================
-  resetearVariables(){
-    this.descuentoEfectivo = 0;
-    this.activarModalDescuentoEfectivo = false;
-    this.activarModal = false;
-    this.lineas_tipos_pago = [];
-    this.lineas_venta = [];
-    this.cerrarModal();
-    this.totalVenta = 0;
-    this.totalTiposPago = 0;
-    this.porcentajeDescuentoEfectivo = 0;
-    this.montoEfectivo = 0;
-
-  }
 
 }
 

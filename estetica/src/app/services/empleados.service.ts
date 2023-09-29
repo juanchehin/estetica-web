@@ -55,13 +55,15 @@ altaEmpleado( empleado: any ) {
 // ==================================================
 cargarEmpleados( parametroBusqueda: string){
 
+    const id_sucursal = localStorage.getItem('id_sucursal');
+
     if(parametroBusqueda == '' || parametroBusqueda == null){
-      let url = URL_SERVICIOS + '/empleados/listar/paginado/' + 0;
+      let url = URL_SERVICIOS + '/empleados/listar/paginado/' + 0 + '/' + id_sucursal;
       return this.http.get( url );
     }
     else
     { 
-      let url = URL_SERVICIOS + '/empleados/listar/busqueda/' + parametroBusqueda;
+      let url = URL_SERVICIOS + '/empleados/listar/busqueda/' + parametroBusqueda + '/' + id_sucursal;
       return this.http.get( url );
     }
     
