@@ -123,14 +123,15 @@ cargarDatosFormEditarCuentaCliente( IdCliente: any ) {
 // ==================================================
 //        
 // ==================================================
-altaAcreditarCliente( monto: any,IdCliente: any, descripcion: any) {
+altaAcreditarCliente( monto: any,IdCliente: any, descripcion: any,IdTipoPago: any) {
 
   let url = URL_SERVICIOS + '/cuentas/acreditar/alta/' + this.IdPersona;
 
   var datosCuenta = new Array({
     IdCliente,
     monto,
-    descripcion
+    descripcion,
+    IdTipoPago
   })
 
   return this.http.post(url,datosCuenta, this.headers );

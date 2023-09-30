@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: '', component: EmpleadosComponent, data: { titulo: 'Listado de empleados' }},
   { path: 'nuevo', component: EmpleadoComponent, data: { titulo: 'Nuevo empleado' }},
   { path: 'editar/:IdPersona', component: EditarEmpleadoComponent, data: { titulo: 'Edicion de empleado' }},
+  { path: 'historico/:IdPersona', component: EditarEmpleadoComponent, data: { titulo: 'Cuenta corriente de empleado' }}
  
 ];
 

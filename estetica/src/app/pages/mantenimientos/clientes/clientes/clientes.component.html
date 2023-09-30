@@ -80,8 +80,15 @@
                                                     <td>{{ cliente.direccion }}</td>
                                                     <td>{{ cliente.fecha_nac }}</td>
                                                     <td>
-                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/clientes/editar',cliente.id_persona]">Editar</button>
-                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_cliente(cliente.id_persona)">Eliminar</button>
+                                                        <button class="btn btn-secondary" type="button" [routerLink]="['/dashboard/clientes/cuenta/movimientos',cliente.id_persona]">
+                                                            <i class="mdi mdi-reorder-horizontal"></i>                                                           
+                                                        </button>
+                                                        <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/clientes/editar',cliente.id_persona]">
+                                                            <i class="mdi mdi-account-edit"></i>   
+                                                        </button>
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_cliente(cliente.id_persona)">
+                                                            <i class="mdi mdi-delete"></i>  
+                                                        </button>
                                                     </td>
                                                 </tr>
 

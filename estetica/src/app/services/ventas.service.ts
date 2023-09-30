@@ -95,7 +95,9 @@ dameDatosPDFVenta( pIdTransaccion: any ){
 // ==================================================
 listar_transacciones( desde: number , fecha_inicio: string, fecha_fin: string){
 
-  let url = URL_SERVICIOS + '/ventas/listar/' + desde + '/' + fecha_inicio + '/' + fecha_fin;
+  const id_sucursal = localStorage.getItem('id_sucursal');
+
+  let url = URL_SERVICIOS + '/ventas/listar/' + desde + '/' + fecha_inicio + '/' + fecha_fin + '/' + id_sucursal;
 
   return this.http.get( url ,this.headers);
 }

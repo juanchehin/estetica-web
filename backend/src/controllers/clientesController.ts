@@ -44,8 +44,7 @@ public async cargarDatosFormEditarCliente(req: Request, res: Response): Promise<
 //        Inserta un cliente enviando un correo de confirmacion
 // ==================================================
 public async altaCliente(req: Request, res: Response) {
-    console.log('altaCliente::: ');
-
+    
     const { IdPersona } = req.params;
     var Apellidos = req.body[0];
     var Nombres = req.body[1];

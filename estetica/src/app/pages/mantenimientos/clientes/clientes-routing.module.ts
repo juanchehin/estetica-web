@@ -6,6 +6,7 @@ import { EditarClienteComponent } from './editar-cliente/editar-cliente.componen
 import { CuentasComponent } from './cuentas-corrientes/cuentas/cuentas.component';
 import { CuentaComponent } from './cuentas-corrientes/cuenta/cuenta.component';
 import { EditarClienteCuentaComponent } from './cuentas-corrientes/editar-cliente-cuenta/editar-cliente-cuenta.component';
+import { MovimientosComponent } from './cuentas-corrientes/movimientos/movimientos.component';
 
 const routes: Routes = [
   { path: '', component: ClientesComponent, data: { titulo: 'Listado de clientes' }},
@@ -15,7 +16,7 @@ const routes: Routes = [
   { path: 'cuentas', component: CuentasComponent, data: { titulo: 'Cuentas corrientes' }},
   { path: 'cuentas/nueva', component: CuentaComponent, data: { titulo: 'Nuevo cuenta' }},
   { path: 'cuenta/editar/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Edicion de cuenta corriente' }},
-  { path: 'cuenta/movimientos/:IdPersona', component: EditarClienteCuentaComponent, data: { titulo: 'Movimientos de cuenta corriente' }}
+  { path: 'cuenta/movimientos/:IdPersona', component: MovimientosComponent, data: { titulo: 'Movimientos de cuenta corriente' }}
 
 ];
 

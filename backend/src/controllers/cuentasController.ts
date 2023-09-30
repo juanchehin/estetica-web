@@ -59,19 +59,22 @@ altaAcreditarCliente(req: Request, res: Response) {
     var pIdCliente = req.body[0].IdCliente;
     var pMonto = req.body[0].monto;
     var pDescripcion = req.body[0].descripcion;
+    var pIdTipoPago = req.body[0].IdTipoPago;
 
     var pIdUsuario = req.params.IdPersona;
 
 
-    pool.query(`call bsp_alta_acreditar_cliente('${pIdUsuario}','${pIdCliente}','${pMonto}','${pDescripcion}')`, function(err: any, result: any){
+    pool.query(`call bsp_alta_acreditar_cliente('${pIdUsuario}','${pIdCliente}','${pMonto}','${pDescripcion}','${pIdTipoPago}')`, function(err: any, result: any){
 
        if(err){
             logger.error("Error en altaAcreditarCliente - CuentasController " + err );
 
             res.status(404).json(err);
            return;
-       }      
-        res.send({ Mensaje: 'Ok'});
+       }else
+       {
+           res.send({ Mensaje: 'Ok'});
+       }
    })
 
 }

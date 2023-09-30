@@ -32,8 +32,10 @@ public async listarVentas(req: Request, res: Response): Promise<void> {
 
     var FechaInicio = req.params.FechaInicio;
     var FechaFin = req.params.FechaFin;
+    var pIdSucursal = req.params.pIdSucursal;
 
-    pool.query(`call bsp_listar_transacciones_fecha('${desde}','${FechaInicio}','${FechaFin}')`, function(err: any, result: any, fields: any){
+
+    pool.query(`call bsp_listar_transacciones_fecha_sucursal('${desde}','${FechaInicio}','${FechaFin}','${pIdSucursal}')`, function(err: any, result: any, fields: any){
        if(err){
         res.status(404).json(err);
            return;

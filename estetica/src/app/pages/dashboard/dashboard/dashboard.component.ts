@@ -222,6 +222,7 @@ alta_egreso() {
             let el: HTMLElement = this.cerrarModalEgreso.nativeElement;
             el.click();
 
+            this.cargarDatosDashboard();
             // this.resetearVariables();
             
           } else {
