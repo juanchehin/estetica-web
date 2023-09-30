@@ -54,6 +54,9 @@ export class NuevaVentaComponent implements OnInit {
   idSucursalVendedor: any;
   fecha_venta: any;
 
+  precio_producto_pendiente: any;
+  precio_servicio_pendiente: any;
+
   // Servicios
   servicios: any;
   keywordServicio = 'servicio';
@@ -278,9 +281,9 @@ agregarLineaVentaProducto() {
     return;
   }
 
-  if((this.itemPendienteProducto.Stock <= 0) || (this.itemPendienteProducto.Stock < this.cantidadLineaVentaProducto))
+  if((this.itemPendienteProducto.Stock <= 0) || (this.itemPendienteProducto.stock < this.cantidadLineaVentaProducto))
   { 
-    this.alertaService.alertFail('Stock insuficiente para ' + this.itemPendienteProducto.Producto,false,2000);
+    this.alertaService.alertFail('Stock insuficiente para "' + this.itemPendienteProducto.producto + '"',false,2000);
     return;
   }
 
@@ -290,7 +293,13 @@ agregarLineaVentaProducto() {
     return;
   }
 
-  this.totalVenta += Number(this.itemPendienteProducto.precio_venta) * this.cantidadLineaVentaProducto;
+  if(isNaN(Number(this.precio_producto_pendiente)) || (this.precio_producto_pendiente <= 0))
+  { 
+    this.alertaService.alertFailWithText('Atencion','Error en precio producto',2000);
+    return;
+  }
+
+  this.totalVenta += Number(this.precio_producto_pendiente) * this.cantidadLineaVentaProducto;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
     if((linea_venta.IdProductoServicio == this.itemPendienteProducto.id_producto) && (linea_venta.tipo == 'producto'))
@@ -311,7 +320,7 @@ agregarLineaVentaProducto() {
         codigo: this.itemPendienteProducto.Codigo,
         producto_servicio: this.itemPendienteProducto.producto,
         cantidad: this.cantidadLineaVentaProducto,
-        precio_venta: this.itemPendienteProducto.precio_venta,
+        precio_venta: this.precio_producto_pendiente,
         tipo: 'producto'
       }
     );
@@ -360,7 +369,13 @@ agregarLineaVentaServicio() {
     return;
   }
 
-  this.totalVenta += Number(this.itemPendienteServicio.precio) * this.cantidadLineaVentaServicio;
+  if(isNaN(Number(this.precio_servicio_pendiente)) || (this.precio_servicio_pendiente <= 0))
+  { 
+    this.alertaService.alertFailWithText('Atencion','Error en precio producto',2000);
+    return;
+  }
+
+  this.totalVenta += Number(this.precio_servicio_pendiente) * this.cantidadLineaVentaServicio;
 
   const checkExistsLineaVenta = this.lineas_venta.find((linea_venta) => {
     if((linea_venta.IdProductoServicio == this.itemPendienteServicio.id_servicio) && (linea_venta.tipo == 'servicio'))
@@ -380,7 +395,7 @@ agregarLineaVentaServicio() {
         codigo: this.itemPendienteServicio.Codigo,
         producto_servicio: this.itemPendienteServicio.servicio,
         cantidad: this.cantidadLineaVentaServicio,
-        precio_venta: this.itemPendienteServicio.precio,
+        precio_venta: this.precio_servicio_pendiente,
         tipo: 'servicio'
       }
     );
@@ -484,9 +499,11 @@ agregarLineaTipoPago(): any {
   // ================================
   selectEventProducto(item: any) {
     
+    this.precio_producto_pendiente = item.precio_venta;
+    
     this.itemPendienteProducto = item;
   }
-
+  //
   onChangeSearchProducto(val: any) {
     if(val == '' || val == null)
     {
@@ -503,10 +520,10 @@ agregarLineaTipoPago(): any {
   // Para servicios
   // ================================
   selectEventServicio(item: any) {
-    
+    this.precio_servicio_pendiente = item.precio;
     this.itemPendienteServicio = item;
   }
-
+  //
   onChangeSearchServicio(val: any) {
     if(val == '' || val == null)
     {

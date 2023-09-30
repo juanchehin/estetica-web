@@ -6,10 +6,9 @@
             
              <!-- ========== Empleado ============ -->
              <div class="row">
-                <div class="row">
-                    <div class="col-md-5">
+                    <div class="col-md-6">
                         <h5 class="m-t-30">Empleado : </h5>
-                        <div class="ng-autocomplete">
+                        <div class="ng-autocomplete" style="width:450px">
                             <ng-autocomplete [data]="empleados" [searchKeyword]="keywordEmpleado" placeholder="Selecciona empleado" (selected)='selectEventEmpleado($event)' (inputChanged)='onChangeSearchEmpleado($event)' (inputFocused)='onFocused($event)' [itemTemplate]="itemTemplateEmpleado" [notFoundTemplate]="notFoundTemplate">
                             </ng-autocomplete>
                         </div>
@@ -20,17 +19,10 @@
                             <div [innerHTML]="notFound"></div>
                         </ng-template>
                     </div>
-                </div>
-            </div>
-            <br /><br />
-            <!-- ========== Fin Empleado ============ -->
-
-            <!-- ========== cliente ============ -->
-            <div class="row">
-                <div class="row">
-                    <div class="col-md-5">
+                    <!--  -->
+                    <div class="col-md-6">
                         <h5 class="m-t-30">Cliente : </h5>
-                        <div class="ng-autocomplete">
+                        <div class="ng-autocomplete" style="width:450px">
                             <ng-autocomplete 
                             [data]="clientes" 
                             [searchKeyword]="keywordCliente" 
@@ -49,21 +41,20 @@
                             <div [innerHTML]="notFound"></div>
                         </ng-template>
                     </div>
-                </div>
             </div>
             <br /><br />
-            <!-- ========== Fin cliente ============ -->
+            <!-- ========== Fin Empleado ============ -->
 
 
             <!-- ========== Articulos ============ -->
             <div class="row">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Producto :</h4>
                         <!-- ========== Buscador producto ============ -->
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="ng-autocomplete">
+                            <div class="col-md-5">
+                                <h4 >Producto :</h4>
+                                <div class="ng-autocomplete" style="width:350px">
                                     <ng-autocomplete [data]="productos" [searchKeyword]="keywordProducto" placeholder="Selecciona producto" 
                                     (selected)='selectEventProducto($event)' (inputChanged)='onChangeSearchProducto($event)' 
                                     (inputFocused)='onFocusedProducto($event)' [itemTemplate]="itemTemplateProducto"
@@ -77,21 +68,27 @@
                                     <div [innerHTML]="notFound"></div>
                                 </ng-template>
                             </div>
-                            <div class="col-md-3">
-                                <input [(ngModel)]="cantidadLineaVentaProducto" (input)="cambiaCantidadVentaProducto($event)" type="text" class="form-control form-control-line" placeholder="Cantidad..." maxlength="3">
+                            <div class="col-md-2">
+                                <h4 >Cantidad :</h4>
+                                <input [(ngModel)]="cantidadLineaVentaProducto" (input)="cambiaCantidadVentaProducto($event)" type="text" class="form-control form-control-line" placeholder="Cantidad...">
                             </div>
-                            <div class="col-md-2" style="left: 150px;">
+                            <div class="col-md-2">
+                                <h4 >Precio :</h4>
+                                <input [(ngModel)]="precio_producto_pendiente" type="text" class="form-control form-control-line" placeholder="Precio producto...">
+                            </div>
+                            <div class="col-md-2" >
+                                <br><br>
                                 <button (click)="agregarLineaVentaProducto()" type="button" class="btn btn-info btn-circle"><i class="mdi mdi-plus"></i> </button>
                             </div>
                         </div>
 
                         <!-- ========== Fin Buscador producto ============ -->
-
-                        <h4 class="card-title">Servicios :</h4>
+                        <br>
                         <!-- ========== Buscador servicio ============ -->
                         <div class="row">
-                            <div class="col-md-3">
-                                <div class="ng-autocomplete">
+                            <div class="col-md-5">
+                                <h4 >Servicio :</h4>
+                                <div class="ng-autocomplete" style="width:350px">
                                     <ng-autocomplete [data]="servicios" [searchKeyword]="keywordServicio" placeholder="Selecciona servicio" 
                                     (selected)='selectEventServicio($event)' (inputChanged)='onChangeSearchServicio($event)' 
                                     (inputFocused)='onFocusedServicio($event)' [itemTemplate]="itemTemplateServicio"
@@ -105,11 +102,17 @@
                                     <div [innerHTML]="notFound"></div>
                                 </ng-template>
                             </div>
-                            <div class="col-md-3">
-                                <input [(ngModel)]="cantidadLineaVentaServicio" (input)="cambiaCantidadVentaServicio($event)" type="text" class="form-control form-control-line" placeholder="Cantidad..." maxlength="3">
+                            <div class="col-md-2">
+                                <h4 >Cantidad :</h4>
+                                <input [(ngModel)]="cantidadLineaVentaServicio" (input)="cambiaCantidadVentaServicio($event)" type="text" class="form-control form-control-line" placeholder="Cantidad...">
                             </div>
-                            <div class="col-md-2" style="left: 150px;">
-                                <button (click)="agregarLineaVentaServicio()" type="button" class="btn btn-info btn-circle"><i class="mdi mdi-plus"></i> </button>
+                            <div class="col-md-2">
+                                <h4 >Precio :</h4>
+                                <input [(ngModel)]="precio_servicio_pendiente" type="text" class="form-control form-control-line" placeholder="Precio servicio...">
+                            </div>
+                            <div class="col-md-2">
+                                <br><br>                                
+                                <button (click)="agregarLineaVentaServicio()" type="button" class="btn btn-success btn-circle"><i class="mdi mdi-plus"></i> </button>
                             </div>
                         </div>
 

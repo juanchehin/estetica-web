@@ -31,7 +31,7 @@ export class AlertService {
 }
 
  // ==============================
- alertFailWithText(pMensaje: any,pTitulo: any,pTimer: any) {
+ alertFailWithText(pTitulo: any,pMensaje: any,pTimer: any) {
 
   this.toastr.error(pMensaje, pTitulo, {
     timeOut: pTimer,
