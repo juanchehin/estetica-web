@@ -3,6 +3,7 @@ import { VentasService } from 'src/app/services/ventas.service';
 import { UtilService } from 'src/app/services/util.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { EmpleadosService } from 'src/app/services/empleados.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -37,6 +38,7 @@ export class DashboardComponent implements OnInit {
   IdTipoPago: any;
   descripcion: any;
   habilitar_empleados = false;
+  estado_caja = 'C';
 
 
   @ViewChild('divCerrarModalBajaTransaccion') divCerrarModalBajaTransaccion!: ElementRef<HTMLElement>;
@@ -47,7 +49,8 @@ export class DashboardComponent implements OnInit {
     private ventasService: VentasService,
     private utilService: UtilService,
     private alertService: AlertService,
-    private empleadosService: EmpleadosService
+    private empleadosService: EmpleadosService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -74,6 +77,8 @@ cargarDatosDashboard(){
               this.transferencia = resp[2][0].p_suma_transferencia || 0;
               this.egresos = resp[2][0].p_suma_gastos || 0;
               this.voucher = resp[2][0].p_suma_voucher || 0;
+              this.estado_caja = resp[2][0].estado_caja || 'C';
+
 
             });
 
@@ -186,6 +191,12 @@ onChangeEmpleado(val: any){
 
 alta_egreso() {
 
+  if(this.estado_caja != 'A')
+  {
+    this.alertService.alertFail('Mensaje','Debe abrir caja',2000);
+    return;
+  }
+
   if(this.monto_egreso <= 0)
   {
     this.alertService.alertFail('Mensaje','Monto invalido',2000);
@@ -235,4 +246,16 @@ alta_egreso() {
 
 }
 
+//
+rutear_nueva_venta(){
+
+  if(this.estado_caja != 'A')
+  {
+    this.alertService.alertFail('Mensaje','Debe abrir caja',2000);
+    return;
+  }
+
+  this.router.navigate(['/dashboard/ventas/nueva']);
+
+}
 }

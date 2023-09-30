@@ -6,7 +6,7 @@
       <div class="row">
 
         <div class="col-xl-3 col-md-6">
-            <div class="card-box">
+            <div [ngClass]="(boton_apertura_cierre == 'A') ? 'card-box bg-success':'card-box bg-danger'">
                 <h4 class="header-title mt-0 mb-4">Estado caja</h4>
                 <div class="widget-chart-1">            
                     <div class="widget-detail-1 text-right">

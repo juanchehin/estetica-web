@@ -133,7 +133,7 @@
                         <button class="btn btn-purple btn-rounded width-md waves-effect waves-light" (click)="cargarDatosDashboard()">
                             <i class="mdi mdi-update"></i>
                         </button>
-                        <button [routerLink]="['ventas/nueva']" type="button" class="btn btn-primary btn-rounded width-md waves-effect waves-light">
+                        <button (click)="rutear_nueva_venta()" type="button" class="btn btn-primary btn-rounded width-md waves-effect waves-light">
                             <i class="mdi mdi-plus"></i> 
                             Nueva Venta
                         </button>   

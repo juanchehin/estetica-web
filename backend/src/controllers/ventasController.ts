@@ -93,7 +93,8 @@ async altaVenta(req: Request, res: Response) {
         if(result[0][0].Mensaje != 'Ok')
         {
             logger.error("Error bsp_alta_venta - altaVenta - ventasController");
-
+            res.status(404).json({ "error" : "No se pudo confirmar la operacion"});
+            return;
         }       
         // ========================== Lineas de venta =======================================
 
@@ -105,6 +106,8 @@ async altaVenta(req: Request, res: Response) {
             if(result2[0][0].Mensaje != 'Ok')
             {
                 logger.error("Error bsp_alta_linea_venta - ventasController");
+                res.status(404).json({ "error" : "No se pudo confirmar la operacion"});
+                return;
             }
         });
 
