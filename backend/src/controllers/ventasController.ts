@@ -76,9 +76,6 @@ async altaVenta(req: Request, res: Response) {
     var pIdVendedor = req.params.IdPersona;
     var pIdVenta;
 
-
-    console.log('req.body::: 2', req.body);
-
     var pIdCliente = req.body[0];
     var pIdEmpleado = req.body[1];
     var pLineaVenta = req.body[2];  // productos/servicios
@@ -92,9 +89,7 @@ async altaVenta(req: Request, res: Response) {
         // ====================== Alta Venta ===========================================
         let sql = `call bsp_alta_venta('${pIdTipoPago}','${pIdEmpleado}','${pIdCliente}','${pMontoTotal}')`;
         const [result] = await pool.promise().query(sql)
-        console.log('result::: ', result);
-        
-
+       
         if(result[0][0].Mensaje != 'Ok')
         {
             logger.error("Error bsp_alta_venta - altaVenta - ventasController");
@@ -106,7 +101,6 @@ async altaVenta(req: Request, res: Response) {
 
             let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoServicio}','${value.precio_venta}','${value.tipo}','${value.cantidad}')`;
             const [result2] = await pool.promise().query(sql2)
-            console.log('result2::: ', result2);
 
             if(result2[0][0].Mensaje != 'Ok')
             {
