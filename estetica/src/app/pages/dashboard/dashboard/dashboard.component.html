@@ -179,8 +179,12 @@
                                                     <td>$ {{ transaccion.Monto }}</td>
                                                     <td>{{ transaccion.Descripcion }}</td>
                                                     <td>
-                                                        <button class="btn btn-primary" type="button">Editar</button>
-                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_transaccion(transaccion.id_transaccion)" >Eliminar</button>
+                                                        <button class="btn btn-primary" type="button">
+                                                            <i class="mdi mdi-account-edit"></i> 
+                                                        </button>
+                                                        <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_transaccion(transaccion.id_transaccion)" >
+                                                            <i class="mdi mdi-delete"></i>
+                                                        </button>
                                                     </td>
                                                 </tr>
 

@@ -73,8 +73,12 @@
                                                 <td>${{ producto.precio_venta }}</td>
                                                 <td>{{ producto.descripcion }}</td>
                                                 <td>
-                                                    <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">Editar</button>
-                                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_producto(producto.id_producto)">Eliminar</button>
+                                                    <button class="btn btn-primary" type="button" [routerLink]="['/dashboard/producto',producto.id_producto]">
+                                                        <i class="mdi mdi-account-edit"></i>                                                           
+                                                    </button>
+                                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_producto(producto.id_producto)">
+                                                        <i class="mdi mdi-delete"></i>  
+                                                    </button>
                                                 </td>
                                             </tr>
                     
