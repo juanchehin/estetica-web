@@ -34,6 +34,11 @@ public async apertura_caja(req: Request, res: Response): Promise<void> {
     var monto = req.body.monto;
     var observaciones = req.body.observaciones;
 
+    if(observaciones == null || observaciones == 'null' || observaciones == '-' || observaciones == '' || observaciones == 'undefined' || observaciones == undefined)
+    {
+        observaciones = '-';
+    }
+
     pool.query(`call bsp_apertura_caja('${monto}','${id_sucursal}','${observaciones}')`, function(err: any, result: any){
         if(result == undefined || err || result[0].mensaje !== 'Ok'){
             return res.status(200).json({
@@ -55,6 +60,11 @@ public async cierre_caja(req: Request, res: Response): Promise<void> {
 
     var monto = req.body.monto;
     var observaciones = req.body.observaciones;
+
+    if(observaciones == null || observaciones == 'null' || observaciones == '-' || observaciones == '' || observaciones == 'undefined' || observaciones == undefined)
+    {
+        observaciones = '-';
+    }
 
     pool.query(`call bsp_cierre_caja('${monto}','${id_sucursal}','${observaciones}')`, function(err: any, result: any){
 

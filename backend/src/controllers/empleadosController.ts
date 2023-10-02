@@ -202,7 +202,6 @@ public async bajaEmpleado(req: Request, res: Response): Promise<any> {
 
 public async actualizaEmpleado(req: Request, res: Response) {
 
-    console.log('req.body::: ', req.body);
     var IdPersona = req.body.IdPersona;
     var Apellidos = req.body.Apellidos;
     var Nombres = req.body.Nombres;
