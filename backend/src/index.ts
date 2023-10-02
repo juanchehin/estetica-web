@@ -62,8 +62,8 @@ class Server {
         const ssloptions: any = {}
 
         if (enableHttps) {
-                ssloptions.key = fs.readFileSync('/etc/letsencrypt/live/lebron.chehin.online/privkey.pem');
-                ssloptions.cert = fs.readFileSync('/etc/letsencrypt/live/lebron.chehin.online/fullchain.pem');
+                ssloptions.key = fs.readFileSync('/etc/letsencrypt/live/estetica.chehin.online/privkey.pem');
+                ssloptions.cert = fs.readFileSync('/etc/letsencrypt/live/estetica.chehin.online/fullchain.pem');
         }
 
         if (enableHttps) {
