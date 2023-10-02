@@ -128,7 +128,7 @@ refrescar() {
 
 apertura() {
 
-  if((this.monto_apertura <= 0) || (this.monto_apertura == 'undefined') || (this.monto_apertura == undefined))
+  if((this.monto_apertura < 0) || (this.monto_apertura == 'undefined') || (this.monto_apertura == undefined))
   {
     this.alertService.alertFail('Mensaje','Monto invalido',2000);
     return;
@@ -165,7 +165,7 @@ apertura() {
 
 cierre() {
 
-  if((this.monto_cierre <= 0) || (this.monto_cierre == 'undefined') || (this.monto_cierre == undefined))
+  if((this.monto_cierre < 0) || (this.monto_cierre == 'undefined') || (this.monto_cierre == undefined))
   {
     this.alertService.alertFail('Mensaje','Monto invalido',2000);
     return;

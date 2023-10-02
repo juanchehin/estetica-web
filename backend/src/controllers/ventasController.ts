@@ -74,7 +74,6 @@ public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
 async altaVenta(req: Request, res: Response) {
 
     var pIdVendedor = req.params.IdPersona;
-    var pIdVenta;
 
     var pIdCliente = req.body[0];
     var pIdEmpleado = req.body[1];
@@ -111,20 +110,17 @@ async altaVenta(req: Request, res: Response) {
             }
         });
 
-
-        pIdVenta = result[0][0].IdVenta;
+        res.json({ Mensaje : 'Ok'});
 
         // ======================= Confirmar transferencia exitosa ==========================================
       
-
         // return result
       } catch (error) {
         logger.error("Error funcion altaVenta - ventasController");
         res.status(404).json({ "error" : error});
         return;
       }
-      res.json({ Mensaje : 'Ok'});
-    //   res.json({"mensaje": await confirmarTransaccion(pIdVenta)});
+      
 }
 
 
