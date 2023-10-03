@@ -138,8 +138,6 @@ altaProducto() {
         this.sabores_cargados
       );
 
-      console.log("productoEditado es : ",productoEditado)
-
       this.productosService.editarProducto( productoEditado )
                 .subscribe( {
                   next: (resp: any) => { 

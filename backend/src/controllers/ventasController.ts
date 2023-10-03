@@ -215,6 +215,23 @@ public async baja_transaccion(req: Request, res: Response): Promise<any> {
     })
 
 }
+
+// ==================================================
+//        
+// ==================================================
+dame_transaccion(req: Request, res: Response) {
+
+    var id_transaccion = req.params.id_transaccion;
+
+    pool.query(`call bsp_dame_transaccion('${id_transaccion}')`, function(err: any, result: any){
+       if(err){
+           return;
+       }
+       res.json(result);
+   })
+
+}
+
 }
 
 

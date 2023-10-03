@@ -122,4 +122,15 @@ alta_egreso( egreso : any){
   return this.http.post( url, egreso,this.headers );
 }
 
+// ==================================================
+//
+// ==================================================
+dame_transaccion( pIdTransaccion: any ){
+
+  let url = URL_SERVICIOS + '/ventas/dame/' + pIdTransaccion + '/' + this.IdPersona;
+
+  return this.http.get( url ,this.headers);
+}
+
+
 }

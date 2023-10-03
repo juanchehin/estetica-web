@@ -179,6 +179,9 @@
                                                     <td>$ {{ transaccion.Monto }}</td>
                                                     <td>{{ transaccion.Descripcion }}</td>
                                                     <td>
+                                                        <button class="btn btn-success" type="button" data-bs-toggle="modal" data-bs-target="#modal-ver-transaccion" (click)="ver_transaccion(transaccion)">
+                                                            <i class="mdi mdi-eye"></i> 
+                                                        </button>
                                                         <button class="btn btn-primary" type="button">
                                                             <i class="mdi mdi-account-edit"></i> 
                                                         </button>
@@ -304,6 +307,49 @@
         <div class="modal-footer">
           <button type="button" #cerrarModalEgreso class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
           <button type="button" class="btn btn-primary" (click)="alta_egreso()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!--  -->
+<div class="modal fade" id="modal-ver-transaccion" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" style="width: 120%">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Transaccion # {{detalle_id_transaccion}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h4>Cliente: {{detalle_cliente}}</h4>
+          <h4>Empleado: {{detalle_empleado}}</h4>
+          <h4>Tipo pago: {{detalle_tipo_pago}}</h4>
+
+          <table id="tech-companies-1" class="table table-striped mb-0">
+            <thead>
+            <tr>
+                <th>Producto/Servicio</th>
+                <th>Monto</th>
+                <th>Cantidad</th>
+                <th>SubTotal</th>
+                <th>Tipo</th>
+            </tr>
+            </thead>
+             <tbody>
+                <tr *ngFor="let lv of detalle_lineas_venta">
+                    <td>{{ lv.nombre }}</td>
+                    <td>${{ lv.precio_venta }}</td>
+                    <td>{{ lv.cantidad }}</td>
+                    <td>{{ lv.SubTotal }}</td>
+                    <td>{{ lv.tipo }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h4>Total : $ {{detalle_monto_total}}</h4>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" aria-label="Close" data-bs-dismiss="modal">Aceptar</button>
         </div>
       </div>
     </div>

@@ -40,6 +40,14 @@ export class DashboardComponent implements OnInit {
   habilitar_empleados = false;
   estado_caja = 'C';
 
+  // detalles transaccion
+  detalle_id_transaccion: any;
+  detalle_cliente: any;
+  detalle_empleado: any;
+  detalle_monto_total: any;
+  detalle_lineas_venta: any;
+  detalle_fecha: any;
+  detalle_tipo_pago: any;
 
   @ViewChild('divCerrarModalBajaTransaccion') divCerrarModalBajaTransaccion!: ElementRef<HTMLElement>;
   @ViewChild('cerrarModalNuevaTransaccionMenu') divCerrarModalNuevoTransaccionMenu!: ElementRef<HTMLElement>;
@@ -258,4 +266,35 @@ rutear_nueva_venta(){
   this.router.navigate(['/dashboard/ventas/nueva']);
 
 }
+
+// ====================
+// 
+// =================
+ver_transaccion(transaccion: any){
+
+  this.ventasService.dame_transaccion( transaccion.id_transaccion )
+               .subscribe( {
+                next: (resp: any) => {
+                  
+                  if((resp[2][0].mensaje == 'Ok')) {
+            
+                    this.detalle_id_transaccion = transaccion.id_transaccion;
+                    this.detalle_cliente = transaccion.Cliente;
+                    this.detalle_empleado = transaccion.Empleado;
+                    this.detalle_fecha = transaccion.Fecha;
+                    this.detalle_lineas_venta = resp[0];
+                    this.detalle_monto_total = transaccion.Monto;
+                    this.detalle_tipo_pago = resp[1][0].tipo_pago;                    
+                    
+                  } else {
+                    
+                    this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+                    
+                  }
+                 },
+                error: (resp: any) => {            
+                  this.alertService.alertFailWithText('Ocurrio un error al procesar el pedido','Error',1200);
+                }
+              });
+  }
 }
