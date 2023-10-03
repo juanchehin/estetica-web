@@ -45,9 +45,9 @@ export class ConfiguracionesService {
 // ==================================================
 cargarConfiguraciones( ){
 
-  let url = URL_SERVICIOS + '/settings/listar/empresa';
+  let url = URL_SERVICIOS + '/configuraciones/listar/empresa';
 
-  return this.http.get( url);
+  return this.http.get( url,this.headers);
     
   }
 // ==================================================
@@ -55,7 +55,7 @@ cargarConfiguraciones( ){
 // ==================================================
   actualizarConfiguracion( configuraciones: any){
 
-    let url = URL_SERVICIOS + '/settings/actualizar/' + this.IdPersona;
+    let url = URL_SERVICIOS + '/configuraciones/actualizar/' + this.IdPersona;
 
   return this.http.put( url,configuraciones,this.headers);
     

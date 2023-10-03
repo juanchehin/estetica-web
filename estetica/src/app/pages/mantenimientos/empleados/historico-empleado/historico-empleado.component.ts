@@ -17,6 +17,8 @@ export class HistoricoEmpleadoComponent implements OnInit {
   cargando = true;
   id_empleado_seleccionado: any;
   empleado: any;
+  comision = 0;
+  suma_transacciones = 0;
 
   fecha_inicio = this.utilService.formatDateNow(new Date(Date.now()));
   fecha_fin = this.utilService.formatDateNow(new Date(Date.now()));
@@ -45,12 +47,15 @@ listar_historico_empleado() {
                .subscribe( {
                 next: (resp: any) => {
 
-                  if(resp[3][0].mensaje == 'Ok')
+                  if(resp[4][0].mensaje == 'Ok')
                   { 
-                    this.total_transacciones = resp[2][0].total_transacciones;
+                    this.total_transacciones = resp[3][0].total_transacciones;
     
                     this.transacciones = resp[0];
                     this.empleado = resp[1][0].empleado;
+
+                    this.comision = resp[2][0].comision;
+                    this.suma_transacciones = resp[2][0].suma_transacciones;
 
                     return;
                   } else {

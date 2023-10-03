@@ -9,30 +9,71 @@
         <div class="content">
 
 <div class="container">
+            <!--  -->
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Backups 
-                                <i class="material-icons"> sync </i>
-                            </h4>
-                            <p class="card-text">Historico de copias de seguridad de la base de datos.</p>
-                            <!-- <a [routerLink]="['/dashboard/configuraciones/backups']" class="btn btn-info">Acceder</a> -->
+                            <h4 class="card-title">Empresa : </h4>
+                            <input [(ngModel)]="empresa" name="empresa" type="text" placeholder="Nombre empresa..." class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Configuraciones empresa
-                                <i class="material-icons"> settings </i>
-                            </h4>
-                            <p class="card-text">Valores generales de la empresa,como nombres,impuestos,etc.</p>
-                            <!-- <a [routerLink]="['/dashboard/configuraciones/empresa']" class="btn btn-info">Acceder</a> -->
+                            <h4 class="card-title">Direccion :</h4>
+                            <input [(ngModel)]="direccion_empresa" name="direccion_empresa" type="text" placeholder="Direccion..." class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">CUIT : </h4>
+                            <input [(ngModel)]="cuit" name="cuit" type="text" placeholder="CUIT..." class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Telefono : </h4>
+                            <input [(ngModel)]="telefono_empresa" name="telefono_empresa" type="text" placeholder="Telefono..." class="form-control">
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+
+            <!--  -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Comision empleados (%) :</h4>
+                            <input [(ngModel)]="porcentaje_comision" name="porcentaje_comision" type="text" placeholder="Comision..." class="form-control">
+                        </div>
+                    </div>
+                </div>              
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Ingresos brutos : </h4>
+                            <input [(ngModel)]="ing_brutos" name="ing_brutos" type="text" placeholder="Ingresos brutos..." class="form-control">
                         </div>
                     </div>
                 </div>
             </div>
+            <!--  -->
+            <div class="row">
+                <div class="col-sm-1 form-group">
+                    <button (click)="actualizarConfiguraciones( )" class="btn btn-success">
+                        Actualizar
+                        </button>
+                </div>
+            </div>
+            <!--  -->
 </div>
 </div>
 </div>
