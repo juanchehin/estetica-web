@@ -142,6 +142,28 @@ public async buscarEmpleadosPaginado(req: Request, res: Response): Promise<void>
 
  }
 
+ // ==================================================
+//        Lista Empleados desde cierto valor
+// ==================================================
+public async listar_historico_empleado(req: Request, res: Response): Promise<void> {
+    
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
+
+    var fecha_inicio = req.params.fecha_inicio;
+    var fecha_fin: any = req.params.fecha_fin;
+    var id_empleado: any = req.params.id_empleado;
+    
+    pool.query(`call bsp_listar_historico_empleado('${desde}','${id_empleado}','${fecha_inicio}','${fecha_fin}')`, function(err: any, result: any, fields: any){
+        if(err){
+           res.status(404).json(result);
+           return;
+       }
+       res.status(200).json(result);
+    })
+
+ }
+
 // ==================================================
 //        
 // ==================================================

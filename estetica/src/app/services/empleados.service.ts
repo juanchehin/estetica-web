@@ -113,4 +113,16 @@ cargarDatosFormEditarEmpleado( IdEmpleado: any ) {
   return this.http.get( url , this.headers );
 
 }
+
+
+// ==================================================
+//
+// ==================================================
+listar_historico_empleado( desde: number , id_empleado: any, fecha_inicio: string, fecha_fin: string){
+
+  let url = URL_SERVICIOS + '/empleados/historico/' + desde + '/' + fecha_inicio + '/' + fecha_fin + '/' + id_empleado + '/' + this.IdPersona;
+
+  return this.http.get( url ,this.headers);
+}
+
 }

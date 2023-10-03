@@ -63,6 +63,11 @@ altaAcreditarCliente(req: Request, res: Response) {
 
     var pIdUsuario = req.params.IdPersona;
 
+    if(pDescripcion == null || pDescripcion == 'null' || pDescripcion == '-' || pDescripcion == '' || pDescripcion == 'undefined' || pDescripcion == undefined)
+    {
+        pDescripcion = '-';
+    }
+
 
     pool.query(`call bsp_alta_acreditar_cliente('${pIdUsuario}','${pIdCliente}','${pMonto}','${pDescripcion}','${pIdTipoPago}')`, function(err: any, result: any){
 

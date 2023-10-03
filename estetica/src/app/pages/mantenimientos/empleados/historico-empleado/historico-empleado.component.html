@@ -1,0 +1,92 @@
+
+<div id="wrapper">
+
+
+    <!-- ============================================================== -->
+    <!-- Start Page Content here -->
+    <!-- ============================================================== -->
+
+
+    <div class="content-page">
+        <div class="content">
+            <h2>Empleado : {{ empleado }}</h2>
+
+            <!-- Start Content-->
+            <div class="container-fluid">
+
+                <!-- ==============  =============== -->
+
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label for="start">Fecha Inicio : &nbsp;</label>
+                        <input type="date" required="" [(ngModel)]="fecha_inicio" class="ng-pristine ng-valid ng-touched"> &nbsp;&nbsp;&nbsp;&nbsp; 
+                    </div>
+
+                    <div class="col-sm-2">
+                        <label for="start">Fecha Fin : &nbsp;</label>
+                        <input type="date" required="" [(ngModel)]="fecha_fin" class="ng-untouched ng-pristine ng-valid"> &nbsp;&nbsp;&nbsp;&nbsp; 
+                    </div>
+                    <div class="col-sm-1 form-group" style="margin-top: 25px;">
+                        <button (click)="refrescar()" class="btn waves-effect waves-light btn-rounded btn-primary ">
+                            <i class="mdi mdi-refresh"></i> 
+                        </button>
+                    </div>       
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <h3 class="card-title">Cantidad transacciones ( {{ total_transacciones }}  )</h3>
+                    </div>  
+                </div>
+
+                <!-- ======= Fin Fechas ================= -->
+
+                <!-- ========== Tabla =========== -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card-box">
+
+                            <div class="responsive-table-plugin">
+                                <div class="table-rep-plugin">
+                                    <div class="table-responsive" data-pattern="priority-columns">
+                                        <table id="tech-companies-1" class="table table-striped mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th >Fecha</th>
+                                                <th >Cliente</th>
+                                                <th >Monto</th>
+                                            </tr>
+                                            </thead>
+                                             <tbody>
+                                                <tr *ngFor="let transaccion of transacciones">
+                                                    <td>{{ transaccion.id_transaccion }}</td>
+                                                    <td>{{ transaccion.fecha }}</td>
+                                                    <td>{{ transaccion.cliente }}</td>
+                                                    <td>${{ transaccion.monto }}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- end row -->
+                
+                <!-- ========== Fin tabla =========== -->
+
+            </div> <!-- container-fluid -->
+
+        </div> <!-- content -->
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Page content -->
+    <!-- ============================================================== -->
+
+</div>
