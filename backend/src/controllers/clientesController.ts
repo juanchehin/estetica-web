@@ -56,6 +56,31 @@ public async altaCliente(req: Request, res: Response) {
     var Observaciones = req.body[7];
     var id_sucursal = req.body[8];
 
+    if(Observaciones == null || Observaciones == 'null' || Observaciones == '-' || Observaciones == '' || Observaciones == 'undefined' || Observaciones == undefined)
+    {
+        Observaciones = '-';
+    }
+
+    if(DNI == null || DNI == 'null' || DNI == '-' || DNI == '' || DNI == 'undefined' || DNI == undefined)
+    {
+        DNI = '-';
+    }
+
+    if(Telefono == null || Telefono == 'null' || Telefono == '-' || Telefono == '' || Telefono == 'undefined' || Telefono == undefined)
+    {
+        Telefono = '-';
+    }
+
+    if(Email == null || Email == 'null' || Email == '-' || Email == '' || Email == 'undefined' || Email == undefined)
+    {
+        Email = '-';
+    }
+
+    if(Direccion == null || Direccion == 'null' || Direccion == '-' || Direccion == '' || Direccion == 'undefined' || Direccion == undefined)
+    {
+        Direccion = '-';
+    }
+
     
     pool.query(`call bsp_alta_cliente('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Direccion}','${FechaNac}','${Observaciones}','${id_sucursal}')`, function(err: any, result: any, fields: any){
 
