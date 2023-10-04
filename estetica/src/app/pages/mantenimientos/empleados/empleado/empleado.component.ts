@@ -19,8 +19,6 @@ export class EmpleadoComponent implements OnInit {
     public empleadosService: EmpleadosService, 
     public activatedRoute: ActivatedRoute
     ) {
-      
-
   }
 
   ngOnInit() {
@@ -51,24 +49,31 @@ export class EmpleadoComponent implements OnInit {
         this.forma.value.DNI,
         this.forma.value.Telefono,
         this.forma.value.Email,
+        this.forma.value.direccion,
+        this.forma.value.fecha_nac,
         this.forma.value.Observaciones
       );
 
       this.empleadosService.altaEmpleado( empleado )
-                .subscribe( (resp: any) => {
-                  
-                  if ( resp[0][0].mensaje == 'Ok') {
+                .subscribe(
+                  {
+                    next: (resp: any) => {
+                      if ( resp[0][0].mensaje == 'Ok') {
 
-                    this.alertService.alertSuccess('top-end','empleado cargado',2000);
+                            this.alertService.alertSuccess('Mensaje','Empleado cargado',2000);
+                            
+                            this.router.navigate(['/dashboard/empleados']);
+                          } else {
+                            this.alertService.alertFail('Mensaje','Ocurrio un error : ' + resp[0][0].mensaje,2000);
+                          }
+                          return;
+                     },
+                    error: (resp: any) => {
+                
+                      this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',2000);
                     
-                    this.router.navigate(['/dashboard/empleados']);
-                  } else {
-                    this.alertService.alertFail('Ocurrio un error : ' + resp[0][0].mensaje,false,2000);
-                  }
-                  return;
-                });
+                    }
+                  });
 
-
-              }
-
+                }
 }

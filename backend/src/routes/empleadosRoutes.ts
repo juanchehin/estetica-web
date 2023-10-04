@@ -14,7 +14,7 @@ class EmpleadosRoutes {
 
     config(): void {
         // Empleados
-        this.router.post('/alta/:IdPersona', empleadosController.altaEmpleado);
+        this.router.post('/alta/:IdPersona/:id_sucursal', empleadosController.altaEmpleado);
         this.router.get('/baja/:IdEmpleado/:IdPersona', empleadosController.bajaEmpleado);
         this.router.get('/:IdPersona',  [mdAutenticacion.verificaToken,mdAutenticacion.MismoUsuario], empleadosController.dameDatosEmpleado);
         this.router.get('/listar/busqueda/:empleadoBuscado/:pIdSucursal', empleadosController.buscarEmpleado);

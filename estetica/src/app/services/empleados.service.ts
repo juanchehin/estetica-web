@@ -46,7 +46,9 @@ export class EmpleadosService {
 // ==================================================
 altaEmpleado( empleado: any ) {
 
-  let url = URL_SERVICIOS + '/empleados/alta/' + this.IdPersona;
+  const id_sucursal = localStorage.getItem('id_sucursal');
+
+  let url = URL_SERVICIOS + '/empleados/alta/' + this.IdPersona + '/' + id_sucursal;
 
   return this.http.post(url,empleado, this.headers );
 }

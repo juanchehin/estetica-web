@@ -24,35 +24,57 @@ public async dameDatosEmpleado(req: Request, res: Response): Promise<any> {
 }
 
 // ==================================================
-//        Inserta un empleado enviando un correo de confirmacion
+//        Inserta un empleado
 // ==================================================
 public async altaEmpleado(req: Request, res: Response) {
 
-    const { IdPersona } = req.params;
+    const { id_sucursal } = req.params;
     var Apellidos = req.body[0];
     var Nombres = req.body[1];
     var DNI = req.body[2];
     var Telefono = req.body[3];
     var Email = req.body[4];
-    var Observaciones = req.body[5];
+    var direccion = req.body[5];
+    var fecha_nac = req.body[6];
+    var observaciones = req.body[7];
+
+    if(observaciones == null || observaciones == 'null' || observaciones == '-' || observaciones == '' || observaciones == 'undefined' || observaciones == undefined)
+    {
+        observaciones = '-';
+    }
+
+    if(DNI == null || DNI == 'null' || DNI == '-' || DNI == '' || DNI == 'undefined' || DNI == undefined)
+    {
+        DNI = '-';
+    }
+
+    if(Telefono == null || Telefono == 'null' || Telefono == '-' || Telefono == '' || Telefono == 'undefined' || Telefono == undefined)
+    {
+        Telefono = '-';
+    }
+
+    if(Email == null || Email == 'null' || Email == '-' || Email == '' || Email == 'undefined' || Email == undefined)
+    {
+        Email = '-';
+    }
+
+    if(direccion == null || direccion == 'null' || direccion == '-' || direccion == '' || direccion == 'undefined' || direccion == undefined)
+    {
+        direccion = '-';
+    }
     
-    pool.query(`call bsp_alta_empleado_panel('${IdPersona}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${Observaciones}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_empleado('${id_sucursal}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${direccion}','${fecha_nac}','${observaciones}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;
         }
         res.status(200).json(result);
     })
-
-    // enviarMailBienvenida(Email);   
-
 }
 // ==================================================
 //      
 // ==================================================
 public async editarEmpleado(req: Request, res: Response) {
-
-    const { IdPersona } = req.params;
 
     var Apellidos = req.body[0];
     var Nombres = req.body[1];
@@ -192,7 +214,7 @@ public async cargarDatosFormEditarEmpleado(req: Request, res: Response): Promise
 
     pool.query(`call bsp_dame_datos_empleado('${pIdEmpleado}')`, function(err: any, result: any, fields: any){
        if(err){
-           console.log("error", err);
+        
            return;
        }
        res.json(result);
@@ -239,7 +261,7 @@ public async actualizaEmpleado(req: Request, res: Response) {
     '${Documento}','${Telefono}','${Correo}','${FechaNac}',
     '${Direccion}','${Observaciones}')`, function(err: any, result: any, fields: any){
         if(err){
-            console.log("error : ", err);
+            
             res.status(404).json({ text: "Ocurrio un problema" });
             return;
         }
