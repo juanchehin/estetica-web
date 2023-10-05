@@ -38,6 +38,8 @@ export class EditarClienteComponent implements OnInit {
 
 editarCliente() {
 
+  this.alertService.cargando = true;
+
       const clienteEditado = new Array(
         this.Apellidos,
         this.Nombres,
@@ -56,12 +58,21 @@ editarCliente() {
                     if ( (resp != null) && (resp[0][0].mensaje == 'Ok') ) {
                       this.alertService.alertSuccess('Mensaje','Cliente actualizado',2000);
                       this.router.navigate(['/dashboard/clientes']);
+                      this.alertService.cargando = false;
+
                     } else {
                       this.alertService.alertFailWithText('Ocurrio un error. ','Contactese con el administrador',2000);
+                      this.alertService.cargando = false;
+
                     }
+                    this.alertService.cargando = false;
+
                     return;
                    },
-                  error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }
+                  error: () => { 
+                    this.alertService.alertFail('Ocurrio un error','Contactese con el administrador',2000);
+                    this.alertService.cargando = false;
+                  }
                 });
 
             };

@@ -40,6 +40,8 @@ export class ProductosComponent implements OnInit {
 
 buscarProducto() {
 
+  this.alertaService.cargando = true;
+
     const inputElement: HTMLInputElement = document.getElementById('buscarProducto') as HTMLInputElement;
     const productoBuscado: any = inputElement.value || '-';
 
@@ -51,7 +53,8 @@ buscarProducto() {
                   { 
                     this.productos = [];
                     this.totalProductos = 0;
-                    
+                    this.alertaService.cargando = false;
+
                     return;
                   }
   
@@ -59,13 +62,21 @@ buscarProducto() {
                     
                     this.totalProductos = resp[1][0].cantProductosBuscados;
                     this.productos = resp[0];
+                    this.alertaService.cargando = false;
+
                   } else {
                     this.alertaService.alertFail('Ocurrio un error',false,2000);
+                    this.alertaService.cargando = false;
+
                   }
+                  this.alertaService.cargando = false;
+
                   return;
                  },
                 error: () => { 
-                  this.alertaService.alertFail('Ocurrio un error',false,2000)
+                  this.alertaService.alertFail('Ocurrio un error',false,2000);
+                  this.alertaService.cargando = false;
+
                 }
               });
 

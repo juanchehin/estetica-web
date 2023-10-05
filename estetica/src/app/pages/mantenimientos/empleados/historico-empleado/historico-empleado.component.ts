@@ -43,6 +43,8 @@ export class HistoricoEmpleadoComponent implements OnInit {
 
 listar_historico_empleado() {
 
+  this.alertService.cargando = true;
+
     this.empleadosService.listar_historico_empleado( this.desde,this.id_empleado_seleccionado,this.fecha_inicio,this.fecha_fin  )
                .subscribe( {
                 next: (resp: any) => {
@@ -57,14 +59,23 @@ listar_historico_empleado() {
                     this.comision = resp[2][0].comision;
                     this.suma_transacciones = resp[2][0].suma_transacciones;
 
+                    this.alertService.cargando = false;
+
+
                     return;
                   } else {
                     this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',2000);
+                    this.alertService.cargando = false;
+
                   }
+                  this.alertService.cargando = false;
+
                   return;
                  },
                 error: () => { 
                   this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',2000);
+                  this.alertService.cargando = false;
+
                 }
               });
 

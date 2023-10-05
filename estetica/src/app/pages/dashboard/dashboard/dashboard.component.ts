@@ -73,8 +73,11 @@ export class DashboardComponent implements OnInit {
 // =================
 cargarDatosDashboard(){
 
+  this.alertService.cargando = true;
+
   this.ventasService.listar_transacciones(this.desde,this.fechaInicio,this.fechaFin  )
               .subscribe( (resp: any) => {
+                console.log('resp::: ', resp);
 
               this.transacciones = resp[0];
 
@@ -87,6 +90,7 @@ cargarDatosDashboard(){
               this.voucher = resp[2][0].p_suma_voucher || 0;
               this.estado_caja = resp[2][0].estado_caja || 'C';
 
+              this.alertService.cargando = false;
 
             });
 
@@ -222,6 +226,8 @@ alta_egreso() {
     this.alertService.alertFail('Mensaje','Metodo pago invalido',2000);
     return;
   }
+
+  this.alertService.cargando = true;
   
       this.array_egreso.push(        
         this.IdEmpleado,
@@ -248,14 +254,22 @@ alta_egreso() {
 
             this.cargarDatosDashboard();
             // this.resetearVariables();
+            this.alertService.cargando = false;
             
           } else {
             this.alertService.alertFail('Ocurrio un error',false,2000);
+            this.alertService.cargando = false;
+
           }
           return;
          },
-        error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+        error: () => { 
+          this.alertService.alertFail('Ocurrio un error',false,2000);
+          this.alertService.cargando = false;
+        }
       });
+      this.array_egreso = [];
+
 
 }
 
@@ -277,6 +291,8 @@ rutear_nueva_venta(){
 // =================
 ver_transaccion(transaccion: any){
 
+  this.alertService.cargando = true;
+
   this.ventasService.dame_transaccion( transaccion.id_transaccion )
                .subscribe( {
                 next: (resp: any) => {
@@ -289,16 +305,21 @@ ver_transaccion(transaccion: any){
                     this.detalle_fecha = transaccion.Fecha;
                     this.detalle_lineas_venta = resp[0];
                     this.detalle_monto_total = transaccion.Monto;
-                    this.detalle_tipo_pago = resp[1][0].tipo_pago;                    
+                    this.detalle_tipo_pago = resp[1][0].tipo_pago;  
+                    
+                    this.alertService.cargando = false;
                     
                   } else {
                     
                     this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+                    this.alertService.cargando = false;
                     
                   }
                  },
                 error: (resp: any) => {            
                   this.alertService.alertFailWithText('Ocurrio un error al procesar el pedido','Error',1200);
+                  this.alertService.cargando = false;
+
                 }
               });
   }

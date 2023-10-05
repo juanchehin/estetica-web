@@ -39,6 +39,8 @@ export class EditarEmpleadoComponent implements OnInit {
 
 editarEmpleado() {
 
+  this.alertService.cargando = true;
+
       const empleadoEditado = new Array(
         this.Apellidos,
         this.Nombres,
@@ -57,13 +59,20 @@ editarEmpleado() {
                   
                     if ( (resp != null) && (resp[0][0].mensaje == 'Ok') ) {
                       this.alertService.alertSuccess('Mensaje','Empleado actualizado',2000);
+                      this.alertService.cargando = false;
+
                       this.router.navigate(['/dashboard/empleados']);
                     } else {
-                      this.alertService.alertFail('Ocurrio un error','Contactese con el administrador',2000)
+                      this.alertService.alertFail('Ocurrio un error','Contactese con el administrador',2000);
+                      this.alertService.cargando = false;
+
                     }
                     return;
                    },
-                  error: () => { this.alertService.alertFail('Ocurrio un error','Contactese con el administrador',2000) }
+                  error: () => { 
+                    this.alertService.alertFail('Ocurrio un error','Contactese con el administrador',2000);
+                    this.alertService.cargando = false;
+                  }
                 });
 
             };
@@ -73,6 +82,8 @@ editarEmpleado() {
 // ==================================================
 
 cargarDatosFormEditarEmpleado() {
+
+  this.alertService.cargando = true;
 
     this.empleadosService.cargarDatosFormEditarEmpleado( this.IdPersona )
                .subscribe( {
@@ -86,8 +97,13 @@ cargarDatosFormEditarEmpleado() {
                 this.Observaciones = resp[0][0].observaciones;
                 this.direccion = resp[0][0].direccion;
              
+                this.alertService.cargando = false;
+
               },
-              error: () => { this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) }
+              error: () => { 
+                this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+                this.alertService.cargando = false;
+            }
             });
 
         };

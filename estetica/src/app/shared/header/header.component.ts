@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 // var $ = require( "jquery" );
 @Component({
@@ -16,6 +17,7 @@ export class HeaderComponent {
   titulo_sucursal = 'Estetica - ';
 
   constructor( private authService: AuthService,
+              public alertService: AlertService,
                private router: Router ) {
   }
 

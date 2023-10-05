@@ -43,8 +43,7 @@ export class CajaComponent implements OnInit {
 
 listar_movimientos_caja() {
 
-    // const inputElement: HTMLInputElement = document.getElementById('buscarCaja') as HTMLInputElement;
-    // const cajaBuscado: any = inputElement.value || '-';
+  this.alertService.cargando = true;
 
     this.IdSucursal = localStorage.getItem('id_sucursal');
 
@@ -56,7 +55,8 @@ listar_movimientos_caja() {
                   { 
                     this.movimientos = [];
                     this.totalMovimientos = 0;
-                    
+                    this.alertService.cargando = false;
+
                     return;
                   }
   
@@ -73,14 +73,21 @@ listar_movimientos_caja() {
                       this.estado_caja = 'Cerrada';
                       this.boton_apertura_cierre = 'C';
                     }
+                    this.alertService.cargando = false;
 
                   } else {
                     this.alertService.alertFail('Ocurrio un error',false,2000);
+                    this.alertService.cargando = false;
+
                   }
+                  this.alertService.cargando = false;
+
                   return;
                  },
                 error: () => { 
-                  this.alertService.alertFail('Ocurrio un error',false,2000)
+                  this.alertService.alertFail('Ocurrio un error',false,2000);
+                  this.alertService.cargando = false;
+
                 }
               });
 

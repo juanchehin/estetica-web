@@ -37,6 +37,8 @@ export class EmpleadosComponent implements OnInit {
 
 buscarEmpleados() {
 
+  this.alertService.cargando = true;
+
     const inputElement: HTMLInputElement = document.getElementById('empleadoBuscado') as HTMLInputElement;
     const empleadoBuscado: any = inputElement.value || null;
 
@@ -44,19 +46,26 @@ buscarEmpleados() {
                .subscribe( {
                 next: (resp: any) => { 
 
-                  if(resp[0][0] != undefined && resp[2] && resp[2][0].mensaje == 'Ok')
+                  if(resp[2][0].mensaje == 'Ok')
                   { 
                     this.totalEmpleados = resp[1][0].cantEmpleados;
     
                     this.empleados = resp[0];
+                    this.alertService.cargando = false;
+
                     return;
                   } else {
                     this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',2000);
+
                   }
+                  this.alertService.cargando = false;
+
                   return;
                  },
                 error: () => { 
                   this.alertService.alertFailWithText('Ocurrio un error','Contactese con el administrador',2000);
+                  this.alertService.cargando = false;
+
                 }
               });
 

@@ -61,6 +61,8 @@ export class ConfiguracionesComponent implements OnInit {
   // ======================================
   actualizarConfiguraciones() {
 
+    this.alertService.cargando = true;
+
     const configuraciones = [
       this.porcentaje_comision,
       this.empresa,
@@ -77,13 +79,21 @@ export class ConfiguracionesComponent implements OnInit {
                   if ( resp[0][0].mensaje === 'Ok') {
                     this.alertService.alertSuccess('Mensaje','Configuracion guardada',2000);
                     this.cargar_configuraciones();
+                    this.alertService.cargando = false;
+
                   } else {
                     this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+                    this.alertService.cargando = false;
+
                   }
+                  this.alertService.cargando = false;
+
                   return;
                  },
                 error: () => { 
-                  this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000) 
+                  this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
+                  this.alertService.cargando = false;
+
                 }
               });
                 

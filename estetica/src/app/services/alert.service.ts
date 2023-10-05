@@ -39,24 +39,4 @@ export class AlertService {
   });
 }
 
-
-// ==============================
- alertConfirm(pTitulo: any,pSubTitulo: any): any {  
-
-  // Swal.fire({
-  //   title: pTitulo,
-  //   text: pSubTitulo,
-  //   icon: 'warning',
-  //   showCancelButton: true,
-  //   confirmButtonColor: '#3085d6',
-  //   cancelButtonColor: '#d33',
-  //   confirmButtonText: 'Si'
-  // }).then((result) => {
-
-  //   return result;
-
-  // }) 
-  
-}
-
 }

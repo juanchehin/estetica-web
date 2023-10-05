@@ -8,6 +8,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from './footer/footer.component';
 import { FormsModule } from '@angular/forms';
+import { CargandoComponent } from './cargando/cargando.component';
 
 
 @NgModule({
@@ -19,11 +20,13 @@ import { FormsModule } from '@angular/forms';
     declarations: [
         // NopagefoundComponent,
         HeaderComponent,
+        CargandoComponent,
         SidebarComponent,
         FooterComponent
     ],
     exports: [
         // NopagefoundComponent,
+        CargandoComponent,
         HeaderComponent,
         SidebarComponent,
         FooterComponent
