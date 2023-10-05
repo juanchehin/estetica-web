@@ -236,7 +236,12 @@ alta_egreso() {
         next: (resp: any) => {
           
           if ( resp.Mensaje == 'Ok') {
-            this.alertService.alertSuccess('Mensaje','Venta cargada',2000);
+            this.alertService.alertSuccess('Mensaje','Egreso cargada',2000);
+
+            this.monto_egreso = 0;
+            this.IdTipoPagoSelect = 1;
+            this.tipo_egreso = 'E';
+            this.descripcion = '';
 
             let el: HTMLElement = this.cerrarModalEgreso.nativeElement;
             el.click();
