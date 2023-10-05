@@ -34,6 +34,7 @@ export class DashboardComponent implements OnInit {
   tipo_egreso: any;
   array_egreso: any = [];
   IdEmpleado = 0;
+  id_usuario_actual: any;
   empleados: any;
   IdTipoPago: any;
   descripcion: any;
@@ -65,6 +66,7 @@ export class DashboardComponent implements OnInit {
     this.cargarDatosDashboard();
     this.cargarTiposPago();
     this.cargar_datos_empleados();
+    this.id_usuario_actual = localStorage.getItem('id');
   }
 
 
@@ -77,7 +79,6 @@ cargarDatosDashboard(){
 
   this.ventasService.listar_transacciones(this.desde,this.fechaInicio,this.fechaFin  )
               .subscribe( (resp: any) => {
-                console.log('resp::: ', resp);
 
               this.transacciones = resp[0];
 
@@ -231,6 +232,7 @@ alta_egreso() {
   
       this.array_egreso.push(        
         this.IdEmpleado,
+        this.id_usuario_actual,
         this.monto_egreso,
         this.IdTipoPagoSelect,
         this.tipo_egreso,

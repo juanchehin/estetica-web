@@ -133,15 +133,16 @@ async alta_egreso(req: Request, res: Response) {
     var pIdVenta;
 
     var pIdEmpleado = req.body[0];
-    var pMonto = req.body[1];
-    var pIdTipoPago = req.body[2];
-    var pMetodoPago = req.body[3];
-    var pDescripcion = req.body[4];
+    var pIdUsuarioActual = req.body[1];
+    var pMonto = req.body[2];
+    var pIdTipoPago = req.body[3];
+    var pMetodoPago = req.body[4];
+    var pDescripcion = req.body[5];
 
     // ==============================
     try {
         // ====================== Alta  ===========================================
-        let sql = `call bsp_alta_egreso('${pMonto}','${pIdTipoPago}','${pMetodoPago}','${pIdEmpleado}','${pDescripcion}')`;
+        let sql = `call bsp_alta_egreso('${pMonto}','${pIdTipoPago}','${pMetodoPago}','${pIdEmpleado}','${pIdUsuarioActual}','${pDescripcion}')`;
         const [result] = await pool.promise().query(sql)
         
 
