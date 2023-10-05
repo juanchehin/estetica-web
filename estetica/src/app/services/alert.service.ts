@@ -39,18 +39,6 @@ export class AlertService {
   });
 }
 
- // ==============================
- alertInfoWithText(pTitulo: any,pText: any,pShowConfirmButton: boolean,pTimer: any) {
-
-  // Swal.fire({
-  //   icon: 'info',
-  //   title: pTitulo,
-  //   text: pText,
-  //   showConfirmButton: pShowConfirmButton,
-  //   timer: pTimer
-  // });
-
-}
 
 // ==============================
  alertConfirm(pTitulo: any,pSubTitulo: any): any {  

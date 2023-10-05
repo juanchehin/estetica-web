@@ -91,8 +91,6 @@ public async altaCliente(req: Request, res: Response) {
         res.status(200).json(result);
     })
 
-    // enviarMailBienvenida(Email);   
-
 }
 // ==================================================
 //      
