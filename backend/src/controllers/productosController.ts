@@ -143,6 +143,51 @@ public async buscarProductoAutoComplete(req: Request, res: Response): Promise<vo
         res.status(200).json(result);
     })
 }
+
+// ==================================================
+//   
+// ==================================================
+public async cargarDatosFormEditarProducto(req: Request, res: Response): Promise<void> {
+
+    const { IdProducto } = req.params;
+
+    pool.query(`call bsp_dame_datos_form_editar_producto('${IdProducto}')`, function(err: any, result: any){
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+}
+
+
+// ==================================================
+//        Edita un producto
+// ==================================================
+public async editarProducto(req: Request, res: Response) {
+
+    var id_producto = req.body[0];
+    var producto = req.body[1];
+    var codigo = req.body[2];
+    var stock = req.body[3];
+    var precio_compra = req.body[4];
+    var precio_venta = req.body[5];
+    var observaciones = req.body[6];
+    
+    pool.query(`call bsp_editar_producto('${id_producto}','${producto}','${codigo}','${stock}','${precio_compra}','${precio_venta}','${observaciones}')`, function(err: any, result: any){
+        
+        if(err){
+            res.status(400).json(err);
+            return;
+        }
+
+        res.status(200).json(result);
+    })
+
+}
+
+
 }
 
 

@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { ProductoComponent } from './productos/producto.component';
 import { ProductosComponent } from './productos/productos.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditarProductoComponent } from './productos/editar-producto.component';
 // import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
@@ -21,7 +22,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     ProductoComponent,
-    ProductosComponent
+    ProductosComponent,
+    EditarProductoComponent
   ]
 })
 export class ProductosModule { }

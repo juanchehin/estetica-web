@@ -94,15 +94,8 @@ editarProducto( productoEditado: any ) {
 
   let url = URL_SERVICIOS + '/productos/editar/' + this.IdPersona;
 
-  return this.http.post(
-    url,
-    productoEditado,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
+  return this.http.post(url,productoEditado,this.headers);
+
 }
   // ==================================================
 //        
@@ -168,113 +161,4 @@ buscarProductos( producto: string , pDesde: any ): any {
 
 }
 
-// ==================================================
-//  ******* Promociones *******        
-// ==================================================
-// ==================================================
-//
-// ==================================================
-listarPromocionesPaginado(desde: any){
-
-  let url = URL_SERVICIOS + '/productos/promociones/listar/' + desde;
-
-  return this.http.get( url );
-}
-
-  // ==================================================
-//        
-// ==================================================
-altaPromocion( promocion: any ) {
-
-  let url = URL_SERVICIOS + '/productos/promocion/alta/'+ this.IdPersona;
-
-  return this.http.post( url, promocion, this.headers);
-}
-
-
-  // ==================================================
-//        
-// ==================================================
-editarPromocion( promocion: any ) {
-
-  let url = URL_SERVICIOS + '/productos/promocion/update';
-  // url += '?IdRol=' + this.IdRol;
-
-  return this.http.put(
-    url,
-    promocion
-    // {
-    //   headers: {
-    //     token: this.token
-    //   }
-    // }
-);
-}
-
-  // ==================================================
-//        
-// ==================================================
-publicarPromocion( IdPromocion: any ) {
-
-  let url = URL_SERVICIOS + '/productos/promocion/publicar/' + IdPromocion + '/' + this.IdPersona;
-
-  return this.http.get(url,this.headers);
-}
-
-  // ==================================================
-//        
-// ==================================================
-bajaPromocion( IdPromocion: any ) {
-
-  let url = URL_SERVICIOS + '/productos/promocion/baja/' + IdPromocion + '/' + this.IdPersona;
-
-  return this.http.get(url,this.headers);
-
-}
-// ==================================================
-//  ******* Transferencias *******        
-// ==================================================
-
-// ==================================================
-//
-// ==================================================
-listarTransferenciasPaginado(desde: any,fecha: any){
-
-  let url = URL_SERVICIOS + '/productos/transferencias/listar/' + desde + '/' + fecha + '/' + this.IdPersona;
-
-  return this.http.get( url, this.headers );
-}  
-  // ==================================================
-//        
-// ==================================================
-altaTransferencia( transferencia: any ) {
-
-  let url = URL_SERVICIOS + '/productos/transferencias/alta/' + this.IdPersona;
-
-  return this.http.post(
-    url,
-    transferencia,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
-}
-  // ==================================================
-//        
-// ==================================================
-bajaTransferencia( IdTransferencia: any ) {
-
-  let url = URL_SERVICIOS + '/productos/transferencias/baja/' + IdTransferencia + '/' + this.IdPersona;
-
-  return this.http.get(
-    url,
-    {
-      headers: {
-        token: this.token
-      }
-    }
-);
-}
 }

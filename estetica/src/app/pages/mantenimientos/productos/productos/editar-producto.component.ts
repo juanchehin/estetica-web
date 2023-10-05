@@ -11,53 +11,14 @@ import { AlertService } from 'src/app/services/alert.service';
 })
 export class EditarProductoComponent implements OnInit {
 
-  cargando = true;
-  marcas: any;
-  categorias: any;
-  banderaGenerarCodigo = false;
-  unidades: any;
-  alertaPrecioVentaCompra = false;
-  alertaPrecioVentaMayorista = false;
-  alertaPrecioVentaMeli = false;
-  sucursalPrincipal: any;
-  proveedores: any;
-  IdCategoriaSeleccionada: any;
-  subcategorias: any;
-  deshabilitarSubcategorias = true;
-  alertaCodigoVacio = false;
-  alertaFechaVencimiento = false;
-  IdProducto: any;
-
   // ==============================
-  IdCategoria: any;
-  IdSubCategoria: any;
-  IdMarca: any;
-  IdUnidad: any;        
-  Producto: any;
-  IdProveedor: any;
-  FechaVencimiento: any;
-  Descripcion: any;
-  StockAlerta: any;
-  Medida: any;
-  PrecioCompra: any;
-  PrecioVenta: any;
-  PrecioMayorista: any;
-  PrecioMeli: any;
-  Descuento: any;
-  Moneda: any;
-  producto: any;
-
-  // sabores
-  sabores: any;
-  keywordSabor = 'Sabor';
-  sabores_cargados: any = [];
-  itemPendiente: any = [];
-  cantidadLineaSabor = 1;
-  codigoLineaSabor: any;
-  itemIdSabor: any;
-  saborBuscado = '';
-  itemCheckExists: any = 0;
-  @ViewChild('saboresReference') saboresReference: any;
+  producto = '';
+  codigo = '';
+  stock = '0';
+  precio_compra = '0';
+  precio_venta = '0';
+  observaciones = '-';
+  id_producto: any;
   
 
   constructor(
@@ -70,7 +31,7 @@ export class EditarProductoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.IdProducto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
+    this.id_producto = this.activatedRoute.snapshot.paramMap.get('IdProducto');
     this.cargarDatosFormEditarProducto();
 
   }
@@ -79,83 +40,47 @@ export class EditarProductoComponent implements OnInit {
 //        Crear 
 // ==================================================
 
-altaProducto() {
-
-      //** */
-      if((this.PrecioCompra > this.PrecioVenta) ){
-        this.alertaPrecioVentaCompra = true;
-        return;
-      }
-      else
-      { 
-        this.alertaPrecioVentaCompra = false;
-      }
-      //** */
-      if(this.PrecioCompra > this.PrecioMeli)
-      {
-        this.alertaPrecioVentaMeli = true;
-        return;
-      }else
-      { 
-        this.alertaPrecioVentaMeli = false;
-      }
-      //** */
-      if(this.PrecioCompra > this.PrecioMayorista)
-      {
-        this.alertaPrecioVentaMayorista = true;
-        return;
-      }else
-      { 
-        this.alertaPrecioVentaMayorista = false;
-      }
-       //** */
-       if(this.FechaVencimiento < new Date())
-       {
-         this.alertaFechaVencimiento = true;
-         return;
-       }else
-       { 
-         this.alertaFechaVencimiento = false;
-       }
-
-      const productoEditado = new Array(
-        this.IdCategoria,
-        this.IdSubCategoria,
-        this.IdMarca,
-        this.IdUnidad,        
-        this.Producto,
-        this.IdProveedor,
-        this.FechaVencimiento,
-        this.Descripcion,
-        this.StockAlerta,
-        this.Medida,
-        this.PrecioCompra,
-        this.PrecioVenta,
-        this.PrecioMayorista,
-        this.PrecioMeli,
-        this.Descuento,
-        this.Moneda,
-        this.sabores_cargados
-      );
-
-      this.productosService.editarProducto( productoEditado )
-                .subscribe( {
-                  next: (resp: any) => { 
+update_producto() {
   
-                    console.log("resp prod : ",resp)
-                  
-                    if ( resp.mensaje === 'Ok') {
-                      this.alertService.alertSuccess('top-end','Producto cargado',2000);
-                      this.router.navigate(['/dashboard/productos']);
-                    } else {
-                      this.alertService.alertFail('Ocurrio un error. Contactese con el administrador',false,2000);
-                    }
-                    return;
-                   },
-                  error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
-                });
+  //** */
+  if((this.producto.length <= 0 || this.producto == '') ){
+    this.alertService.alertFailWithText('Atencion','Debe cargar un nombre para el producto',2000);
+    return;
+  }
+  //** */
+  if((this.precio_compra > this.precio_venta) ){
+    this.alertService.alertFailWithText('Error','El precio compra debe ser menor al precio venta',1200);
+    return;
+  }
+  
+  const producto = new Array(
+    this.id_producto,
+    this.producto,
+    this.codigo,
+    this.stock,
+    this.precio_compra,
+    this.precio_venta,
+    this.observaciones
+    );
+    
+  this.productosService.editarProducto( producto )
+            .subscribe( {
+              next: (resp: any) => {
+                
+                if ( resp[0][0].mensaje === 'Ok') {
+                  this.alertService.alertSuccess('Mensaje','Producto actualizado',2000);
+                  this.router.navigate(['/dashboard/productos']);
+                } else {
+                  this.alertService.alertFail('Mensaje','Ocurrio un error. Contactese con el administrador',2000);
+                }
+                return;
+               },
+              error: () => { 
+                this.alertService.alertFail('Mensaje','Ocurrio un error. Contactese con el administrador',2000);
+              }
+            });
 
-            }
+        }
 
 // ==================================================
 // Carga
@@ -163,187 +88,31 @@ altaProducto() {
 
 cargarDatosFormEditarProducto() {
 
-    this.productosService.cargarDatosFormEditarProducto( this.IdProducto )
-               .subscribe( (resp: any) => {
+    this.productosService.cargarDatosFormEditarProducto( this.id_producto )
+               .subscribe(  {
 
-                console.log("resp editar perod es : ",resp)
+                next: (resp: any) => { 
+                
+                  if ( resp[1][0].mensaje === 'Ok') {
 
-                this.marcas = resp[0];
-                this.categorias = resp[1];
-                this.unidades = resp[2];
-                this.proveedores = resp[3];
-                this.sucursalPrincipal = resp[4][0].Sucursal;
-                this.sabores = resp[5];
-                this.producto = resp[6][0];
-                this.sabores_cargados = resp[7];
+                    this.producto = resp[0][0].producto;
+                    this.codigo = resp[0][0].codigo;
+                    this.stock = resp[0][0].stock;
+                    this.precio_compra = resp[0][0].precio_compra;
+                    this.precio_venta = resp[0][0].precio_venta;
+                    this.observaciones = resp[0][0].descripcion;
 
-                this.IdCategoria = this.producto.IdCategoria;
-                this.IdSubCategoria = this.producto.IdSubCategoria;
-                this.IdMarca = this.producto.IdMarca;
-                this.IdUnidad = this.producto.IdUnidad;        
-                this.Producto = this.producto.Producto;
-                this.IdProveedor = this.producto.IdProveedor;
-                this.FechaVencimiento = this.producto.Fecha_vencimiento;
-                this.Descripcion = this.producto.Descripcion;
-                this.StockAlerta = this.producto.StockAlerta;
-                this.Medida = this.producto.Medida;
-                this.PrecioCompra = this.producto.PrecioCompra;
-                this.PrecioVenta = this.producto.PrecioVenta;
-                this.PrecioMayorista = this.producto.PrecioMayorista;
-                this.PrecioMeli = this.producto.PrecioMeli;
-                this.Descuento = this.producto.Descuento;
-                this.Moneda = this.producto.Moneda;
-
+                  } else {
+                    this.alertService.alertFail('Mensaje','Ocurrio un error. Contactese con el administrador',2000);
+                  }
+                  return;
+                 },
+                error: () => { 
+                  this.alertService.alertFail('Mensaje','Ocurrio un error. Contactese con el administrador',2000);
+                }
               });
-
-  }
-
   
-// ==================================================
-// Carga la subcategorias segun la categoria seleccionada
-// ==================================================
-
-cargarSubcategoriaIdCategoria(IdCategoria: any) {
-
-    this.categoriasService.cargarSubcategoriaIdCategoria( IdCategoria )
-               .subscribe( (resp: any) => {
-
-                this.subcategorias = resp[0];
-
-              });
-
   }
 
-// ==================================================
-// 
-// ==================================================
-
-generarCodigo() {
-
-  if(this.banderaGenerarCodigo == false) {
-    this.codigoLineaSabor = new Date().valueOf();
-  }
-  else
-  { 
-    this.codigoLineaSabor = ''
-  }
-
-  this.banderaGenerarCodigo = !this.banderaGenerarCodigo;  
-  
-}
-// ==================================================
-// 
-// ==================================================
-
-onChangeCategorias(IdCategoria: any) {
-
-  this.deshabilitarSubcategorias = false;
-  this.cargarSubcategoriaIdCategoria(IdCategoria);
-  
-  
-}
-
-// ==============================
-// 
-// ================================
-  eliminarItemSabor(IdProducto: any){
-
-    this.sabores_cargados.forEach( (item: any, index: any) => {
-      if(item.IdProducto === IdProducto) 
-      {
-        // this.totalVenta -= item.PrecioVenta * item.Cantidad;
-        this.sabores_cargados.splice(index,1);
-      }
-        
-    });
-
-  }
-
-
-// ==================================================
-// Insera los sabores en el array
-// ==================================================
-
-agregarLineaSabor() {
-
-  console.log("this.itemPendiente : ",this.itemPendiente)
-
-  if(this.itemPendiente.Sabor == '')
-  { 
-    this.alertService.alertFail('Debe elegir un sabor',false,900)
-    return;
-  }
-
-  console.log("this.codigoLineaSabor : ",this.codigoLineaSabor)
-
-  if(this.codigoLineaSabor == '' || this.codigoLineaSabor == undefined)
-  { 
-    this.alertService.alertFail('Debe cargar un codigo',false,900)
-    return;
-  }
-
-  if(this.itemPendiente.length <= 0)
-  { 
-    this.alertService.alertFail('Debe cargar sabor/codigo',false,900)
-    return;
-  }
-  
-  const checkExistsLineaSabor = this.sabores_cargados.find((sabor_cargado: any) => {
-    return sabor_cargado.IdSabor == this.itemPendiente.IdSabor;
-  });
-
-
-  if(!(checkExistsLineaSabor != undefined))
-  {
-    this.sabores_cargados.push(
-      {
-        IdSabor: Number(this.itemPendiente.IdSabor),
-        Sabor: this.itemPendiente.Sabor,
-        Producto: this.itemPendiente.Producto,
-        Codigo: this.codigoLineaSabor,
-        PrecioVenta: this.itemPendiente.PrecioVenta,
-      }
-    );
-  
-  
-    this.cantidadLineaSabor = 1;
-  }
-  else{
-    this.alertService.alertFail('Sabor ya cargado',false,900)
-    return;
-
-    this.itemCheckExists = checkExistsLineaSabor;
-    this.itemIdSabor = this.itemCheckExists.IdProducto;
-
-
-    for (let item of this.sabores_cargados) {
-      if(item.IdProducto == this.itemCheckExists.IdProducto)
-      { 
-        item.Cantidad = Number(item.Cantidad) + Number(this.cantidadLineaSabor);
-      }
-     }
-  }
-
-  this.codigoLineaSabor = '';
-  this.banderaGenerarCodigo = false; 
-  this.itemPendiente = [];
-  this.saboresReference.clear();
-  this.saboresReference.close();
-  // this.keywordSabor = '';
-
-}
-
-  // ==============================
-  // Para sabores
-  // ================================
-  selectEventSabor(item: any) {
-    
-    this.itemPendiente = item;
-  }
-
-  onChangeSearch(val: any) {
-    this.saborBuscado = val;
-    // this.cargarSabores();
-  }
   
 }
