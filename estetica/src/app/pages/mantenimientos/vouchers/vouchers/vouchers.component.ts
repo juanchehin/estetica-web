@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
+import { VentasService } from 'src/app/services/ventas.service';
 import { VouchersService } from 'src/app/services/vouchers.service';
 // import Swal from 'sweetalert2';
 
@@ -24,6 +25,7 @@ export class VouchersComponent implements OnInit {
 
 
   constructor(
+    private ventasService: VentasService,
     public vouchersService: VouchersService,
     public alertaService: AlertService
   ) {
@@ -117,17 +119,15 @@ refrescar() {
 
 baja_voucher() {
 
-  this.vouchersService.baja_voucher( this.id_voucher_seleccionado )
+
+  this.ventasService.baja_transaccion( this.id_voucher_seleccionado )
   .subscribe({
     next: (resp: any) => {
 
-      if((resp[0][0].Mensaje == 'Ok')) {
+      if((resp[0].Mensaje == 'Ok')) {
 
-        this.alertaService.alertSuccess('Eliminacion','Voucher dada de baja',3000);
+        this.alertaService.alertSuccess('Mensaje','Operacion exitosa',3000);
         
-        let el: HTMLElement = this.divCerrarModalBajaVoucher.nativeElement;
-        el.click();
-
         this.refrescar();
         
       } else {
@@ -142,6 +142,7 @@ baja_voucher() {
     
     }
   });
+
 
 }
 

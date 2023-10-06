@@ -59,7 +59,7 @@
                                                     <button class="btn btn-primary" type="button" >
                                                         <i class="mdi mdi-check"></i>                                                           
                                                     </button>
-                                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_voucher(voucher.id_voucher)" >
+                                                    <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_voucher(voucher.id_transaccion)" >
                                                         <i class="mdi mdi-delete"></i>  
                                                     </button>
                                                 </td>
@@ -93,9 +93,8 @@
 <!--.page-content-->
 </div>
 
-
 <!--  -->
-<!-- <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+<div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
@@ -106,28 +105,25 @@
           ¿Desea confirmar la operacion?
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-            <button class="btn btn-danger" data-bs-toggle="modal" (click)="baja_voucher()">Aceptar</button>
+            <button class="btn btn-primary" aria-label="Close">Cancelar</button>
+            <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" (click)="baja_voucher()">Aceptar</button>
         </div>
       </div>
-    </div> -->
-  <!-- </div> -->
-
-  
-<!-- Modal -->
-<div class="modal fade" id="exampleModalToggle" tabindex="-1" aria-labelledby="exampleModalToggleLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalToggle2" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Atencion</h1>
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Atencion</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ¿Desea confirmar la operacion?
+          Eliminacion exitosa
         </div>
         <div class="modal-footer">
-          <button class="btn btn-primary" #divCerrarModalBajaVoucher data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-          <button type="button" class="btn btn-danger" (click)="baja_voucher()">Aceptar</button>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button> -->
         </div>
       </div>
     </div>
