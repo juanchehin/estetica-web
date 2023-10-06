@@ -155,6 +155,46 @@ modal_baja_voucher(id_voucher: string) {
   this.id_voucher_seleccionado = id_voucher;
 
 }
+// ==================================================
+// 
+// ==================================================
+
+confirmar_voucher() {
+
+  this.vouchersService.confirmar_voucher( this.id_voucher_seleccionado )
+  .subscribe({
+    next: (resp: any) => {
+
+      if((resp[0][0].Mensaje == 'Ok')) {
+
+        this.alertaService.alertSuccess('Mensaje','Operacion exitosa',3000);
+        
+        this.refrescar();
+        
+      } else {
+        
+        this.alertaService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+        
+      }
+     },
+    error: (resp: any) => {  
+      this.alertaService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+    }
+  });
+
+
+}
+
+// ==================================================
+// 
+// ==================================================
+
+modal_confirmar_voucher(id_voucher: string) {
+
+  this.id_voucher_seleccionado = id_voucher;
+
+}
+
 
 
 }

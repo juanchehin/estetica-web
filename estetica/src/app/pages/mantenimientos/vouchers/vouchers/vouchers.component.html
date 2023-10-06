@@ -56,7 +56,7 @@
                                                 <td>{{ voucher.descripcion }}</td>
                                                 <td>{{ voucher.estado }}</td>
                                                 <td>
-                                                    <button class="btn btn-primary" type="button" >
+                                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal-confirmar-transaccion" [disabled]="(voucher.estado) == 'Abonado'" (click)="modal_confirmar_voucher(voucher.id_transaccion)">
                                                         <i class="mdi mdi-check"></i>                                                           
                                                     </button>
                                                     <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_voucher(voucher.id_transaccion)" >
@@ -93,7 +93,7 @@
 <!--.page-content-->
 </div>
 
-<!--  -->
+<!-- Modal baja voucher -->
 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -105,7 +105,7 @@
           ¿Desea confirmar la operacion?
         </div>
         <div class="modal-footer">
-            <button class="btn btn-primary" aria-label="Close">Cancelar</button>
+            <button class="btn btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
             <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" (click)="baja_voucher()">Aceptar</button>
         </div>
       </div>
@@ -120,6 +120,42 @@
         </div>
         <div class="modal-body">
           Eliminacion exitosa
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>
+          <!-- <button class="btn btn-primary" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Aceptar</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- Modal confirmar voucher  -->
+<div class="modal fade" id="modal-confirmar-transaccion" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Confirmacion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Desea confirmar la operacion?
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+            <button class="btn btn-danger" data-bs-target="#modal-aviso-confirmar-voucher" data-bs-toggle="modal" (click)="confirmar_voucher()">Aceptar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="modal-aviso-confirmar-voucher" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Atencion</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Voucher cofirmado
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">Aceptar</button>

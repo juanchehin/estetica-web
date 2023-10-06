@@ -73,7 +73,7 @@ public async listarVouchersPaginado(req: Request, res: Response): Promise<void> 
 }
 
 // ==================================================
-//        Lista vouchers
+//       
 // ==================================================
 public async baja_voucher(req: Request, res: Response): Promise<void> {
 
@@ -95,25 +95,17 @@ public async baja_voucher(req: Request, res: Response): Promise<void> {
 public async listar_vouchers_paginado(req: Request, res: Response): Promise<void> {
 
     var desde = req.params.pDesde || 0;
-    console.log('desde::: ', desde);
     desde  = Number(desde);
     
     var pEstadoVoucher = req.params.estado_voucher || 'T';
     var id_sucursal = req.params.id_sucursal || 1;
-    console.log('id_sucursal::: ', id_sucursal);
 
     if(pEstadoVoucher == null || pEstadoVoucher == 'null' || pEstadoVoucher == '-' || pEstadoVoucher == '')
     {
         pEstadoVoucher = 'T';
     }
 
-    console.log('pEstadoVoucher::: ', pEstadoVoucher);
-
-
     pool.query(`call bsp_listar_vouchers_paginado('${desde}','${pEstadoVoucher}','${id_sucursal}')`, function(err: any, result: any){
-        console.log('err::: ', err);
-        console.log('result::: ', result);
-        
         if(err){
             logger.error("Error en listar_vouchers_paginado - vouchersController");
 
@@ -125,29 +117,18 @@ public async listar_vouchers_paginado(req: Request, res: Response): Promise<void
     })
 }
 
-
 // ==================================================
-//        Autocomplete vouchers
+//        
 // ==================================================
-public async buscarVoucherAutoComplete(req: Request, res: Response): Promise<void> {
+public async confirmar_voucher(req: Request, res: Response): Promise<void> {
 
-    var pParametroBusqueda = req.params.pVoucherBuscado || '';
-    var pIdSucursal = req.params.IdSucursal;
-    var pIdUsuario = req.params.IdPersona;
-    
-    if(pParametroBusqueda == null || pParametroBusqueda == 'null' || pParametroBusqueda == 'undefined' || pParametroBusqueda == undefined)
-    {
-        pParametroBusqueda = '';
-    }
-    
-    pool.query(`call bsp_buscar_producto_autocomplete('${pParametroBusqueda}','${pIdSucursal}','${pIdUsuario}')`, function(err: any, result: any){
-        
+    var id_transaccion = req.params.id_transaccion;
+
+    pool.query(`call bsp_confirmar_voucher('${id_transaccion}')`, function(err: any, result: any, fields: any){
         if(err){
-            logger.error("Error en bsp_buscar_producto_autocomplete - vouchersController");
-            res.status(400).json(err);
+            res.status(404).json(err);
             return;
         }
-
         res.status(200).json(result);
     })
 }
