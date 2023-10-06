@@ -28,7 +28,8 @@ export class EmpleadoComponent implements OnInit {
       DNI: new FormControl(null),
       Telefono: new FormControl(null ),
       Email: new FormControl(null, Validators.email ),
-      Observaciones: new FormControl(null )
+      Observaciones: new FormControl(null ),
+      codigo: new FormControl(null )
     });
   }
 
@@ -51,7 +52,8 @@ export class EmpleadoComponent implements OnInit {
         this.forma.value.Email,
         this.forma.value.direccion,
         this.forma.value.fecha_nac,
-        this.forma.value.Observaciones
+        this.forma.value.Observaciones,
+        this.forma.value.codigo
       );
 
       this.empleadosService.altaEmpleado( empleado )

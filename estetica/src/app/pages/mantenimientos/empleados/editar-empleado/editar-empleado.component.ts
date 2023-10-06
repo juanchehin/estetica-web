@@ -19,6 +19,7 @@ export class EditarEmpleadoComponent implements OnInit {
   Observaciones: any;
   direccion: any;   
   fecha_nac: any;
+  codigo: any;
 
   constructor(
     private router: Router, 
@@ -50,7 +51,8 @@ editarEmpleado() {
         this.fecha_nac, 
         this.direccion,
         this.Observaciones,
-        this.IdPersona
+        this.IdPersona,
+        this.codigo
       );
 
       this.empleadosService.editarEmpleado( empleadoEditado )
@@ -96,7 +98,8 @@ cargarDatosFormEditarEmpleado() {
                 this.Email = resp[0][0].email;
                 this.Observaciones = resp[0][0].observaciones;
                 this.direccion = resp[0][0].direccion;
-             
+                this.codigo = resp[0][0].codigo;
+
                 this.alertService.cargando = false;
 
               },

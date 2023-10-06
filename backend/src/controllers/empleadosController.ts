@@ -37,6 +37,7 @@ public async altaEmpleado(req: Request, res: Response) {
     var direccion = req.body[5];
     var fecha_nac = req.body[6];
     var observaciones = req.body[7];
+    var codigo = req.body[8];
 
     if(observaciones == null || observaciones == 'null' || observaciones == '-' || observaciones == '' || observaciones == 'undefined' || observaciones == undefined)
     {
@@ -62,8 +63,13 @@ public async altaEmpleado(req: Request, res: Response) {
     {
         direccion = '-';
     }
+
+    if(codigo == null || codigo == 'null' || codigo == '-' || codigo == '' || codigo == 'undefined' || codigo == undefined)
+    {
+        codigo = '-';
+    }
     
-    pool.query(`call bsp_alta_empleado('${id_sucursal}','${Apellidos}','${Nombres}','${DNI}','${Telefono}','${Email}','${direccion}','${fecha_nac}','${observaciones}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_alta_empleado('${id_sucursal}','${Apellidos}','${Nombres}','${codigo}','${DNI}','${Telefono}','${Email}','${direccion}','${fecha_nac}','${observaciones}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;
@@ -86,8 +92,9 @@ public async editarEmpleado(req: Request, res: Response) {
     var Observaciones = req.body[7];
 
     var pIdEmpleado = req.body[8];
+    var codigo = req.body[9];
 
-    pool.query(`call bsp_editar_empleado('${pIdEmpleado}','${Apellidos}','${Nombres}','${Telefono}','${DNI}','${Email}','${fecha_nac}','${direccion}','${Observaciones}')`,function(err: any, result: any, fields: any){
+    pool.query(`call bsp_editar_empleado('${pIdEmpleado}','${Apellidos}','${Nombres}','${codigo}','${Telefono}','${DNI}','${Email}','${fecha_nac}','${direccion}','${Observaciones}')`,function(err: any, result: any, fields: any){
         
                 if(err){
                     res.status(404).json(err);
