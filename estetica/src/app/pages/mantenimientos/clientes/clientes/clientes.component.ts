@@ -110,26 +110,25 @@ baja_cliente() {
   
   }
 
+
 // ==================================================
 //        Cambio de valor
 // ==================================================
 
 cambiarDesde( valor: number ) {
 
-  const desde = this.desde + valor;
-
-  if ( desde >= this.totalClientes ) {
-    return;
-  }
-
-  if ( desde < 0 ) {
-    return;
-  }
-
   this.desde += valor;
-  this.buscarClientes();
+
+    if ( this.desde < 0 ) {
+      this.desde = 0;
+    } else if ( this.desde >= this.totalClientes ) {
+      this.desde -= valor; 
+    }
+    
+    this.buscarClientes();
 
 }
+
 
 // ==================================================
 //    Funcion para recargar el listado
