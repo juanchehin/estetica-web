@@ -146,7 +146,11 @@
                 <br>
 
                 <!-- ======= Fin Fechas ================= -->
-
+                <div class="row">
+                    <div class="col-sm-8">
+                        <h3 class="card-title">Cantidad transacciones ( {{ cantidad_transacciones }} )</h3>
+                    </div>
+                </div>
                 <!-- ========== Tabla =========== -->
 
                 <div class="row">
@@ -204,6 +208,12 @@
                 <!-- end row -->
                 
                 <!-- ========== Fin tabla =========== -->
+
+                <div role="group" aria-label="Basic example" style="text-align: right;">
+                    <button (click)="cambiarDesde(-20) " type="button" class="btn btn-primary">Anteriores</button>
+                    <button (click)="cambiarDesde(20) " type="button" class="btn btn-primary">Siguientes</button>
+                </div>
+                <br><br>
 
             </div> <!-- container-fluid -->
 

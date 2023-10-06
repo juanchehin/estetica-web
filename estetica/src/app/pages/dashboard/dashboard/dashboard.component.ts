@@ -16,6 +16,7 @@ export class DashboardComponent implements OnInit {
   desde = 0;
   transacciones: any;
   id_transaccion_seleccionado: any;
+  cantidad_transacciones = 0;
 
   fechaInicio = this.utilService.formatDateNow(new Date(Date.now()));
   fechaFin = this.utilService.formatDateNow(new Date(Date.now()));
@@ -78,22 +79,40 @@ cargarDatosDashboard(){
   this.alertService.cargando = true;
 
   this.ventasService.listar_transacciones(this.desde,this.fechaInicio,this.fechaFin  )
-              .subscribe( (resp: any) => {
+              .subscribe({
+                next: (resp: any) => {
+            
+                  if((resp[3][0].mensaje == 'Ok')) {
 
-              this.transacciones = resp[0];
+                    this.cantidad_transacciones = resp[1][0].cantidad_transacciones;
 
-              this.ventas_total = resp[2][0].p_suma_ventas || 0;
-              this.efectivo = resp[2][0].p_suma_efectivo || 0;
-              this.credito = resp[2][0].p_suma_deposito || 0;
-              this.debito = resp[2][0].p_suma_retiro || 0;
-              this.transferencia = resp[2][0].p_suma_transferencia || 0;
-              this.egresos = resp[2][0].p_suma_gastos || 0;
-              this.voucher = resp[2][0].p_suma_voucher || 0;
-              this.estado_caja = resp[2][0].estado_caja || 'C';
+                    this.transacciones = resp[0];
 
+                    this.ventas_total = resp[2][0].p_suma_ventas || 0;
+                    this.efectivo = resp[2][0].p_suma_efectivo || 0;
+                    this.credito = resp[2][0].p_suma_deposito || 0;
+                    this.debito = resp[2][0].p_suma_retiro || 0;
+                    this.transferencia = resp[2][0].p_suma_transferencia || 0;
+                    this.egresos = resp[2][0].p_suma_gastos || 0;
+                    this.voucher = resp[2][0].p_suma_voucher || 0;
+                    this.estado_caja = resp[2][0].estado_caja || 'C';
+
+                    this.alertService.cargando = false;
+                    
+                  } else {
+                    
+                    this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+                    this.alertService.cargando = false;                    
+                  }
+                 },
+                error: (resp: any) => { 
+            
+                  this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
+                  this.alertService.cargando = false;
+                
+                }
+              });
               this.alertService.cargando = false;
-
-            });
 
 }
 
@@ -325,4 +344,25 @@ ver_transaccion(transaccion: any){
                 }
               });
   }
+
+// ==================================================
+//        Cambio de valor
+// ==================================================
+
+cambiarDesde( valor: number ) {
+
+  const desde = this.desde + valor;
+
+  if ( desde >= this.cantidad_transacciones ) {
+    return;
+  }
+
+  if ( desde < 0 ) {
+    return;
+  }
+
+  this.desde += valor;
+  this.cargarDatosDashboard();
+
+}
 }
