@@ -65,7 +65,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr *ngFor="let producto of productos">
+                                            <tr *ngFor="let producto of productos" [ngClass]="{'table-danger': (producto.stock <= 0)}">
                                                 <td>{{ producto.codigo }}</td>
                                                 <td>{{ producto.producto }}</td>
                                                 <td>{{ producto.stock }}</td>
