@@ -30,6 +30,7 @@ export class NuevaVentaComponent implements OnInit {
   productoBuscado = '';
   IdPersona = '';
   local = '';
+  descripcion_venta: any;
   lineas_venta: IItemVentaStructure[] = [];
   checkExists: IItemVentaStructure[] = [];
   lineas_tipos_pago: IItemTipoPagoStructure[] = [];  
@@ -127,7 +128,8 @@ altaVenta() {
         this.lineas_venta,
         this.totalVenta,
         this.IdTipoPagoSelect,
-        this.fecha_venta
+        this.fecha_venta,
+        this.descripcion_venta
       );
 
       this.ventasService.altaVenta(  this.arrayVenta )

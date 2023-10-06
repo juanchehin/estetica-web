@@ -80,13 +80,19 @@ async altaVenta(req: Request, res: Response) {
     var pLineaVenta = req.body[2];  // productos/servicios
     var pMontoTotal = req.body[3];
     var pIdTipoPago = req.body[4];
+    var pDescripcion = req.body[6];
     // var pFechaVenta = req.body[4];
     // var pLineaTipoPago = req.body[2];
+
+    if(pDescripcion == null || pDescripcion == 'null' || pDescripcion == '-' || pDescripcion == '' || pDescripcion == 'undefined' || pDescripcion == undefined)
+    {
+        pDescripcion = '-';
+    }
 
     // ==============================
     try {
         // ====================== Alta Venta ===========================================
-        let sql = `call bsp_alta_venta('${pIdTipoPago}','${pIdEmpleado}','${pIdCliente}','${pMontoTotal}')`;
+        let sql = `call bsp_alta_venta('${pIdTipoPago}','${pIdEmpleado}','${pIdCliente}','${pMontoTotal}','${pDescripcion}')`;
         const [result] = await pool.promise().query(sql)
        
         if(result[0][0].Mensaje != 'Ok')
