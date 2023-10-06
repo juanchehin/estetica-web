@@ -15,7 +15,6 @@ export class CajaComponent implements OnInit {
   IdSucursal: any;
   cajas!: any;
   movimientos: any;
-  totalCajas = 0;
   estado_caja = 'N';
   monto_apertura: any;
   monto_cierre: any;
@@ -99,18 +98,15 @@ listar_movimientos_caja() {
 
 cambiarDesde( valor: number ) {
 
-  const desde = this.desde + valor;
-
-  if ( desde >= this.totalCajas ) {
-    return;
-  }
-
-  if ( desde < 0 ) {
-    return;
-  }
-
   this.desde += valor;
-  this.listar_movimientos_caja();
+
+    if ( this.desde < 0 ) {
+      this.desde = 0;
+    } else if ( this.desde >= this.totalMovimientos ) {
+      this.desde -= valor; 
+    }
+    
+    this.listar_movimientos_caja();
 
 }
 

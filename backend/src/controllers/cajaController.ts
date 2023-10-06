@@ -9,11 +9,11 @@ class CajaController {
 // ==================================================
 public async listar_movimientos_caja(req: Request, res: Response): Promise<void> {
 
-    var desde = req.params.desde || 0;
+    var desde = req.params.pDesde || 0;
     desde  = Number(desde);
     
     var id_sucursal = req.params.pIdSucursal;
-
+    
     pool.query(`call bsp_listar_movimientos_caja('${desde}','${id_sucursal}')`, function(err: any, result: any, fields: any){
 
         if(result == undefined || err){
