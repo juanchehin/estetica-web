@@ -44,6 +44,11 @@ const childRoutes: Routes = [
     loadChildren: () => import('./mantenimientos/servicios/servicios-routing.module').then( m => m.ServiciosRoutingModule )
   },
   { 
+    path: 'vouchers',
+    canActivate: [LoginGuardGuard, VerificaTokenGuard],
+    loadChildren: () => import('./mantenimientos/vouchers/vouchers-routing.module').then( m => m.VouchersRoutingModule )
+  },
+  { 
     path: 'calendario',
     canActivate: [LoginGuardGuard, VerificaTokenGuard],
     loadChildren: () => import('./mantenimientos/calendario/calendario-routing.module').then( m => m.CalendarioRoutingModule )

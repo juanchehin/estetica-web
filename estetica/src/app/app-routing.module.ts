@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: 'dashboard', loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule) },
   { path: 'login', loadChildren: () => import('./pages/login/login.module').then(m => m.LoginModule) },
   { path: 'productos', loadChildren: () => import('./pages/mantenimientos/productos/productos.module').then(m => m.ProductosModule) },
+  { path: 'vouchers', loadChildren: () => import('./pages/mantenimientos/vouchers/vouchers.module').then(m => m.VouchersModule) },
 
   { path: 'caja', loadChildren: () => import('./pages/mantenimientos/caja/caja.module').then(m => m.CajasModule) },
   { path: 'ventas', loadChildren: () => import('./pages/mantenimientos/ventas/ventas.module').then(m => m.VentasModule) },
