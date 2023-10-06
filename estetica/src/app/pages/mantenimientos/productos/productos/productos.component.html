@@ -93,14 +93,17 @@
                 </div>
             </div>
             <!-- end row -->
+
+            <div role="group" aria-label="Basic example" style="text-align: right;">
+                <button (click)="cambiarDesde(-20) " type="button" class="btn btn-default-outline btn-info">Anteriores</button>
+                <button (click)="cambiarDesde(20) " type="button" class="btn btn-default-outline btn-info">Siguientes</button>
+            </div>
+            <!--.container-fluid-->
+            <br><br>
             
         </section>
         <!--.box-typical-->
 
-    </div>
-    <div role="group" aria-label="Basic example" style="text-align: right;">
-        <button (click)="cambiarDesde(-15) " type="button" class="btn btn-default-outline">Anteriores</button>
-        <button (click)="cambiarDesde(15) " type="button" class="btn btn-default-outline">Siguientes</button>
     </div>
     <!--.container-fluid-->
 </div>
