@@ -19,27 +19,36 @@
                             <div [innerHTML]="notFound"></div>
                         </ng-template>
                     </div>
-                    <!--  -->
+                     <!-- ========== Cliente ============ -->
                     <div class="col-md-6">
                         <h5 class="m-t-30">Cliente : </h5>
-                        <div class="ng-autocomplete" style="width:450px">
-                            <ng-autocomplete 
-                            [data]="clientes" 
-                            [searchKeyword]="keywordCliente" 
-                            placeholder="Selecciona cliente" 
-                            (selected)='selectEventCliente($event)' 
-                            (inputChanged)='onChangeSearchCliente($event)' 
-                            (inputFocused)='onFocused($event)' 
-                            [itemTemplate]="itemTemplateCliente" 
-                            [notFoundTemplate]="notFoundTemplate">
-                            </ng-autocomplete>
-                        </div>
-                        <ng-template #itemTemplateCliente let-item>
-                            <a [innerHTML]="item.NombreCompleto"></a>
-                        </ng-template>
-                        <ng-template #notFoundTemplate let-notFound>
-                            <div [innerHTML]="notFound"></div>
-                        </ng-template>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="ng-autocomplete" style="width:350px">
+                                    <ng-autocomplete 
+                                    [data]="clientes" 
+                                    [searchKeyword]="keywordCliente" 
+                                    placeholder="Selecciona cliente" 
+                                    (selected)='selectEventCliente($event)' 
+                                    (inputChanged)='onChangeSearchCliente($event)' 
+                                    (inputFocused)='onFocused($event)' 
+                                    [itemTemplate]="itemTemplateCliente" 
+                                    [notFoundTemplate]="notFoundTemplate">
+                                    </ng-autocomplete>
+                                </div>
+                                <ng-template #itemTemplateCliente let-item>
+                                    <a [innerHTML]="item.NombreCompleto"></a>
+                                </ng-template>
+                                <ng-template #notFoundTemplate let-notFound>
+                                    <div [innerHTML]="notFound"></div>
+                                </ng-template>
+                            </div>
+                            <div class="col-md-6">
+                                <button type="button" class="btn btn-purple" style="text-align: center; display: block; margin: 0 auto;" data-toggle="modal" data-target="#responsive-modal-alta-cliente">
+                                    <i class="mdi mdi-plus"></i> 
+                                </button>
+                            </div>                            
+                        </div>                        
                     </div>
             </div>
             <br /><br />
@@ -171,7 +180,7 @@
             <!-- ====================== -->
         </div>
 </div>
-<!-- =========== MODAL =========== -->
+<!-- =========== MODAL FORMAS DE PAGO =========== -->
 <div class="col-md-4" *ngIf="activarModal">
     <div id="responsive-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
         <div class="modal-dialog">
@@ -215,5 +224,65 @@
     <!-- /.modal -->
 </div>
 
-
+<!-- =========== MODAL NUEVO CLIENTE =========== -->
+<div class="col-md-4">
+    <div id="responsive-modal-alta-cliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Nuevo cliente</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Apellidos : </label>
+                            <input [(ngModel)]="apellidos_nuevo_cliente" name="Apellidos" type="text" placeholder="Apellidos..." class="form-control" maxLength="30">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Nombres : </label>
+                            <input [(ngModel)]="nombres_nuevo_cliente" name="Nombres" type="text" placeholder="Nombres" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>DNI : </label>
+                            <input [(ngModel)]="dni_nuevo_cliente" name="DNI" type="text" placeholder="DNI" class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Telefono : </label>
+                            <input [(ngModel)]="telefono_nuevo_cliente" name="Telefono" type="text" placeholder="Telefono" class="form-control">
+                        </div>    
+                    </div>   
+                    <div class="row">            
+                        <div class="col-sm-6 form-group">
+                            <label>Email : </label>
+                            <input [(ngModel)]="email_nuevo_cliente" name="Email" type="email" placeholder="Email" class="form-control">
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label>Direccion : </label>
+                            <input [(ngModel)]="direccion_nuevo_cliente" name="direccion" type="text" placeholder="Direccion..." class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Fecha nacimiento : </label>
+                            <input [(ngModel)]="fecha_nac_nuevo_cliente" name="fecha_nac" type="date" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label>Observaciones : </label>
+                            <textarea [(ngModel)]="observaciones_nuevo_cliente" name="Observaciones" type="textarea" placeholder="Observaciones..." rows="3" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button #botonCerrarModalNuevoCliente type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success waves-effect waves-light" (click)="altaCliente()">Cargar Cliente</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
 </div>

@@ -70,6 +70,15 @@ export class NuevaVentaComponent implements OnInit {
   empleadoBuscado = '';
   IdEmpleado = 0;
 
+  // Nuevo cliente
+  apellidos_nuevo_cliente: any;
+  nombres_nuevo_cliente: any;
+  dni_nuevo_cliente: any;
+  telefono_nuevo_cliente: any;
+  email_nuevo_cliente: any;
+  direccion_nuevo_cliente: any;
+  fecha_nac_nuevo_cliente: any;
+  observaciones_nuevo_cliente: any;
 
   // Modals
   activarModal = false;
@@ -78,6 +87,7 @@ export class NuevaVentaComponent implements OnInit {
   @ViewChild('divCerrarModalDescuentoEfectivo') divCerrarModalDescuentoEfectivo!: ElementRef<HTMLElement>;
   @ViewChild('buttonAbrirModalDescuentoEfectivo') buttonAbrirModalDescuentoEfectivo!: ElementRef<HTMLElement>;
   @ViewChild('divCerrarModalFormaPago') divCerrarModalFormaPago!: ElementRef<HTMLElement>;
+  @ViewChild('botonCerrarModalNuevoCliente') botonCerrarModalNuevoCliente!: ElementRef<HTMLElement>;
 
   // =====
   totalTiposPago = 0;
@@ -599,6 +609,57 @@ agregarLineaTipoPago(): any {
     el.click();
   }
 
+// ==================================================
+//        Crear cliente
+// ==================================================
+
+altaCliente() {
+
+  // if ( this.apellidos_nuevo_cliente ) {
+  //   this.alertaService.alertFailWithText('Ocurrio un error','Formulario invalido, chequee que los campos sean correctos',4000);
+  //   return;
+  // }
+
+
+  const cliente = new Array(
+    this.apellidos_nuevo_cliente,
+    this.nombres_nuevo_cliente,
+    this.dni_nuevo_cliente,
+    this.telefono_nuevo_cliente,
+    this.email_nuevo_cliente,
+    this.direccion_nuevo_cliente,
+    this.fecha_nac_nuevo_cliente,
+    this.observaciones_nuevo_cliente,
+    this.idSucursalVendedor
+  );
+
+  this.clientesService.altaCliente( cliente )
+            .subscribe( (resp: any) => {
+              
+              if ( resp[0][0].mensaje == 'Ok') {
+
+                this.alertaService.alertSuccess('Mensaje','Cliente cargado con exito',2000);
+
+                let el: HTMLElement = this.botonCerrarModalNuevoCliente.nativeElement;
+                el.click();
+
+                this.apellidos_nuevo_cliente = '';
+                this.nombres_nuevo_cliente  = '';
+                this.dni_nuevo_cliente  = '';
+                this.telefono_nuevo_cliente  = '';
+                this.email_nuevo_cliente  = '';
+                this.direccion_nuevo_cliente  = '';
+                this.fecha_nac_nuevo_cliente  = null;
+                this.observaciones_nuevo_cliente  = '';
+                
+              } else {
+                this.alertaService.alertFailWithText('Ocurrio un error','Contactese con el administrador',4000);
+              }
+              return;
+            });
+
+
+          }
 
 }
 
