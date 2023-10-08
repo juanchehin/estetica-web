@@ -256,7 +256,7 @@ alta_egreso() {
         this.IdTipoPagoSelect,
         this.tipo_egreso,
         this.descripcion
-        );
+      );
 
       this.ventasService.alta_egreso(  this.array_egreso )
       .subscribe({
@@ -289,6 +289,13 @@ alta_egreso() {
           this.alertService.cargando = false;
         }
       });
+
+      this.IdEmpleado = 0;
+      this.monto_egreso = 0;
+      this.IdTipoPagoSelect = 1;
+      this.tipo_egreso = 'E';
+      this.descripcion = '';
+
       this.array_egreso = [];
 
 
