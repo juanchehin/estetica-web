@@ -21,6 +21,7 @@ export class ProductosComponent implements OnInit {
   id_producto_seleccionado: any;
 
   @ViewChild('inputProductoBuscado') inputProductoBuscado!: ElementRef;
+  @ViewChild('divCerrarModalBajaProducto') divCerrarModalBajaProducto!: ElementRef;
 
   constructor(
     public productosService: ProductosService,
@@ -145,12 +146,12 @@ baja_producto() {
   .subscribe({
     next: (resp: any) => {
 
-      if((resp[0].Mensaje == 'Ok')) {
+      if((resp[0][0].mensaje == 'Ok')) {
 
         this.alertaService.alertSuccess('Eliminacion','Producto dada de baja',3000);
         
-        // let el: HTMLElement = this.divCerrarModalBajaTransaccion.nativeElement;
-        // el.click();
+        let el: HTMLElement = this.divCerrarModalBajaProducto.nativeElement;
+        el.click();
 
         this.refrescar();
         

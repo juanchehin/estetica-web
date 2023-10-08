@@ -100,9 +100,9 @@ editarProducto( productoEditado: any ) {
   // ==================================================
 //        
 // ==================================================
-bajaProducto( IdProductoSabor: any ) {
+bajaProducto( id_producto: any ) {
 
-  let url = URL_SERVICIOS + '/productos/baja/' + IdProductoSabor + '/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/productos/baja/' + this.IdPersona + '/' + id_producto;
 
   return this.http.get( url, this.headers ); 
 
