@@ -227,7 +227,7 @@
 
 </div>
 
-<!--  -->
+<!-- Modal - confimacion -->
 <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -322,7 +322,7 @@
     </div>
   </div>
 
-<!--  -->
+<!-- Modal - Ver transaccion -->
 <div class="modal fade" id="modal-ver-transaccion" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content" style="width: 120%">
@@ -348,9 +348,9 @@
              <tbody>
                 <tr *ngFor="let lv of detalle_lineas_venta">
                     <td>{{ lv.nombre }}</td>
-                    <td>${{ lv.precio_venta }}</td>
+                    <td>$ {{ lv.precio_venta }}</td>
                     <td>{{ lv.cantidad }}</td>
-                    <td>{{ lv.SubTotal }}</td>
+                    <td>$ {{ lv.SubTotal }}</td>
                     <td>{{ lv.tipo }}</td>
                 </tr>
             </tbody>
