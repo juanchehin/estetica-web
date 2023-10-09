@@ -65,7 +65,7 @@ editarEmpleado() {
 
                       this.router.navigate(['/dashboard/empleados']);
                     } else {
-                      this.alertService.alertFail('Ocurrio un error','Contactese con el administrador',2000);
+                      this.alertService.alertFail('Ocurrio un error',resp[0][0].mensaje,2000);
                       this.alertService.cargando = false;
 
                     }
