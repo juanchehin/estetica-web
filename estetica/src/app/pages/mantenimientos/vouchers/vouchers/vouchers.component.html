@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <h3 class="card-title">Cantidad vouchers ( {{ cantidad_vouchers }} )</h3>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                                                 <td>{{ voucher.descripcion }}</td>
                                                 <td>{{ voucher.estado }}</td>
                                                 <td>
-                                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal-confirmar-transaccion" [disabled]="(voucher.estado) == 'Abonado'" (click)="modal_confirmar_voucher(voucher.id_transaccion)">
+                                                    <button class="btn btn-primary" type="button" data-bs-toggle="modal" data-bs-target="#modal-confirmar-transaccion" [disabled]="(voucher.estado) == 'Confirmado'" (click)="modal_confirmar_voucher(voucher.id_transaccion)">
                                                         <i class="mdi mdi-check"></i>                                                           
                                                     </button>
                                                     <button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalToggle" (click)="modal_baja_voucher(voucher.id_transaccion)" >
