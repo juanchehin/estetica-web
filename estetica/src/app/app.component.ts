@@ -15,9 +15,17 @@ export class AppComponent {
     private alertService: AlertService
     ) {
 
-    this.router.events.subscribe((event: Event) => {
-      
+    
+      this.router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationStart) {
+            this.alertService.cargando = true;
+        }
+
+        if (event instanceof NavigationEnd) {
+            this.alertService.cargando = false;
+        }
     });
+
 
 }
 }
