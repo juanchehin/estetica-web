@@ -49,6 +49,11 @@ altaServicio() {
         this.alertService.alertFailWithText('Debe cargar un precio para el servicio','Atencion',2000);
         return;
       }
+      //** */
+      if(this.precio.match(/^[0-9]+$/)){
+        this.alertService.alertFailWithText('El precio debe ser solo numerico','Atencion',2000);
+        return;
+      }
    
 
       const servicio = new Array(        

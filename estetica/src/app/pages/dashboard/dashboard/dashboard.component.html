@@ -44,7 +44,7 @@
 
                     <div class="col-xl-3 col-md-6">
                         <div class="card-box">
-                            <h4 class="header-title mt-0 mb-4">Debito</h4>
+                            <h4 class="header-title mt-0 mb-4">Cta. Cte. - Debito</h4>
             
                             <div class="widget-chart-1">            
                                 <div class="widget-detail-1 text-right">
@@ -57,7 +57,7 @@
 
                     <div class="col-xl-3 col-md-6">
                         <div class="card-box">
-                            <h4 class="header-title mt-0 mb-4">Credito</h4>
+                            <h4 class="header-title mt-0 mb-4">Cta. Cte. - Credito</h4>
             
                             <div class="widget-chart-1">            
                                 <div class="widget-detail-1 text-right">
@@ -101,12 +101,25 @@
 
                     <div class="col-xl-3 col-md-6">
                         <div class="card-box">
-                            <h4 class="header-title mt-0 mb-4">Cta. Cte</h4>
+                            <h4 class="header-title mt-0 mb-4">Mercado Pago</h4>
             
                             <div class="widget-chart-1">            
                                 <div class="widget-detail-1 text-right">
-                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{cta_cte}} </h2>
-                                    <p class="text-muted mb-1">Cta. Cte</p>
+                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{mercado_pago}} </h2>
+                                    <p class="text-muted mb-1">Mercado Pago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- end col -->
+
+                    <div class="col-xl-3 col-md-6">
+                        <div class="card-box">
+                            <h4 class="header-title mt-0 mb-4">Tarjeta debito</h4>
+            
+                            <div class="widget-chart-1">            
+                                <div class="widget-detail-1 text-right">
+                                    <h2 class="font-weight-normal pt-2 mb-1">$ {{tarjeta_debito}} </h2>
+                                    <p class="text-muted mb-1">Tarjeta debito</p>
                                 </div>
                             </div>
                         </div>
@@ -288,7 +301,7 @@
                 </div>
                 <div class="col-sm-4">
                     <label>Tipo egreso : </label>
-                    <select (ngModelChange)='onChangeMetodoPago($event)' tabindex="4" [(ngModel)]="tipo_egreso" name="IdTipoPago" class="form-control">
+                    <select tabindex="4" [(ngModel)]="tipo_egreso" name="IdTipoPago" class="form-control">
                             <option value="E">Gastos</option>
                             <option value="P">Pagos</option>
                             <option value="A">Adelanto</option>
@@ -299,13 +312,13 @@
             <div class="row">
                 <div class="col-sm-4">
                     <label>Empleado : </label>
-                    <select (ngModelChange)='onChangeEmpleado($event)' [(ngModel)]="IdEmpleado" name="IdEmpleado" class="form-control" [disabled]="!habilitar_empleados">
+                    <select (ngModelChange)='onChangeEmpleado($event)' [(ngModel)]="IdEmpleado" name="IdEmpleado" class="form-control">
                         <option *ngFor="let empleado of empleados" [value]="empleado.id_persona">
                             {{empleado.apellidos}} {{empleado.nombres}}
                         </option>
                     </select>
                 </div>    
-            </div> 
+            </div>
             <br>
             <div class="row">
                 <div class="col-sm-12">

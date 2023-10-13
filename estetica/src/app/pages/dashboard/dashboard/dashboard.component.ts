@@ -29,7 +29,10 @@ export class DashboardComponent implements OnInit {
   egresos = 0;
   cta_cte = 0;
   voucher = 0;
+  mercado_pago = 0;
+  tarjeta_debito = 0;
   monto_egreso = 0;
+  //
   tiposPago: any;
   IdTipoPagoSelect: any;
   tipo_egreso: any;
@@ -39,7 +42,6 @@ export class DashboardComponent implements OnInit {
   empleados: any;
   IdTipoPago: any;
   descripcion: any;
-  habilitar_empleados = false;
   estado_caja = 'C';
 
   // detalles transaccion
@@ -96,6 +98,8 @@ cargarDatosDashboard(){
                     this.egresos = resp[2][0].p_suma_gastos || 0;
                     this.voucher = resp[2][0].p_suma_voucher || 0;
                     this.estado_caja = resp[2][0].estado_caja || 'C';
+                    this.mercado_pago = resp[2][0].p_suma_mercado_pago || 0;
+                    this.tarjeta_debito = resp[2][0].p_suma_tarjeta_debito || 0;
 
                     this.alertService.cargando = false;
                     
@@ -201,20 +205,7 @@ onChangeTipoPago(val: any){
 }
 
 // 
-onChangeMetodoPago(val: any){
-  
-  if(val == 'A')
-  {
-    this.habilitar_empleados = true;
-  }
-  else{
-    this.habilitar_empleados = false;
-  }
-}
-
-// 
 onChangeEmpleado(val: any){
-
   this.IdEmpleado = val;
 }
 // ==================================================
@@ -263,7 +254,7 @@ alta_egreso() {
         next: (resp: any) => {
           
           if ( resp.Mensaje == 'Ok') {
-            this.alertService.alertSuccess('Mensaje','Egreso cargada',2000);
+            this.alertService.alertSuccess('Mensaje','Egreso cargado',2000);
 
             this.monto_egreso = 0;
             this.IdTipoPagoSelect = 1;
