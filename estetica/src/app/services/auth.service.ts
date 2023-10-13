@@ -54,6 +54,11 @@ login( persona: any ): any {
                   return false;
                 }
 
+                if (resp.mensaje === 'no_activado') {
+                  this.router.navigate(['/maintenance']);
+                  return false;
+                }
+
       this.setIdPersona(resp.IdPersona);  //
 
       this.guardarStorage( resp.IdPersona, resp.token, resp.sucursal, resp.id_sucursal);

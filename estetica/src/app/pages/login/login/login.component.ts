@@ -53,7 +53,7 @@ ingresar() {
           return;
         }
 
-        this.alertService.alertFailWithText('Error de credenciales','Atencion',3000)
+        this.alertService.alertFailWithText('Error de credenciales','Atencion',3000);
 
     },
     ( error: any) => {

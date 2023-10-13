@@ -29,7 +29,6 @@ export class DashboardComponent implements OnInit {
   egresos = 0;
   cta_cte = 0;
   voucher = 0;
-  mercado_pago = 0;
   tarjeta_debito = 0;
   monto_egreso = 0;
   turno_seleccionado = 'todos';
@@ -101,7 +100,6 @@ cargarDatosDashboard(){
                     this.egresos = resp[2][0].p_suma_gastos || 0;
                     this.voucher = resp[2][0].p_suma_voucher || 0;
                     this.estado_caja = resp[2][0].estado_caja || 'C';
-                    this.mercado_pago = resp[2][0].p_suma_mercado_pago || 0;
                     this.tarjeta_debito = resp[2][0].p_suma_tarjeta_debito || 0;
 
                     this.alertService.cargando = false;

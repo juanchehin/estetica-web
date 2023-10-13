@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 // Modulos
 import { PagesRoutingModule } from './pages/pages.routing';
 import { NopagefoundComponent } from './shared/nopagefound/nopagefound.component';
+import { MaintenanceComponent } from './shared/maintenance/maintenance.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'clientes', loadChildren: () => import('./pages/mantenimientos/clientes/clientes.module').then(m => m.ClientesModule) },
   { path: 'empleados', loadChildren: () => import('./pages/mantenimientos/empleados/empleados.module').then(m => m.EmpleadosModule) },
   { path: 'servicios', loadChildren: () => import('./pages/mantenimientos/servicios/servicios.module').then(m => m.ServiciosModule) },
+  { path: 'maintenance', component: MaintenanceComponent },
 
   { path: '**', component: NopagefoundComponent },
 ];
