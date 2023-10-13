@@ -42,6 +42,10 @@ export class ServiciosComponent implements OnInit {
 
 buscarServicio() {
 
+  console.log('buscarServicio::: ');
+
+  this.alertaService.cargando = true;
+  
     const inputElement: HTMLInputElement = document.getElementById('buscarServicio') as HTMLInputElement;
     const servicioBuscado: any = inputElement.value || '-';
 
@@ -53,6 +57,7 @@ buscarServicio() {
                   { 
                     this.servicios = [];
                     this.totalServicios = 0;
+                    this.alertaService.cargando = false;
                     
                     return;
                   }
@@ -61,13 +66,20 @@ buscarServicio() {
                     
                     this.totalServicios = resp[1][0].cantServiciosBuscados;
                     this.servicios = resp[0];
+                    this.alertaService.cargando = false;
+
                   } else {
                     this.alertaService.alertFail('Ocurrio un error',false,2000);
+                    this.alertaService.cargando = false;
+
                   }
+                  this.alertaService.cargando = false;
+
                   return;
                  },
                 error: () => { 
-                  this.alertaService.alertFail('Ocurrio un error',false,2000)
+                  this.alertaService.alertFail('Ocurrio un error',false,2000);
+                  this.alertaService.cargando = false;
                 }
               });
 

@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
 import { ProductosService } from 'src/app/services/productos.service';
 import { SucursalesService } from 'src/app/services/sucursal.service';
-// import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-productos',
