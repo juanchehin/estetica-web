@@ -1,22 +1,43 @@
 <div class="navbar-custom">
     <!-- LOGO -->
     <div class="logo-box">
-        <a href="index.html" class="logo logo-dark text-center">
+        <!--  -->
+        <a href="index.html" class="logo logo-dark text-center" *ngIf="!bandera_bazar">
             <span class="logo-lg">
-                <img src="../../../assets/images/logo_estetica.jpg" alt="" height="60">
+                <img src="../../../assets/images/logo_estetica.png" alt="" height="60">
             </span>
             <span class="logo-sm">
-                <img src="../../../assets/images/logo_estetica.jpg" alt="" height="24">
+                <img src="../../../assets/images/logo_estetica.png" alt="" height="24">
             </span>
         </a>
-        <a href="index.html" class="logo logo-light text-center">
+        <a href="index.html" class="logo logo-light text-center" *ngIf="!bandera_bazar">
             <span class="logo-lg">
-                <img src="../../../assets/images/logo_estetica.jpg" alt="" height="60">
+                <img src="../../../assets/images/logo_estetica.png" alt="" height="60">
             </span>
             <span class="logo-sm">
-                <img src="../../../assets/images/logo_estetica.jpg" alt="" height="24">
+                <img src="../../../assets/images/logo_estetica.png" alt="" height="24">
             </span>
         </a>
+        <!--  -->
+         <!--  -->
+         <a href="index.html" class="logo logo-dark text-center" *ngIf="bandera_bazar">
+            <span class="logo-lg">
+                <img src="../../../assets/images/logo_bazar.png" alt="" height="60">
+            </span>
+            <span class="logo-sm">
+                <img src="../../../assets/images/logo_bazar.png" alt="" height="24">
+            </span>
+        </a>
+        <a href="index.html" class="logo logo-light text-center" *ngIf="bandera_bazar">
+            <span class="logo-lg">
+                <img src="../../../assets/images/logo_bazar.png" alt="" height="60">
+            </span>
+            <span class="logo-sm">
+                <img src="../../../assets/images/logo_bazar.png" alt="" height="24">
+            </span>
+        </a>
+        <!--  -->
+
     </div>
 
     <div class="row" style="margin-top: 12px;">

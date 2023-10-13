@@ -15,6 +15,7 @@ export class HeaderComponent {
   banderaOcultarSidebar = false;
 
   titulo_sucursal = 'Estetica - ';
+  bandera_bazar = false;
 
   constructor( private authService: AuthService,
               public alertService: AlertService,
@@ -41,6 +42,12 @@ export class HeaderComponent {
   cargar_titulo(  ) {
 
     this.titulo_sucursal += localStorage.getItem('sucursal');
+    
+    if(localStorage.getItem('sucursal') === 'Bazar')
+    {
+      this.bandera_bazar = true;
+    }
+
   }
 
 
