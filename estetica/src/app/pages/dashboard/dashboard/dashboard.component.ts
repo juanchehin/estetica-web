@@ -32,6 +32,8 @@ export class DashboardComponent implements OnInit {
   mercado_pago = 0;
   tarjeta_debito = 0;
   monto_egreso = 0;
+  turno_seleccionado = 'todos';
+
   //
   tiposPago: any;
   IdTipoPagoSelect: any;
@@ -80,7 +82,8 @@ cargarDatosDashboard(){
 
   this.alertService.cargando = true;
 
-  this.ventasService.listar_transacciones(this.desde,this.fechaInicio,this.fechaFin  )
+  this.ventasService.listar_transacciones(this.desde,this.fechaInicio,this.fechaFin,this.turno_seleccionado  )
+  
               .subscribe({
                 next: (resp: any) => {
             
@@ -207,6 +210,20 @@ onChangeTipoPago(val: any){
 // 
 onChangeEmpleado(val: any){
   this.IdEmpleado = val;
+}
+
+// 
+onChangeTurno(val: any){
+  this.turno_seleccionado = val;
+  console.log('this.fechaInicio::: ', this.fechaInicio);
+  console.log('this.fechaFin::: ', this.fechaFin);
+
+  if(this.turno_seleccionado == 'manana')
+  {
+    // this.fechaInicio = this.fechaInicio.setHours(15);
+  }else{
+
+  }
 }
 // ==================================================
 //        Crear 

@@ -134,15 +134,24 @@
                 <div class="row">
                     <div class="col-sm-2">
                         <label for="start">Fecha Inicio : &nbsp;</label>
-                        <input type="date" required="" [(ngModel)]="fechaInicio" class="ng-pristine ng-valid ng-touched"> &nbsp;&nbsp;&nbsp;&nbsp; 
+                        <input type="date" required="" [(ngModel)]="fechaInicio" class="form-control"> &nbsp;&nbsp;&nbsp;&nbsp; 
                     </div>
 
                     <div class="col-sm-2">
                         <label for="start">Fecha Fin : &nbsp;</label>
-                        <input type="date" required="" [(ngModel)]="fechaFin" class="ng-untouched ng-pristine ng-valid"> &nbsp;&nbsp;&nbsp;&nbsp; 
+                        <input type="date" required="" [(ngModel)]="fechaFin" class="form-control"> &nbsp;&nbsp;&nbsp;&nbsp; 
                     </div>
 
-                    <div class="col-sm-8">
+                    <div class="col-sm-2">
+                        <label for="start">Turno : &nbsp;</label>
+                        <select (ngModelChange)='onChangeTurno($event)' [(ngModel)]="turno_seleccionado" name="turno_seleccionado" class="form-control">
+                            <option value="todos">Todos</option>
+                            <option value="manana">Mañana</option>
+                            <option value="tarde">Tarde</option>
+                      </select>
+                    </div>
+                    <!-- Botones -->
+                    <div class="col-sm-6" style="margin-top: 25px;">
                         <button class="btn btn-purple btn-rounded width-md waves-effect waves-light" (click)="cargarDatosDashboard()">
                             <i class="mdi mdi-update"></i>
                         </button>

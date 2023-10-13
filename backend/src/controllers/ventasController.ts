@@ -30,12 +30,28 @@ public async listarVentas(req: Request, res: Response): Promise<void> {
     var desde = req.params.desde || 0;
     desde  = Number(desde);
 
-    var FechaInicio = req.params.FechaInicio;
-    var FechaFin = req.params.FechaFin;
+    var fecha_inicio = req.params.FechaInicio;
+    var fecha_fin = req.params.FechaFin;
     var pIdSucursal = req.params.pIdSucursal;
+    var pTurno = req.params.pTurno;
+        
+    if(pTurno == 'manana')
+    {
+        fecha_inicio = fecha_inicio + " 09:00:00";
+        fecha_fin = fecha_fin + " 15:00:00";
+    }else{
+        if (pTurno == 'tarde'){ 
+                fecha_inicio = fecha_inicio + " 15:00:00";
+                fecha_fin = fecha_fin + " 21:00:00";
+            }else{
+                fecha_inicio = fecha_inicio + " 00:00:01";
+                fecha_fin = fecha_fin + " 23:59:59";
+            }
+    }
 
 
-    pool.query(`call bsp_listar_transacciones_fecha_sucursal('${desde}','${FechaInicio}','${FechaFin}','${pIdSucursal}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_listar_transacciones_fecha_sucursal('${desde}','${fecha_inicio}','${fecha_fin}','${pIdSucursal}')`, function(err: any, result: any, fields: any){
+
        if(err){
         res.status(404).json(err);
            return;
