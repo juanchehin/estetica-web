@@ -153,6 +153,8 @@ public async buscarEmpleadosPaginado(req: Request, res: Response): Promise<void>
     desde  = Number(desde);
 
     var pIdPersona = req.params.IdPersona;
+    var id_sucursal = req.params.pIdSucursal;
+
     var empleadoBuscado: any = req.params.empleadoBuscado;
     var filtroEmpleado: any = req.params.filtroEmpleado;
     
@@ -161,7 +163,8 @@ public async buscarEmpleadosPaginado(req: Request, res: Response): Promise<void>
         empleadoBuscado = "todosEmpleados";
     }
 
-    pool.query(`call bsp_buscar_empleados_paginado('${empleadoBuscado}','${desde}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_buscar_empleados_paginado('${empleadoBuscado}','${desde}','${id_sucursal}')`, function(err: any, result: any, fields: any){
+
         if(err){
            res.status(404).json(result);
            return;
@@ -172,7 +175,7 @@ public async buscarEmpleadosPaginado(req: Request, res: Response): Promise<void>
  }
 
  // ==================================================
-//        Lista Empleados desde cierto valor
+//        
 // ==================================================
 public async listar_historico_empleado(req: Request, res: Response): Promise<void> {
     

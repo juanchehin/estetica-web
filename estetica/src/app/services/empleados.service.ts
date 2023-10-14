@@ -76,12 +76,14 @@ cargarEmpleados( parametroBusqueda: string){
 // ==================================================
 buscarEmpleadosPaginado(desde: any,pEmpleadoBuscado: any){
 
+  const id_sucursal = localStorage.getItem('id_sucursal');
+
   if(pEmpleadoBuscado == '' || pEmpleadoBuscado == null || pEmpleadoBuscado == 'null' || !pEmpleadoBuscado || pEmpleadoBuscado.length == 0)
   {
     pEmpleadoBuscado = 'todosEmpleados';
   }
 
-  let url = URL_SERVICIOS + '/empleados/listar/paginado/' + this.IdPersona + '/' + desde + '/' + pEmpleadoBuscado;
+  let url = URL_SERVICIOS + '/empleados/listar/paginado/' + this.IdPersona + '/' + desde + '/' + pEmpleadoBuscado + '/' + id_sucursal;
 
   return this.http.get( url, this.headers );
 }

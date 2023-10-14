@@ -69,7 +69,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.cargarDatosDashboard();
     this.cargarTiposPago();
-    this.cargar_datos_empleados();
     this.id_usuario_actual = localStorage.getItem('id');
   }
 
@@ -86,7 +85,7 @@ cargarDatosDashboard(){
               .subscribe({
                 next: (resp: any) => {
             
-                  if((resp[3][0].mensaje == 'Ok')) {
+                  if((resp[4][0].mensaje == 'Ok')) {
 
                     this.cantidad_transacciones = resp[1][0].cantidad_transacciones;
 
@@ -101,6 +100,8 @@ cargarDatosDashboard(){
                     this.voucher = resp[2][0].p_suma_voucher || 0;
                     this.estado_caja = resp[2][0].estado_caja || 'C';
                     this.tarjeta_debito = resp[2][0].p_suma_tarjeta_debito || 0;
+
+                    this.empleados = resp[3];
 
                     this.alertService.cargando = false;
                     
@@ -165,23 +166,7 @@ baja_transaccion() {
   
   }
 
-// ==================================================
-// Carga
-// ==================================================
-cargar_datos_empleados() {
 
-  this.empleadosService.buscarEmpleadosPaginado(0, '' )
-             .subscribe( {
-              next: (resp: any) => { 
-              
-              this.empleados = resp[0];
-
-            },
-            error: (err: any) => {
-              this.alertService.alertFail('Ocurrio un error al cargar los tipos de pago ' + err,false,400); }
-          });
-
-}
 // ==================================================
 // Carga
 // ==================================================
@@ -213,15 +198,7 @@ onChangeEmpleado(val: any){
 // 
 onChangeTurno(val: any){
   this.turno_seleccionado = val;
-  console.log('this.fechaInicio::: ', this.fechaInicio);
-  console.log('this.fechaFin::: ', this.fechaFin);
-
-  if(this.turno_seleccionado == 'manana')
-  {
-    // this.fechaInicio = this.fechaInicio.setHours(15);
-  }else{
-
-  }
+  
 }
 // ==================================================
 //        Crear 
@@ -250,6 +227,12 @@ alta_egreso() {
   if(this.tipo_egreso == undefined)
   {
     this.alertService.alertFail('Mensaje','Metodo pago invalido',2000);
+    return;
+  }
+
+  if((this.IdEmpleado <= 0))
+  {
+    this.alertService.alertFail('Mensaje','Empleado invalido',2000);
     return;
   }
 
