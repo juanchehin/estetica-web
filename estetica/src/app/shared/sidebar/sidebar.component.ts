@@ -2,6 +2,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { SidebarService } from '../../services/sidebar.service';
 // import { IMenuStructure } from 'src/app/interfaces/menu.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -21,10 +22,9 @@ export class SidebarComponent implements OnInit {
   expandirCompras = true;
   expandirTransferencias = true;
   expandirClientes = true;
-
-
  
   constructor( 
+              public alertService: AlertService,
               public sidebarService: SidebarService,
               public authService: AuthService
             ) {}

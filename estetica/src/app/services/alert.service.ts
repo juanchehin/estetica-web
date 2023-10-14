@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AlertService {
 
   cargando = false;
+  bandera_sidebar = false;
   
   constructor(private toastr: ToastrService) { }
 

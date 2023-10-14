@@ -50,5 +50,9 @@ export class HeaderComponent {
 
   }
 
+  habilitar_sidebar(  ) {
 
+    this.alertService.bandera_sidebar = !this.alertService.bandera_sidebar;
+
+  }
 }

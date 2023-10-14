@@ -34,8 +34,8 @@ public async cargarDatosFormEditarCliente(req: Request, res: Response): Promise<
 
     pool.query(`call bsp_dame_datos_cliente('${IdPersona}','${pIdCliente}')`, function(err: any, result: any, fields: any){
        if(err){
-           console.log("error", err);
-           return;
+
+        return;
        }
        res.json(result);
    })
@@ -226,7 +226,6 @@ public async actualizaCliente(req: Request, res: Response) {
     '${Correo}','${Usuario}','${Calle}',${Piso},'${Departamento}','${Ciudad}','${Pais}',${Numero},
     '${Objetivo}','${Ocupacion}','${Horario}')`, function(err: any, result: any, fields: any){
         if(err){
-            console.log("error : ", err);
             res.status(404).json({ text: "Ocurrio un problema" });
             return;
         }
