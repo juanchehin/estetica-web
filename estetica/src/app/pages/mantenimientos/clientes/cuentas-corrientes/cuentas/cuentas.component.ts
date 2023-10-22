@@ -36,6 +36,8 @@ export class CuentasComponent implements OnInit {
 
 buscarClientes() {
 
+    this.alertService.cargando = true;
+
     const inputElement: HTMLInputElement = document.getElementById('clienteBuscado') as HTMLInputElement;
     const clienteBuscado: any = inputElement.value || null;
 
@@ -48,13 +50,25 @@ buscarClientes() {
                     this.totalClientes = resp[1][0].cantClientes;
     
                     this.clientes = resp[0];
+                    this.alertService.cargando = false;
+
                     return;
+
+
                   } else {
                     this.alertService.alertFail('Ocurrio un error',false,2000);
+                    this.alertService.cargando = false;
+
                   }
+                  this.alertService.cargando = false;
                   return;
+
                  },
-                error: () => { this.alertService.alertFail('Ocurrio un error',false,2000) }
+                error: () => { 
+                  this.alertService.alertFail('Ocurrio un error',false,2000);
+                  this.alertService.cargando = false;
+
+                }
               });
 
   }

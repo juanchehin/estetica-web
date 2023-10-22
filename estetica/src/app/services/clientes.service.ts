@@ -115,4 +115,15 @@ cargarDatosFormEditarCliente( IdCliente: any ) {
   return this.http.get( url , this.headers );
 
 }
+
+// ==================================================
+//
+// ==================================================
+cargarHistoricoCliente(desde: any,IdCliente: any){
+
+  let url = URL_SERVICIOS + '/clientes/historico/listar/paginado/' + this.IdPersona + '/' + desde + '/' + IdCliente;
+
+  return this.http.get( url, this.headers );
+}
+
 }

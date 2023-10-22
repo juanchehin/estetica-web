@@ -80,6 +80,9 @@
                                                     <td>{{ cliente.direccion }}</td>
                                                     <td>{{ cliente.fecha_nac }}</td>
                                                     <td>
+                                                        <button class="btn btn-info" type="button" [routerLink]="['/dashboard/clientes/historico',cliente.id_persona]">
+                                                            <i class="mdi mdi-format-list-bulleted"></i>                                                           
+                                                        </button>
                                                         <button class="btn btn-secondary" type="button" [routerLink]="['/dashboard/clientes/cuenta/movimientos',cliente.id_persona]">
                                                             <i class="mdi mdi-reorder-horizontal"></i>                                                           
                                                         </button>

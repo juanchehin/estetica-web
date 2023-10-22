@@ -7,11 +7,14 @@ import { CuentasComponent } from './cuentas-corrientes/cuentas/cuentas.component
 import { CuentaComponent } from './cuentas-corrientes/cuenta/cuenta.component';
 import { EditarClienteCuentaComponent } from './cuentas-corrientes/editar-cliente-cuenta/editar-cliente-cuenta.component';
 import { MovimientosComponent } from './cuentas-corrientes/movimientos/movimientos.component';
+import { HistoricoClienteComponent } from './historico-cliente/historico-cliente.component';
 
 const routes: Routes = [
   { path: '', component: ClientesComponent, data: { titulo: 'Listado de clientes' }},
   { path: 'nuevo', component: ClienteComponent, data: { titulo: 'Nuevo cliente' }},
   { path: 'editar/:IdPersona', component: EditarClienteComponent, data: { titulo: 'Edicion de cliente' }},
+  //
+  { path: 'historico/:IdPersona', component: HistoricoClienteComponent, data: { titulo: 'Movimientos del cliente' }},
   // Cuentas corr
   { path: 'cuentas', component: CuentasComponent, data: { titulo: 'Cuentas corrientes' }},
   { path: 'cuentas/nueva', component: CuentaComponent, data: { titulo: 'Nuevo cuenta' }},

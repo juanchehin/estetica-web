@@ -10,6 +10,7 @@ import { CuentaComponent } from './cuentas-corrientes/cuenta/cuenta.component';
 import { MovimientosComponent } from './cuentas-corrientes/movimientos/movimientos.component';
 import { CuentasComponent } from './cuentas-corrientes/cuentas/cuentas.component';
 import { EditarClienteCuentaComponent } from './cuentas-corrientes/editar-cliente-cuenta/editar-cliente-cuenta.component';
+import { HistoricoClienteComponent } from './historico-cliente/historico-cliente.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { EditarClienteCuentaComponent } from './cuentas-corrientes/editar-client
     CuentaComponent,
     MovimientosComponent,
     CuentasComponent,
+    HistoricoClienteComponent,
     EditarClienteCuentaComponent,
     CuentaComponent
   ],

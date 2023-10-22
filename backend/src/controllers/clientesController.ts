@@ -259,6 +259,30 @@ public async buscarCliente(req: Request, res: Response): Promise<any> {
     })
 
 }
+
+
+
+// ==================================================
+//        Lista
+// ==================================================
+public async cargarHistoricoCliente(req: Request, res: Response): Promise<void> {
+   
+    var desde = req.params.desde || 0;
+    desde  = Number(desde);
+
+    var pIdCliente: any = req.params.pIdCliente;
+    
+
+    pool.query(`call bsp_listar_historico_cliente('${pIdCliente}','${desde}')`, function(err: any, result: any, fields: any){
+        if(err){
+           res.status(404).json(result);
+           return;
+       }
+       res.status(200).json(result);
+    })
+
+ }
+
 }
 
 
