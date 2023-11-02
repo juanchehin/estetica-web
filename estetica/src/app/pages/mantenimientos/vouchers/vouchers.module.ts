@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 
 import { VouchersComponent } from './vouchers/vouchers.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 @NgModule({
   imports: [
@@ -13,12 +14,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     VouchersRoutingModule,
     RouterModule,
-    // AutocompleteLibModule,
+    AutocompleteLibModule,
     ReactiveFormsModule,
     ReactiveFormsModule
   ],
   declarations: [
-    VouchersComponent
+    VouchersComponent    
   ]
 })
 export class VouchersModule { }

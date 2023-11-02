@@ -66,9 +66,9 @@ baja_voucher( id_transaccion: any ) {
 // ==================================================
 //        
 // ==================================================
-confirmar_voucher( id_transaccion: any ) {
+confirmar_voucher( id_transaccion: any , id_empleado_seleccionado: any) {
 
-  let url = URL_SERVICIOS + '/vouchers/confirmar/' + id_transaccion + '/' + this.IdPersona;
+  let url = URL_SERVICIOS + '/vouchers/confirmar/' + id_transaccion + '/' + id_empleado_seleccionado + '/' + this.IdPersona;
 
   return this.http.get( url, this.headers ); 
 

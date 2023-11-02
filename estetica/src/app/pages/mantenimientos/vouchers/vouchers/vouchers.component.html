@@ -103,7 +103,9 @@
         </div>
         <div class="modal-body">
           ¿Desea confirmar la operacion?
+           
         </div>
+       
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
             <button class="btn btn-danger" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" (click)="baja_voucher()">Aceptar</button>
@@ -139,10 +141,27 @@
         </div>
         <div class="modal-body">
           ¿Desea confirmar la operacion?
+           <!-- ========== Empleado ============ -->
+           <div class="row">
+            <div class="col-md-6">
+                <h5 class="m-t-30">Empleado : </h5>
+                <div class="ng-autocomplete" style="width:450px">
+                    <ng-autocomplete [data]="empleados" [searchKeyword]="keywordEmpleado" placeholder="Selecciona empleado" (selected)='selectEventEmpleado($event)' (inputChanged)='onChangeSearchEmpleado($event)' [itemTemplate]="itemTemplateEmpleado" [notFoundTemplate]="notFoundTemplate">
+                    </ng-autocomplete>
+                </div>
+                <ng-template #itemTemplateEmpleado let-item>
+                    <a [innerHTML]="item.empleado"></a>
+                </ng-template>
+                <ng-template #notFoundTemplate let-notFound>
+                    <div [innerHTML]="notFound"></div>
+                </ng-template>
+            </div>
+          </div>
+          <!-- ========== Empleado ============ -->
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" type="button" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
-            <button class="btn btn-danger" data-bs-target="#modal-aviso-confirmar-voucher" data-bs-toggle="modal" (click)="confirmar_voucher()">Aceptar</button>
+            <button class="btn btn-danger" [disabled]="habilitar_boton_confirmar_voucher" data-bs-target="#modal-aviso-confirmar-voucher" data-bs-toggle="modal" (click)="confirmar_voucher()">Aceptar</button>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { AlertService } from 'src/app/services/alert.service';
+import { EmpleadosService } from 'src/app/services/empleados.service';
 import { VentasService } from 'src/app/services/ventas.service';
 import { VouchersService } from 'src/app/services/vouchers.service';
 // import Swal from 'sweetalert2';
@@ -19,6 +20,13 @@ export class VouchersComponent implements OnInit {
   sucursales: any;
   cantidad_vouchers = 0;
   id_voucher_seleccionado: any;
+  habilitar_boton_confirmar_voucher = true;
+
+  // Empleados
+  empleados: any;
+  keywordEmpleado = 'empleado';
+  empleadoBuscado = '';
+  id_empleado_seleccionado = 0;
 
   @ViewChild('inputVoucherBuscado') inputVoucherBuscado!: ElementRef;
   @ViewChild('divCerrarModalBajaVoucher') divCerrarModalBajaVoucher!: ElementRef;
@@ -27,7 +35,8 @@ export class VouchersComponent implements OnInit {
   constructor(
     private ventasService: VentasService,
     public vouchersService: VouchersService,
-    public alertaService: AlertService
+    public alertaService: AlertService,
+    public empleadosService: EmpleadosService
   ) {
    }
 
@@ -161,7 +170,13 @@ modal_baja_voucher(id_voucher: string) {
 
 confirmar_voucher() {
 
-  this.vouchersService.confirmar_voucher( this.id_voucher_seleccionado )
+  if((this.id_empleado_seleccionado == undefined) ||(this.id_empleado_seleccionado <= 0))
+  { 
+    this.alertaService.alertFail('Mensaje','Debe seleccionar un empleado',2000);
+    return;
+  }
+
+  this.vouchersService.confirmar_voucher( this.id_voucher_seleccionado, this.id_empleado_seleccionado )
   .subscribe({
     next: (resp: any) => {
 
@@ -195,6 +210,44 @@ modal_confirmar_voucher(id_voucher: string) {
 
 }
 
+  // ==================================================
+// Carga
+// ==================================================
+
+cargarEmpleados() {
+
+  this.empleadosService.cargarEmpleados( this.empleadoBuscado )
+             .subscribe( (resp: any) => {
+
+              this.empleados = resp;
+
+            });
+
+}
+
+// ==============================
+  // Para empleados
+  // ================================
+  selectEventEmpleado(item: any) {
+    this.id_empleado_seleccionado = item.id_persona;
+
+    this.habilitar_boton_confirmar_voucher = false;
+    // this.agregarLineaVenta(item);
+    // do something with selected item
+  }
+
+  onChangeSearchEmpleado(val: any) {
+
+    if(val == '' || val == null)
+    {
+      return;
+    }
+
+    this.empleadoBuscado = val;
+    this.cargarEmpleados();
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
 
 
 }

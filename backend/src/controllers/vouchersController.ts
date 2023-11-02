@@ -123,8 +123,9 @@ public async listar_vouchers_paginado(req: Request, res: Response): Promise<void
 public async confirmar_voucher(req: Request, res: Response): Promise<void> {
 
     var id_transaccion = req.params.id_transaccion;
+    var id_empleado = req.params.id_empleado;
 
-    pool.query(`call bsp_confirmar_voucher('${id_transaccion}')`, function(err: any, result: any, fields: any){
+    pool.query(`call bsp_confirmar_voucher('${id_transaccion}','${id_empleado}')`, function(err: any, result: any, fields: any){
         if(err){
             res.status(404).json(err);
             return;
