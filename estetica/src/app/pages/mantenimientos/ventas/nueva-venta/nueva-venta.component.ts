@@ -47,6 +47,7 @@ export class NuevaVentaComponent implements OnInit {
   monto = 0;
   totalTiposPagoRestante = 0;
   cantidadLineaVentaProducto = 1;
+  
 
   IdCliente = 0;
   arrayVenta: any = [];
@@ -90,6 +91,12 @@ export class NuevaVentaComponent implements OnInit {
   @ViewChild('botonCerrarModalNuevoCliente') botonCerrarModalNuevoCliente!: ElementRef<HTMLElement>;
 
   // =====
+  porcentaje_un_pago: any;
+  porcentaje_tres_pago: any;
+  porcentaje_seis_pago: any;
+  total_venta_inicial: any;
+  porcentajeDescuentoEfectivo: any = 0;
+  montoEfectivo = 0;
   totalTiposPago = 0;
 
 
@@ -132,12 +139,17 @@ altaVenta() {
     return;
   }
 
+  if ( this.totalVenta != this.totalTiposPago ) {
+    this.alertaService.alertFail('Los totales no coinciden',false,2000);
+    return;
+  }
+
       this.arrayVenta.push(        
         this.IdCliente,
         this.IdEmpleado,
         this.lineas_venta,
+        this.lineas_tipos_pago,
         this.totalVenta,
-        this.IdTipoPagoSelect,
         this.fecha_venta,
         this.descripcion_venta
       );
@@ -146,7 +158,7 @@ altaVenta() {
       .subscribe({
         next: (resp: any) => {
           
-          if ( resp.Mensaje == 'Ok') {
+          if ( resp.mensaje == 'ok') {
             this.alertaService.alertSuccess('Mensaje','Venta cargada',2000);
 
             let el: HTMLElement = this.divCerrarModalFormaPago.nativeElement;
@@ -231,9 +243,13 @@ cargarTiposPago() {
 
   this.ventasService.cargarTiposPago( )
              .subscribe( {
-              next: (resp: any) => { 
+              next: (resp: any) => {
               
               this.tiposPago = resp[0];
+
+              this.porcentaje_un_pago = resp[1][0].tarjeta1pagos;
+              this.porcentaje_tres_pago = resp[1][0].tarjeta3pagos;
+              this.porcentaje_seis_pago = resp[1][0].tarjeta6pagos;
 
             },
             error: (err: any) => {
@@ -434,7 +450,8 @@ agregarLineaVentaServicio() {
 // Carga
 // ==================================================
 agregarLineaTipoPago(): any {
-  
+  var bandera = false;
+
   if(this.monto > this.totalVenta)
   {
     this.alertaService.alertFail('El monto es mayor que el total de la venta',false,2000);
@@ -448,10 +465,139 @@ agregarLineaTipoPago(): any {
   }
 
   if((Number(this.monto) <= 0) || (this.monto == undefined))
+  {
+    this.alertaService.alertFail('Debe seleccionar un monto',false,2000);
+    return;
+  }
+
+    //
+  let obj = this.tiposPago.find((o: any) => 
+  {
+    if(o.id_tipo_pago == this.IdTipoPagoSelect)
     {
-      this.alertaService.alertFail('Debe seleccionar un monto',false,2000);
-      return;
+      return o;
     }
+  }  
+);
+
+
+// Busco si ya existe el IdTipoPago en el array de lineas_tipos_pago
+let exists_ltp = this.lineas_tipos_pago.find((ltp_item: any) => 
+{
+    if(ltp_item.IdTipoPago == this.IdTipoPagoSelect)
+    { // linea_tipo_pago existente
+      // No suma el subtotal en caso de ser con tarjeta en cuotas
+      if((ltp_item.IdTipoPago == 8) || (ltp_item.IdTipoPago == 9) || (ltp_item.IdTipoPago == 10))
+      {
+        bandera = true;
+      }else
+      {
+        return ltp_item;
+      }
+    }else{
+      if(
+          ((this.IdTipoPagoSelect == 8) || (this.IdTipoPagoSelect == 9) || (this.IdTipoPagoSelect == 10))
+          &&
+          ((ltp_item.IdTipoPago == 8) || (ltp_item.IdTipoPago == 9) || (ltp_item.IdTipoPago == 10)) 
+        )
+        {
+          bandera = true;
+        }
+    }
+  }
+);
+
+
+if(!bandera)
+{    
+  // SI existe el tipo pago en lineas_tipos_pago
+  if(exists_ltp)
+  {
+      exists_ltp.SubTotal = +exists_ltp.SubTotal + +this.monto;
+      this.totalTiposPago = this.totalTiposPago + +this.monto;  
+      this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+
+      return;
+  }else
+  {
+    
+
+    this.lineas_tipos_pago.push(
+    {
+        IdItem: this.IdItemTipoPago,
+        IdTipoPago: this.IdTipoPagoSelect,
+        TipoPago: obj.tipo_pago,
+        SubTotal: this.monto
+    });
+
+    
+    // switch (obj.id_tipo_pago) {
+    //   case 1: // Pago efectivo
+    //       this.montoEfectivo = this.monto;
+    //       // this.abrirModalDescuentoEfectivo();
+    //       this.totalTiposPago = this.totalTiposPago + +this.monto;  
+    //       break;
+      // case 8: // 1 pago
+      //     var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
+      //     this.totalVenta = +this.totalVenta + +monto_aumento;
+      //     this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
+
+      //     this.lineas_tipos_pago.push(
+      //     {
+      //           IdItem: this.IdItemTipoPago,
+      //           IdTipoPago: 12,
+      //           TipoPago: 'Recargo Tarjeta',
+      //           SubTotal: monto_aumento
+      //     });
+
+      //     break;
+      // case 9: // 3 pago            
+      //     var monto_aumento = +this.monto * ((this.porcentaje_tres_pago / 100)); 
+      //     this.totalVenta = +this.totalVenta + +monto_aumento;
+      //     this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
+
+      //     this.lineas_tipos_pago.push(
+      //     {
+      //           IdItem: this.IdItemTipoPago,
+      //           IdTipoPago: 12,
+      //           TipoPago: 'Recargo Tarjeta',
+      //           SubTotal: monto_aumento
+      //     });
+
+          // break;
+      // case 10:  // 6 pago
+      //     var monto_aumento = +this.monto * (this.porcentaje_seis_pago / 100);  
+      //     this.totalVenta = +this.totalVenta + +monto_aumento;
+      //     this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
+
+      //     this.lineas_tipos_pago.push(
+      //     {
+      //           IdItem: this.IdItemTipoPago,
+      //           IdTipoPago: 12,
+      //           TipoPago: 'Recargo Tarjeta',
+      //           SubTotal: monto_aumento
+      //     });
+
+      //     break;
+      // default:
+      //     this.totalTiposPago = +this.totalTiposPago + +this.monto;
+      //     break;
+    // }
+
+    this.totalTiposPago = +this.totalTiposPago + +this.monto;
+    
+    this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+    
+
+    this.IdItemTipoPago += 1;
+  }
+
+}else{
+  this.alertaService.alertFail('No puede agregar dos tipos de pago con tarjeta',false,3000);
+}
+
+
+this.monto = 0;
 
 }
 
@@ -567,7 +713,7 @@ agregarLineaTipoPago(): any {
       return;
     }
 
-    // this.total_venta_inicial = this.totalVenta;
+    this.total_venta_inicial = this.totalVenta;
     this.activarModal = true;
 
     this.cargarTiposPago();
@@ -584,6 +730,28 @@ agregarLineaTipoPago(): any {
         this.lineas_venta.splice(index,1);
       }
         
+    });
+
+  }
+
+  // ==============================
+  // 
+  // ================================
+  eliminarItemTipoPago(IdItem: any){
+
+    this.lineas_tipos_pago.forEach( (item, index) => {
+      if(item.IdItem === IdItem) 
+      {
+        this.lineas_tipos_pago.splice(index,1);
+
+        this.totalTiposPago -= +item.SubTotal;
+
+        this.totalVenta = this.total_venta_inicial;
+        
+        this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+
+      }
+
     });
 
   }

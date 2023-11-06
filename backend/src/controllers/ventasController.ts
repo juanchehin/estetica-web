@@ -87,62 +87,81 @@ public async listarVentasIdUsuario(req: Request, res: Response): Promise<void> {
 // ==================================================
 //         
 // ==================================================
-async altaVenta(req: Request, res: Response) {
+async altaVenta(req: Request, res: Response) {    
 
-    var pIdVendedor = req.params.IdPersona;
+    // var pIdVendedor = req.params.IdPersona;
+    var pIdVenta;
 
     var pIdCliente = req.body[0];
-    var pIdEmpleado = req.body[1];
-    var pLineaVenta = req.body[2];  // productos/servicios
-    var pMontoTotal = req.body[3];
-    var pIdTipoPago = req.body[4];
+    var pIdVendedor = req.body[1];
+    var pLineaVenta = req.body[2];
+    var pLineaTipoPago = req.body[3];
+    var pMontoTotal = req.body[4];
+    var pFechaVenta = req.body[5];
     var pDescripcion = req.body[6];
-    // var pFechaVenta = req.body[4];
-    // var pLineaTipoPago = req.body[2];
 
     if(pDescripcion == null || pDescripcion == 'null' || pDescripcion == '-' || pDescripcion == '' || pDescripcion == 'undefined' || pDescripcion == undefined)
     {
         pDescripcion = '-';
     }
 
+
     // ==============================
     try {
         // ====================== Alta Venta ===========================================
-        let sql = `call bsp_alta_venta('${pIdTipoPago}','${pIdEmpleado}','${pIdCliente}','${pMontoTotal}','${pDescripcion}')`;
+        let sql = `call bsp_alta_venta('${pIdVendedor}','${pIdCliente}','${pMontoTotal}','${pDescripcion}')`;
         const [result] = await pool.promise().query(sql)
-       
+        
         if(result[0][0].Mensaje != 'Ok')
         {
             logger.error("Error bsp_alta_venta - altaVenta - ventasController");
-            res.status(404).json({ "error" : "No se pudo confirmar la operacion"});
-            return;
+
         }       
         // ========================== Lineas de venta =======================================
 
         pLineaVenta.forEach(async function (value: any) {
+            if(value.tipo == 'servicio'){
+                var p_tipo = 's';
+            }else{
+                var p_tipo = 'p';
+            }
 
-            let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoServicio}','${value.precio_venta}','${value.tipo}','${value.cantidad}')`;
+            let sql2 = `call bsp_alta_linea_venta('${result[0][0].IdVenta}','${value.IdProductoServicio}','${value.precio_venta}','${p_tipo}','${value.cantidad}')`;
             const [result2] = await pool.promise().query(sql2)
 
             if(result2[0][0].Mensaje != 'Ok')
             {
                 logger.error("Error bsp_alta_linea_venta - ventasController");
-                res.status(404).json({ "error" : "No se pudo confirmar la operacion"});
-                return;
             }
         });
 
-        res.json({ Mensaje : 'Ok'});
+
+        // ====================== Tipos de pago ===========================================
+        pLineaTipoPago.forEach(async function (value: any) {
+            
+            let sql3 = `call bsp_alta_tipo_pago('${result[0][0].IdVenta}','${value.IdTipoPago}','${value.SubTotal}','${pIdCliente}')`;
+            const [result3 ] = await pool.promise().query(sql3)
+
+               if(result3[0][0].Mensaje != 'Ok')
+               {
+                    logger.error("Error bsp_alta_tipo_pago - ventasController");
+                   return
+               }              
+
+        });
+
+        pIdVenta = result[0][0].IdVenta;
 
         // ======================= Confirmar transferencia exitosa ==========================================
       
+
         // return result
       } catch (error) {
         logger.error("Error funcion altaVenta - ventasController");
         res.status(404).json({ "error" : error});
         return;
       }
-      
+      res.json({"mensaje": 'ok'});
 }
 
 
@@ -260,3 +279,19 @@ dame_transaccion(req: Request, res: Response) {
 
 const ventasController = new VentasController;
 export default ventasController;
+
+async function confirmarTransaccion(pIdVenta: any) {
+
+    // ==============================
+    try {
+        let sql4 = `call bsp_confirmar_transaccion('${pIdVenta}')`;
+        const [result4] = await pool.promise().query(sql4)
+        
+        return result4;
+
+    } catch (error) {
+        logger.error("Error funcion confirmarTransaccion - ventasController : " + error);
+        return error;
+      }
+
+}
