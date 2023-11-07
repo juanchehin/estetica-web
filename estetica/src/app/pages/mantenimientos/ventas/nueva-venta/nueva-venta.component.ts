@@ -244,6 +244,7 @@ cargarTiposPago() {
   this.ventasService.cargarTiposPago( )
              .subscribe( {
               next: (resp: any) => {
+                console.log('resp::: ', resp);
               
               this.tiposPago = resp[0];
 
@@ -531,62 +532,62 @@ if(!bandera)
     });
 
     
-    // switch (obj.id_tipo_pago) {
-    //   case 1: // Pago efectivo
-    //       this.montoEfectivo = this.monto;
-    //       // this.abrirModalDescuentoEfectivo();
-    //       this.totalTiposPago = this.totalTiposPago + +this.monto;  
-    //       break;
-      // case 8: // 1 pago
-      //     var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
-      //     this.totalVenta = +this.totalVenta + +monto_aumento;
-      //     this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
+    switch (obj.id_tipo_pago) {
+      case 1: // Pago efectivo
+            this.totalTiposPago = this.totalTiposPago + +this.monto;
+            this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
 
-      //     this.lineas_tipos_pago.push(
-      //     {
-      //           IdItem: this.IdItemTipoPago,
-      //           IdTipoPago: 12,
-      //           TipoPago: 'Recargo Tarjeta',
-      //           SubTotal: monto_aumento
-      //     });
+            break;
+      case 9: // 1 pago
+      var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
+      this.totalVenta = +this.totalVenta + +monto_aumento;
+      this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;          
+      this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
 
-      //     break;
-      // case 9: // 3 pago            
-      //     var monto_aumento = +this.monto * ((this.porcentaje_tres_pago / 100)); 
-      //     this.totalVenta = +this.totalVenta + +monto_aumento;
-      //     this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
+        this.lineas_tipos_pago.push(
+          {
+            IdItem: this.IdItemTipoPago + 1,
+            IdTipoPago: 12,
+            TipoPago: 'Recargo Tarjeta',
+            SubTotal: monto_aumento
+          });
 
-      //     this.lineas_tipos_pago.push(
-      //     {
-      //           IdItem: this.IdItemTipoPago,
-      //           IdTipoPago: 12,
-      //           TipoPago: 'Recargo Tarjeta',
-      //           SubTotal: monto_aumento
-      //     });
+          break;
+      case 10: // 3 pago            
+          var monto_aumento = +this.monto * ((this.porcentaje_tres_pago / 100)); 
+          this.totalVenta = +this.totalVenta + +monto_aumento;
+          this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;          
+          this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
 
-          // break;
-      // case 10:  // 6 pago
-      //     var monto_aumento = +this.monto * (this.porcentaje_seis_pago / 100);  
-      //     this.totalVenta = +this.totalVenta + +monto_aumento;
-      //     this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;
+          this.lineas_tipos_pago.push(
+            {
+              IdItem: this.IdItemTipoPago + 1,
+              IdTipoPago: 12,
+              TipoPago: 'Recargo Tarjeta',
+              SubTotal: monto_aumento
+            });
 
-      //     this.lineas_tipos_pago.push(
-      //     {
-      //           IdItem: this.IdItemTipoPago,
-      //           IdTipoPago: 12,
-      //           TipoPago: 'Recargo Tarjeta',
-      //           SubTotal: monto_aumento
-      //     });
+          break;
+      case 11:  // 6 pago
+      var monto_aumento = +this.monto * ((this.porcentaje_seis_pago / 100)); 
+      this.totalVenta = +this.totalVenta + +monto_aumento;
+      this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;          
+      this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
 
-      //     break;
-      // default:
-      //     this.totalTiposPago = +this.totalTiposPago + +this.monto;
-      //     break;
-    // }
+      this.lineas_tipos_pago.push(
+        {
+          IdItem: this.IdItemTipoPago + 1,
+          IdTipoPago: 12,
+          TipoPago: 'Recargo Tarjeta',
+          SubTotal: monto_aumento
+        });
 
-    this.totalTiposPago = +this.totalTiposPago + +this.monto;
-    
-    this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+          break;
+      default:
+          this.totalTiposPago = +this.totalTiposPago + +this.monto;
+          break;
+    }
+
     
 
     this.IdItemTipoPago += 1;

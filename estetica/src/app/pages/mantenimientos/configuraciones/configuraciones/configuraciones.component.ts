@@ -17,6 +17,10 @@ export class ConfiguracionesComponent implements OnInit {
   telefono_empresa: any;
   ing_brutos: any;
 
+  tarjeta_un_pago: any;
+  tarjeta_tres_pago: any;
+  tarjeta_seis_pago: any;
+
   constructor(
     public configuracionesService: ConfiguracionesService, 
     public activatedRoute: ActivatedRoute,
@@ -44,6 +48,10 @@ export class ConfiguracionesComponent implements OnInit {
                       this.cuit = resp[0][0].CUIT;
                       this.telefono_empresa = resp[0][0].telefono_empresa;
                       this.ing_brutos = resp[0][0].ing_brutos;
+
+                      this.tarjeta_un_pago = resp[0][0].tarjeta1pagos;
+                      this.tarjeta_tres_pago = resp[0][0].tarjeta3pagos;
+                      this.tarjeta_seis_pago = resp[0][0].tarjeta6pagos;
                       
                     } else {                      
                       this.alertService.alertFailWithText('Error','Ocurrio un error al procesar el pedido',1200);
@@ -69,7 +77,10 @@ export class ConfiguracionesComponent implements OnInit {
       this.direccion_empresa,
       this.cuit,
       this.telefono_empresa,
-      this.ing_brutos
+      this.ing_brutos,
+      this.tarjeta_un_pago,
+      this.tarjeta_tres_pago,
+      this.tarjeta_seis_pago
     ]
 
     this.configuracionesService.actualizarConfiguracion( configuraciones )

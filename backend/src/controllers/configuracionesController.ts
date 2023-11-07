@@ -35,7 +35,13 @@ public async actualizarConfiguraciones(req: Request, res: Response): Promise<voi
   var telefono_empresa = req.body[4] || '';
   var ing_brutos = req.body[5] || '';
 
-  pool.query(`call bsp_actualizar_configuraciones('${porcentaje_comision}','${empresa}','${direccion_empresa}','${cuit}','${telefono_empresa}','${ing_brutos}')`, function(err: any, result: any, fields: any){
+  var pTarjeta1 = req.body[6] || 0;
+  var pTarjeta3 = req.body[7] || 0;
+  var pTarjeta6 = req.body[8] || 0;
+
+  pool.query(`call bsp_actualizar_configuraciones('${porcentaje_comision}','${empresa}','${direccion_empresa}','${cuit}','${telefono_empresa}','${ing_brutos}'
+  ,'${pTarjeta1}','${pTarjeta3}','${pTarjeta6}'
+    )`, function(err: any, result: any, fields: any){
       if(err){
         logger.error("Error en actualizarConfiguraciones - bsp_actualizar_configuraciones - settingsController");
 

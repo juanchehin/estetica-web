@@ -67,6 +67,36 @@
             </div>
             <!--  -->
             <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Tarjeta 1 pago (%) :</h4>
+                            <input [(ngModel)]="tarjeta_un_pago" name="tarjeta_un_pago" type="text" placeholder="Tarjeta un pago..." class="form-control">
+                        </div>
+                    </div>
+                </div>              
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Tarjeta 3 pago : </h4>
+                            <input [(ngModel)]="tarjeta_tres_pago" name="tarjeta_tres_pago" type="text" placeholder="Tarjeta 3 pago..." class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Tarjeta 6 pago (%) :</h4>
+                            <input [(ngModel)]="tarjeta_seis_pago" name="tarjeta_seis_pago" type="text" placeholder="Tarjeta 6 pago..." class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  -->
+            <div class="row">
                 <div class="col-sm-1 form-group">
                     <button (click)="actualizarConfiguraciones( )" class="btn btn-success">
                         Actualizar
