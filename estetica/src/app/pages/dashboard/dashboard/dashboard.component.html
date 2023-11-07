@@ -342,17 +342,16 @@
         <div class="modal-body">
           <h4>Cliente: {{detalle_cliente}}</h4>
           <h4>Empleado: {{detalle_empleado}}</h4>
-          <h4>Tipo pago: {{detalle_tipo_pago}}</h4>
 
           <table id="tech-companies-1" class="table table-striped mb-0">
             <thead>
-            <tr>
-                <th>Producto/Servicio</th>
-                <th>Monto</th>
-                <th>Cantidad</th>
-                <th>SubTotal</th>
-                <th>Tipo</th>
-            </tr>
+                <tr>
+                    <th>Producto/Servicio</th>
+                    <th>Monto</th>
+                    <th>Cantidad</th>
+                    <th>SubTotal</th>
+                    <th>Tipo</th>
+                </tr>
             </thead>
              <tbody>
                 <tr *ngFor="let lv of detalle_lineas_venta">
@@ -364,7 +363,27 @@
                 </tr>
             </tbody>
         </table>
+        <br>
+        <!--  -->
+        <h4>Tipo pago: {{detalle_tipo_pago}}</h4>
+        <!--  -->
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th>Pago</th>
+                    <th>Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of items_pago">
+                    <td>{{ item.tipo_pago }}</td>
+                    <td>$ {{ item.monto }}</td>
+                </tr>
+            </tbody>
+        </table>
+
         <h4>Total : $ {{detalle_monto_total}}</h4>
+        <br>       
 
         </div>
         <div class="modal-footer">

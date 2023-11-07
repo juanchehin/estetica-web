@@ -35,6 +35,7 @@ export class DashboardComponent implements OnInit {
 
   //
   tiposPago: any;
+  items_pago: any;
   IdTipoPagoSelect: any;
   tipo_egreso: any;
   array_egreso: any = [];
@@ -314,7 +315,7 @@ ver_transaccion(transaccion: any){
                .subscribe( {
                 next: (resp: any) => {
                   
-                  if((resp[2][0].mensaje == 'Ok')) {
+                  if((resp[3][0].mensaje == 'Ok')) {
             
                     this.detalle_id_transaccion = transaccion.id_transaccion;
                     this.detalle_cliente = transaccion.Cliente;
@@ -323,6 +324,8 @@ ver_transaccion(transaccion: any){
                     this.detalle_lineas_venta = resp[0];
                     this.detalle_monto_total = transaccion.Monto;
                     this.detalle_tipo_pago = resp[1][0].tipo_pago;  
+
+                    this.items_pago = resp[2];
                     
                     this.alertService.cargando = false;
                     
