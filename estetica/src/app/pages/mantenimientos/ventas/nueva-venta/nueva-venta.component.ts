@@ -244,7 +244,6 @@ cargarTiposPago() {
   this.ventasService.cargarTiposPago( )
              .subscribe( {
               next: (resp: any) => {
-                console.log('resp::: ', resp);
               
               this.tiposPago = resp[0];
 
@@ -459,15 +458,27 @@ agregarLineaTipoPago(): any {
     return;
   }
   
-  if((this.totalTiposPago + +this.monto) > this.totalVenta)
+  if(((this.totalTiposPago + +this.monto) > this.totalVenta) && (this.IdTipoPagoSelect != 13))
   {
     this.alertaService.alertFail('El monto total es mayor que el total de la venta',false,2000);
+    return;
+  }
+
+  if((this.IdTipoPagoSelect == 13) && ((+this.monto) > this.totalVenta))
+  {
+    this.alertaService.alertFail('El monto total es menor que el total de la venta',false,2000);
     return;
   }
 
   if((Number(this.monto) <= 0) || (this.monto == undefined))
   {
     this.alertaService.alertFail('Debe seleccionar un monto',false,2000);
+    return;
+  }
+
+  if((this.IdTipoPagoSelect == 13) && (this.lineas_tipos_pago.length <= 0))
+  {
+    this.alertaService.alertFail('Debe ingresar un tipo de pago antes de aplicar un descuento',false,2000);
     return;
   }
 
@@ -514,14 +525,23 @@ if(!bandera)
   // SI existe el tipo pago en lineas_tipos_pago
   if(exists_ltp)
   {
+    if(!(this.IdTipoPagoSelect == 13)){
       exists_ltp.SubTotal = +exists_ltp.SubTotal + +this.monto;
       this.totalTiposPago = this.totalTiposPago + +this.monto;  
       this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+    }else{  // Descuento
+
+      exists_ltp.SubTotal = +exists_ltp.SubTotal + +this.monto; // sumo al descuento existente
+
+      this.totalTiposPago = this.totalTiposPago - +this.monto;
+
+      this.totalVenta = this.totalVenta - +this.monto;
+
+      this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+    }      
 
       return;
-  }else
-  {
-    
+  }else{  // No existe el tipo de pago  
 
     this.lineas_tipos_pago.push(
     {
@@ -539,10 +559,10 @@ if(!bandera)
 
             break;
       case 9: // 1 pago
-      var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
-      this.totalVenta = +this.totalVenta + +monto_aumento;
-      this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;          
-      this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+        var monto_aumento = +this.monto * ((this.porcentaje_un_pago / 100)); 
+        this.totalVenta = +this.totalVenta + +monto_aumento;
+        this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;          
+        this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
 
         this.lineas_tipos_pago.push(
           {
@@ -569,20 +589,35 @@ if(!bandera)
 
           break;
       case 11:  // 6 pago
-      var monto_aumento = +this.monto * ((this.porcentaje_seis_pago / 100)); 
-      this.totalVenta = +this.totalVenta + +monto_aumento;
-      this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;          
-      this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+        var monto_aumento = +this.monto * ((this.porcentaje_seis_pago / 100)); 
+        this.totalVenta = +this.totalVenta + +monto_aumento;
+        this.totalTiposPago = this.totalTiposPago + +this.monto + monto_aumento;          
+        this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
 
-      this.lineas_tipos_pago.push(
-        {
-          IdItem: this.IdItemTipoPago + 1,
-          IdTipoPago: 12,
-          TipoPago: 'Recargo Tarjeta',
-          SubTotal: monto_aumento
-        });
+        this.lineas_tipos_pago.push(
+          {
+            IdItem: this.IdItemTipoPago + 1,
+            IdTipoPago: 12,
+            TipoPago: 'Recargo Tarjeta',
+            SubTotal: monto_aumento
+          });
 
           break;
+      case 13:  // Descuento
+          // var monto_aumento = +this.monto * ((this.porcentaje_seis_pago / 100));
+          this.totalVenta = +this.totalVenta - +this.monto;
+          this.totalTiposPago = this.totalTiposPago - +this.monto;          
+          // this.totalTiposPagoRestante = this.totalVenta - +this.monto;
+  
+          // this.lineas_tipos_pago.push(
+          //   {
+          //     IdItem: this.IdItemTipoPago + 1,
+          //     IdTipoPago: 13,
+          //     TipoPago: 'Descuento',
+          //     SubTotal: this.monto
+          //   });
+  
+            break;
       default:
           this.totalTiposPago = +this.totalTiposPago + +this.monto;
           break;
@@ -738,18 +773,29 @@ this.monto = 0;
   // ==============================
   // 
   // ================================
-  eliminarItemTipoPago(IdItem: any){
+  eliminarItemTipoPago(linea_tp: any){
 
     this.lineas_tipos_pago.forEach( (item, index) => {
-      if(item.IdItem === IdItem) 
+      if((item.IdItem === linea_tp.IdItem)) 
       {
-        this.lineas_tipos_pago.splice(index,1);
+        if(linea_tp.IdTipoPago != 13){
+          this.lineas_tipos_pago.splice(index,1);
 
-        this.totalTiposPago -= +item.SubTotal;
+          this.totalTiposPago -= +item.SubTotal;
+  
+          this.totalVenta = this.total_venta_inicial;
+          
+          this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+        }else{  // Descuento
+          this.lineas_tipos_pago.splice(index,1);
 
-        this.totalVenta = this.total_venta_inicial;
-        
-        this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+          this.totalTiposPago += +item.SubTotal;
+  
+          this.totalVenta = this.total_venta_inicial;
+          
+          this.totalTiposPagoRestante = this.totalVenta - +this.totalTiposPago;
+        }
+      
 
       }
 
