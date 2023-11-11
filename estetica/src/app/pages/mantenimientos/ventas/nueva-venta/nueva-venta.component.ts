@@ -446,6 +446,7 @@ agregarLineaVentaServicio() {
  
 
 }
+
 // ==================================================
 // Carga
 // ==================================================
@@ -457,8 +458,8 @@ agregarLineaTipoPago(): any {
     this.alertaService.alertFail('El monto es mayor que el total de la venta',false,2000);
     return;
   }
-  
-  if(((this.totalTiposPago + +this.monto) > this.totalVenta) && (this.IdTipoPagoSelect != 13))
+
+  if(((this.totalTiposPago + +this.monto) > this.totalVenta) && (this.IdTipoPagoSelect != 13) && (this.IdTipoPagoSelect != 14))
   {
     this.alertaService.alertFail('El monto total es mayor que el total de la venta',false,2000);
     return;
@@ -662,7 +663,6 @@ this.monto = 0;
   // ==============================
   // Para cliente
   // ================================
-  
   selectEventCliente(item: any) {
     this.IdCliente = item.id_persona;
     // this.agregarLineaVenta(item);
@@ -710,7 +710,7 @@ this.monto = 0;
   onFocusedProducto(e: any){
   }
 
-    // ==============================
+  // ==============================
   // Para servicios
   // ================================
   selectEventServicio(item: any) {
@@ -811,18 +811,36 @@ this.monto = 0;
     el.click();
   }
 
+  // ============================================================
+  // Se dispara al seleccionar (clic) un tipo de pago
+  // ==============================================================
   onChangeTipoPago(val: any){
     this.IdTipoPagoSelect = val;
+
+    if(this.IdTipoPagoSelect == 13)
+    {
+      const porcentaje = 20;
+      const resultado_porcentaje = (this.totalVenta) * (porcentaje / 100);
+      this.monto = resultado_porcentaje;
+    }
+
+    if(this.IdTipoPagoSelect == 14)
+    {
+      const porcentaje = 30;      
+      const resultado_porcentaje = (this.totalVenta) * (porcentaje / 100);
+      this.monto = resultado_porcentaje;
+    }
+
   }
 
-  
-  // ==============================
-  // 
-  // ================================
-  cerrarModal(){
-    let el: HTMLElement = this.divCerrarModal.nativeElement;
-    el.click();
-  }
+
+// ==============================
+// 
+// ================================
+cerrarModal(){
+  let el: HTMLElement = this.divCerrarModal.nativeElement;
+  el.click();
+}
 
 // ==================================================
 //        Crear cliente
@@ -874,7 +892,7 @@ altaCliente() {
             });
 
 
-          }
+}
 
 }
 

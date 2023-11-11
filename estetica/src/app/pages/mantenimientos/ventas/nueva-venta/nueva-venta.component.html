@@ -212,6 +212,7 @@
                             </div>
                         </div>
                     </div>
+                    <!--  -->
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -227,8 +228,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr *ngFor="let linea_tp of lineas_tipos_pago" [ngClass]="{'table-success': (linea_tp.TipoPago == 'Descuento'), 'table-warning' : (linea_tp.TipoPago == 'Recargo Tarjeta') }">
-                                                <!-- "(linea_tp.TipoPago == 'Descuento Efectivo') ? 'table-success' : '',(linea_tp.TipoPago == 'Recargo Tarjeta') ? 'table-warning' : ''"> -->
+                                                <tr *ngFor="let linea_tp of lineas_tipos_pago" [ngClass]="{'table-success': (linea_tp.IdTipoPago == 13 || linea_tp.IdTipoPago == 14), 'table-warning' : (linea_tp.TipoPago == 'Recargo Tarjeta') }">
                                                     <td>{{linea_tp.TipoPago }}</td>
                                                     <td>$ {{linea_tp.SubTotal }}</td>
                                                     <td class="text-nowrap">
